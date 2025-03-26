@@ -137,11 +137,11 @@ public class Main
             clearConsole();
             // Rādām picu sarakstu
             System.out.println("=== PICU SARAKSTS ===");
-            System.out.printf("%-3s | %-15s | %-6s | %-5s%n", "Nr", "Nosaukums", "Izmērs", "Cena");
-            System.out.println("----------------------------------");
+            System.out.printf("%-3s | %-20s | %-6s | %-5s%n", "Nr", "Nosaukums", "Izmērs", "Cena");
+            System.out.println("-------------------------------------------");
             
             for (Pica p : filtretasPicas) {
-                System.out.printf("%-3d | %-15s | %-6s | %.2f€%n", 
+                System.out.printf("%-3d | %-20s | %-6s | %.2f€%n", 
                     p.getNr(), p.getNosaukums(), p.getIzmers(), p.getCena());
             }
             
