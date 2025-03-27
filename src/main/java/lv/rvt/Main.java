@@ -130,22 +130,21 @@ public class Main
     }
     
     private static void attelotPicuSarakstu(Scanner scanner) {
-        List<Pica> filtretasPicas = new ArrayList<>(picuSaraksts);
+        List<Pica> filtretasPicas = new ArrayList<>(picuSaraksts); // Kopē oriģinālo sarakstu
         int choice;
-        
+
         do {
-            clearConsole();
-            // Rādām picu sarakstu
+            clearConsole(); // Notīra ekrānu
             System.out.println("=== PICU SARAKSTS ===");
-            System.out.printf("%-3s | %-20s | %-6s | %-5s%n", "Nr", "Nosaukums", "Izmērs", "Cena");
-            System.out.println("-------------------------------------------");
-            
+            System.out.printf("%-3s | %-20s | %-6s | %-7s | %-30s%n", "Nr", "Nosaukums", "Izmērs", "Cena", "Sastāvdaļas");
+            System.out.println("----------------------------------------------------------------------------------------------");
+
             for (Pica p : filtretasPicas) {
-                System.out.printf("%-3d | %-20s | %-6s | %.2f€%n", 
-                    p.getNr(), p.getNosaukums(), p.getIzmers(), p.getCena());
+                System.out.printf("%-3d | %-20s | %-6s | %6.2f€ | %-30s%n", 
+                    p.getNr(), p.getNosaukums(), p.getIzmers(), p.getCena(), p.getSastavdalas());
             }
-            
-            // Izvēlnes opcijas
+
+            // **Izvēlnes iespējas**
             System.out.println("\n=== FILTRĒŠANAS/KĀRTOŠANAS IESPĒJAS ===");
             System.out.println("1 - Izmērs no mazākā uz lielāko");
             System.out.println("2 - Izmērs no lielākā uz mazāko");
@@ -156,6 +155,7 @@ public class Main
             System.out.println("7 - Populārākās picas");
             System.out.println("8 - Pasūtīt picu");
             System.out.println("9 - Atgriezties");
+            System.out.println("0 - Atiestatīt sarakstu");
             System.out.print("Izvēlieties: ");
             
             try {
@@ -166,116 +166,81 @@ public class Main
                 scanner.nextLine();
                 continue;
             }
-            
-            // Vienkāršota filtrēšana/kārtošana
+
+            // *** KĀRTOŠANA ***
             if (choice == 1) {
-                // Kārto pēc izmēra (mazākā uz lielāko)
-                for (int i = 0; i < filtretasPicas.size()-1; i++) {
-                    for (int j = i+1; j < filtretasPicas.size(); j++) {
-                        int size1 = Integer.parseInt(filtretasPicas.get(i).getIzmers().replace(" cm", ""));
-                        int size2 = Integer.parseInt(filtretasPicas.get(j).getIzmers().replace(" cm", ""));
-                        if (size1 > size2) {
-                            Collections.swap(filtretasPicas, i, j);
-                        }
-                    }
-                }
-            }
+                filtretasPicas.sort(Comparator.comparingInt(p -> Integer.parseInt(p.getIzmers().replace(" cm", ""))));
+            } 
             else if (choice == 2) {
-                // Kārto pēc izmēra (lielākā uz mazāko)
-                for (int i = 0; i < filtretasPicas.size()-1; i++) {
-                    for (int j = i+1; j < filtretasPicas.size(); j++) {
-                        int size1 = Integer.parseInt(filtretasPicas.get(i).getIzmers().replace(" cm", ""));
-                        int size2 = Integer.parseInt(filtretasPicas.get(j).getIzmers().replace(" cm", ""));
-                        if (size1 < size2) {
-                            Collections.swap(filtretasPicas, i, j);
-                        }
-                    }
-                }
-            }
+                filtretasPicas.sort((p1, p2) -> Integer.parseInt(p2.getIzmers().replace(" cm", "")) - 
+                                              Integer.parseInt(p1.getIzmers().replace(" cm", "")));
+            } 
             else if (choice == 3) {
-                // Kārto pēc cenas (mazākā uz lielāko)
-                for (int i = 0; i < filtretasPicas.size()-1; i++) {
-                    for (int j = i+1; j < filtretasPicas.size(); j++) {
-                        if (filtretasPicas.get(i).getCena() > filtretasPicas.get(j).getCena()) {
-                            Collections.swap(filtretasPicas, i, j);
-                        }
-                    }
-                }
-            }
+                filtretasPicas.sort(Comparator.comparingDouble(Pica::getCena));
+            } 
             else if (choice == 4) {
-                // Kārto pēc cenas (lielākā uz mazāko)
-                for (int i = 0; i < filtretasPicas.size()-1; i++) {
-                    for (int j = i+1; j < filtretasPicas.size(); j++) {
-                        if (filtretasPicas.get(i).getCena() < filtretasPicas.get(j).getCena()) {
-                            Collections.swap(filtretasPicas, i, j);
-                        }
-                    }
-                }
-            }
+                filtretasPicas.sort((p1, p2) -> Double.compare(p2.getCena(), p1.getCena()));
+            } 
+
+            // *** FILTRĒŠANA ***
             else if (choice == 5) {
-                // Filtrē gaļas picas (vienkāršots)
-                List<Pica> jaunsSaraksts = new ArrayList<>();
-                for (Pica p : filtretasPicas) {
-                    if (p.getSastavdalas().contains("bekons") || 
-                        p.getSastavdalas().contains("pepperoni") ||
-                        p.getSastavdalas().contains("vistas")) {
-                        jaunsSaraksts.add(p);
+                // Filtrē gaļas picas
+                filtretasPicas = new ArrayList<>();
+                for (Pica p : picuSaraksts) {
+                    if (p.getSastavdalas().matches(".*(bekons|pepperoni|vistas|desa|šķiņķis).*")) {
+                        filtretasPicas.add(p);
                     }
                 }
-                filtretasPicas = jaunsSaraksts;
-            }
+            } 
             else if (choice == 6) {
                 // Filtrē pēc sastāvdaļas
                 System.out.print("Ievadiet sastāvdaļu: ");
                 String sastavdala = scanner.nextLine().toLowerCase();
-                List<Pica> jaunsSaraksts = new ArrayList<>();
-                for (Pica p : filtretasPicas) {
+
+                filtretasPicas = new ArrayList<>();
+                for (Pica p : picuSaraksts) {
                     if (p.getSastavdalas().toLowerCase().contains(sastavdala)) {
-                        jaunsSaraksts.add(p);
+                        filtretasPicas.add(p);
                     }
                 }
-                filtretasPicas = jaunsSaraksts;
-            }
+            } 
             else if (choice == 7) {
-                // Kārto pēc popularitātes (vienkāršots)
-                System.out.println("Populārākās picas: Margarita, Pepperoni, Četri sieri");
-                for (int i = 0; i < filtretasPicas.size()-1; i++) {
-                    for (int j = i+1; j < filtretasPicas.size(); j++) {
-                        int pop1 = getPopularitate(filtretasPicas.get(i));
-                        int pop2 = getPopularitate(filtretasPicas.get(j));
-                        if (pop1 < pop2) {
-                            Collections.swap(filtretasPicas, i, j);
-                        }
-                    }
-                }
-            }
+                // Kārto pēc popularitātes
+                filtretasPicas.sort((p1, p2) -> Integer.compare(getPopularitate(p2), getPopularitate(p1)));
+            } 
             else if (choice == 8) {
                 // Pasūtīt picu
                 System.out.print("Ievadiet picas numuru: ");
                 int nr = scanner.nextInt();
                 scanner.nextLine(); // Notīram buferi
                 
-                // Pārbaude filtrētajā sarakstā
                 boolean exists = false;
-                for (Pica p : filtretasPicas) {
+                for (Pica p : picuSaraksts) {
                     if (p.getNr() == nr) {
                         System.out.println("Pasūtīta: " + p.getNosaukums() + " par " + p.getCena() + "€");
                         exists = true;
+                        System.out.println("\nNospiediet Enter, lai turpinātu...");
+                        scanner.nextLine(); 
                         break;
                     }
                 }
                 if (!exists) {
                     System.out.println("Šāda pica nav pieejama!");
+                    System.out.println("\nNospiediet Enter, lai turpinātu...");
+                    scanner.nextLine(); 
                 }
-            }
+            } 
             else if (choice == 9) {
-                // Atgriezties
-                return;
+                return; // Atgriežamies uz galveno izvēlni
+            } 
+            else if (choice == 0) {
+                // **ATIETASTA VISU SARAKSTU**
+                filtretasPicas = new ArrayList<>(picuSaraksts);
             }
             else {
                 System.out.println("Nepareiza izvēle!");
             }
-            
+
         } while (true);
     }
     
