@@ -1,28 +1,20 @@
 package lv.rvt;
 
 import java.util.*;
-import java.util.stream.Collectors;
+import lv.rvt.tools.Helper;
 
-public class Main 
-{   
+public class Main {   
     // Picas saraksts
     private static ArrayList<Pica> picuSaraksts = new ArrayList<>();
-    // Lietotāju saraksts, kurā glabājas visi reģistrētie lietotāji
-    private static ArrayList<Person> users = new ArrayList<>();
     
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         int choice;
         inicializetPicuSarakstu();
 
-        // Pievienojam testa lietotājus
-        users.add(new Person("user1", "pass1", false));
-        users.add(new Person("user2", "pass2", false));
-        users.add(new Person("admin", "adminpass", true));
-
         // Galvenā programmas cilpa, kas nodrošina lietotāja izvēlni
         do {
-            clearConsole(); // Notīram konsoli
+            clearConsole();
             System.out.println("Pica veikals");
             System.out.println("1 - Picu saraksts");
             System.out.println("2 - Pasūtīt picu");
@@ -33,9 +25,8 @@ public class Main
             System.out.print("Ievadiet izvēles numuru: ");
 
             choice = scanner.nextInt();
-            scanner.nextLine();  // Attīrām buferi
+            scanner.nextLine();
 
-            // Apstrādā lietotāja izvēli
             switch (choice) {
                 case 1:
                     clearConsole();
@@ -56,7 +47,7 @@ public class Main
                     break;
                 case 4:
                     clearConsole();
-                    loginOrRegister(scanner); // Izsauc funkciju, lai pieteiktos vai reģistrētos
+                    loginOrRegister(scanner);
                     break;
                 case 5:
                     clearConsole();
@@ -76,7 +67,6 @@ public class Main
         } while (choice != 0);
     }
 
-    // Funkcija, kas nodrošina lietotāja pieteikšanos vai reģistrēšanos
     private static void loginOrRegister(Scanner scanner) {
         int choice;
         do {
@@ -99,7 +89,7 @@ public class Main
                     System.out.print("Ievadiet paroli: ");
                     String password = scanner.nextLine();
     
-                    Person foundUser = findUser(username);
+                    Person foundUser = Helper.findUserInCSV(username);
     
                     if (foundUser != null && foundUser.validatePassword(password)) {
                         if ((choice == 1 && !foundUser.isAdmin()) || (choice == 2 && foundUser.isAdmin())) {
@@ -119,8 +109,9 @@ public class Main
                     System.out.print("Ievadiet jauno paroli: ");
                     String newPassword = scanner.nextLine();
     
-                    if (findUser(newUsername) == null) {
-                        users.add(new Person(newUsername, newPassword, false));
+                    if (Helper.findUserInCSV(newUsername) == null) {
+                        Person newUser = new Person(newUsername, newPassword, false);
+                        Helper.addUserToCSV(newUser);
                         System.out.println("Profils veiksmīgi izveidots!");
                     } else {
                         System.out.println("Šāds lietotājvārds jau pastāv!");
@@ -137,6 +128,8 @@ public class Main
             scanner.nextLine();  
         } while (true);
     }
+
+    // ... (rest of the Main class methods remain the same)
     
     private static void attelotPicuSarakstu(Scanner scanner) {
         List<Pica> filtretasPicas = new ArrayList<>(picuSaraksts); // Kopē oriģinālo sarakstu
@@ -283,15 +276,7 @@ public class Main
         picuSaraksts.add(new Pica(20, "Ar trifelēm", "40 cm", 19.0, "krēmvelda mērce, trifelu eļļa, šampinjoni, mocarella"));
     }
     
-    // Funkcija, kas atrod lietotāju pēc lietotājvārda
-    private static Person findUser(String username) {
-        for (Person user : users) {
-            if (user.getUsername().equals(username)) {
-                return user;
-            }
-        }
-        return null;
-    }
+
 
     // Funkcija, kas notīra konsoli
     public static void clearConsole() {

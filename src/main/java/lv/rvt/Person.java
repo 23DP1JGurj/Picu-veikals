@@ -2,7 +2,7 @@ package lv.rvt;
 
 import java.util.*;
 
-class Person {
+public class Person {
     private String username;
     private String password;
     private boolean isAdmin;
