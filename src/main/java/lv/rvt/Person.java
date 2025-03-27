@@ -17,11 +17,15 @@ class Person {
         return username;
     }
 
-    public boolean validatePassword(String inputPassword) {
-        return this.password.equals(inputPassword);
+    public String getPassword() {
+        return password;
     }
 
     public boolean isAdmin() {
         return isAdmin;
+    }
+
+    public boolean validatePassword(String inputPassword) {
+        return this.password.equals(inputPassword);
     }
 }

@@ -36,32 +36,39 @@ public class Main
             scanner.nextLine();  // Attīrām buferi
 
             // Apstrādā lietotāja izvēli
-            if (choice == 1) {
-                clearConsole();
-                attelotPicuSarakstu(scanner);
-            } else if (choice == 2) {
-                clearConsole();
-                System.out.println("Pasūtīt picu:");
-                System.out.println("Izvēlieties picu pēc numura: ");
-                int pizzaChoice = scanner.nextInt();
-                System.out.println("Jūs pasūtījāt Pica nr." + pizzaChoice);
-            } else if (choice == 3) {
-                clearConsole();
-                System.out.println("Akcijas:");
-                System.out.println("1 - Pica nr.1 un nr.2 kopā par īpašu cenu");
-                System.out.println("2 - Pica nr.4 ar 40% atlaidi");
-            } else if (choice == 4) {
-                clearConsole();
-                loginOrRegister(scanner); // Izsauc funkciju, lai pieteiktos vai reģistrētos
-            } else if (choice == 5) {
-                clearConsole();
-                System.out.println("Sazināties ar mums:");
-                System.out.println("1 - Atsūtīt atsauksmi");
-                System.out.println("2 - Ziņot par problēmu");
-            } else if (choice == 0) {
-                System.out.println("Paldies, ka izmantojāt Pica veikalu!");
-            } else {
-                System.out.println("Nepareiza ievade, mēģiniet vēlreiz.");
+            switch (choice) {
+                case 1:
+                    clearConsole();
+                    attelotPicuSarakstu(scanner);
+                    break;
+                case 2:
+                    clearConsole();
+                    System.out.println("Pasūtīt picu:");
+                    System.out.println("Izvēlieties picu pēc numura: ");
+                    int pizzaChoice = scanner.nextInt();
+                    System.out.println("Jūs pasūtījāt Pica nr." + pizzaChoice);
+                    break;
+                case 3:
+                    clearConsole();
+                    System.out.println("Akcijas:");
+                    System.out.println("1 - Pica nr.1 un nr.2 kopā par īpašu cenu");
+                    System.out.println("2 - Pica nr.4 ar 40% atlaidi");
+                    break;
+                case 4:
+                    clearConsole();
+                    loginOrRegister(scanner); // Izsauc funkciju, lai pieteiktos vai reģistrētos
+                    break;
+                case 5:
+                    clearConsole();
+                    System.out.println("Sazināties ar mums:");
+                    System.out.println("1 - Atsūtīt atsauksmi");
+                    System.out.println("2 - Ziņot par problēmu");
+                    break;
+                case 0:
+                    System.out.println("Paldies, ka izmantojāt Pica veikalu!");
+                    break;
+                default:
+                    System.out.println("Nepareiza ievade, mēģiniet vēlreiz.");
             }
 
             System.out.println("\nNospiediet Enter, lai turpinātu...");
@@ -83,45 +90,47 @@ public class Main
             choice = scanner.nextInt();
             scanner.nextLine();  
     
-            if (choice == 1 || choice == 2) {
-                clearConsole();
-                System.out.print("Ievadiet lietotājvārdu: ");
-                String username = scanner.nextLine();
-                System.out.print("Ievadiet paroli: ");
-                String password = scanner.nextLine();
+            switch (choice) {
+                case 1:
+                case 2:
+                    clearConsole();
+                    System.out.print("Ievadiet lietotājvārdu: ");
+                    String username = scanner.nextLine();
+                    System.out.print("Ievadiet paroli: ");
+                    String password = scanner.nextLine();
     
-                Person foundUser = findUser(username);
+                    Person foundUser = findUser(username);
     
-                if (foundUser != null && foundUser.validatePassword(password)) {
-                    if (choice == 1 && !foundUser.isAdmin()) {
-                        System.out.println("Laipni lūdzam, " + username + "!");
-                    } else if (choice == 2 && foundUser.isAdmin()) {
-                        System.out.println("Laipni lūdzam, administrators " + username + "!");
+                    if (foundUser != null && foundUser.validatePassword(password)) {
+                        if ((choice == 1 && !foundUser.isAdmin()) || (choice == 2 && foundUser.isAdmin())) {
+                            System.out.println("Laipni lūdzam, " + username + 
+                                (foundUser.isAdmin() ? " (administrators)!" : "!"));
+                        } else {
+                            System.out.println("Jums nav piekļuves šim profilam.");
+                        }
                     } else {
-                        System.out.println("Jums nav piekļuves šim profilam.");
+                        System.out.println("Nepareizs lietotājvārds vai parole.");
                     }
-                } else {
-                    System.out.println("Nepareizs lietotājvārds vai parole.");
-                }
-            } else if (choice == 3) {
-                clearConsole();
-                System.out.print("Ievadiet jauno lietotājvārdu: ");
-                String newUsername = scanner.nextLine();
-                System.out.print("Ievadiet jauno paroli: ");
-                String newPassword = scanner.nextLine();
+                    break;
+                case 3:
+                    clearConsole();
+                    System.out.print("Ievadiet jauno lietotājvārdu: ");
+                    String newUsername = scanner.nextLine();
+                    System.out.print("Ievadiet jauno paroli: ");
+                    String newPassword = scanner.nextLine();
     
-                if (findUser(newUsername) == null) {
-                    users.add(new Person(newUsername, newPassword, false));
-                    System.out.println("Profils veiksmīgi izveidots!");
-                } else {
-                    System.out.println("Šāds lietotājvārds jau pastāv!");
-                }
-
-            } else if (choice == 0) {
-                System.out.println("Paldies, ka izmantoji Pica veikalu!");
-                break;
-            } else {
-                System.out.println("Nederīgs ievads, mēģiniet vēlreiz.");
+                    if (findUser(newUsername) == null) {
+                        users.add(new Person(newUsername, newPassword, false));
+                        System.out.println("Profils veiksmīgi izveidots!");
+                    } else {
+                        System.out.println("Šāds lietotājvārds jau pastāv!");
+                    }
+                    break;
+                case 0:
+                    System.out.println("Atgriežamies galvenajā izvēlnē...");
+                    return;
+                default:
+                    System.out.println("Nederīgs ievads, mēģiniet vēlreiz.");
             }
     
             System.out.println("\nNospiediet Enter, lai turpinātu...");
@@ -167,78 +176,77 @@ public class Main
                 continue;
             }
 
-            // *** KĀRTOŠANA ***
-            if (choice == 1) {
-                filtretasPicas.sort(Comparator.comparingInt(p -> Integer.parseInt(p.getIzmers().replace(" cm", ""))));
-            } 
-            else if (choice == 2) {
-                filtretasPicas.sort((p1, p2) -> Integer.parseInt(p2.getIzmers().replace(" cm", "")) - 
+            switch (choice) {
+                // *** KĀRTOŠANA ***
+                case 1:
+                    filtretasPicas.sort(Comparator.comparingInt(p -> Integer.parseInt(p.getIzmers().replace(" cm", ""))));
+                    break;
+                case 2:
+                    filtretasPicas.sort((p1, p2) -> Integer.parseInt(p2.getIzmers().replace(" cm", "")) - 
                                               Integer.parseInt(p1.getIzmers().replace(" cm", "")));
-            } 
-            else if (choice == 3) {
-                filtretasPicas.sort(Comparator.comparingDouble(Pica::getCena));
-            } 
-            else if (choice == 4) {
-                filtretasPicas.sort((p1, p2) -> Double.compare(p2.getCena(), p1.getCena()));
-            } 
-
-            // *** FILTRĒŠANA ***
-            else if (choice == 5) {
-                // Filtrē gaļas picas
-                filtretasPicas = new ArrayList<>();
-                for (Pica p : picuSaraksts) {
-                    if (p.getSastavdalas().matches(".*(bekons|pepperoni|vistas|desa|šķiņķis).*")) {
-                        filtretasPicas.add(p);
+                    break;
+                case 3:
+                    filtretasPicas.sort(Comparator.comparingDouble(Pica::getCena));
+                    break;
+                case 4:
+                    filtretasPicas.sort((p1, p2) -> Double.compare(p2.getCena(), p1.getCena()));
+                    break;
+                // *** FILTRĒŠANA ***
+                case 5:
+                    // Filtrē gaļas picas
+                    filtretasPicas = new ArrayList<>();
+                    for (Pica p : picuSaraksts) {
+                        if (p.getSastavdalas().matches(".*(bekons|pepperoni|vistas|desa|šķiņķis).*")) {
+                            filtretasPicas.add(p);
+                        }
                     }
-                }
-            } 
-            else if (choice == 6) {
-                // Filtrē pēc sastāvdaļas
-                System.out.print("Ievadiet sastāvdaļu: ");
-                String sastavdala = scanner.nextLine().toLowerCase();
+                    break;
+                case 6:
+                    // Filtrē pēc sastāvdaļas
+                    System.out.print("Ievadiet sastāvdaļu: ");
+                    String sastavdala = scanner.nextLine().toLowerCase();
 
-                filtretasPicas = new ArrayList<>();
-                for (Pica p : picuSaraksts) {
-                    if (p.getSastavdalas().toLowerCase().contains(sastavdala)) {
-                        filtretasPicas.add(p);
+                    filtretasPicas = new ArrayList<>();
+                    for (Pica p : picuSaraksts) {
+                        if (p.getSastavdalas().toLowerCase().contains(sastavdala)) {
+                            filtretasPicas.add(p);
+                        }
                     }
-                }
-            } 
-            else if (choice == 7) {
-                // Kārto pēc popularitātes
-                filtretasPicas.sort((p1, p2) -> Integer.compare(getPopularitate(p2), getPopularitate(p1)));
-            } 
-            else if (choice == 8) {
-                // Pasūtīt picu
-                System.out.print("Ievadiet picas numuru: ");
-                int nr = scanner.nextInt();
-                scanner.nextLine(); // Notīram buferi
-                
-                boolean exists = false;
-                for (Pica p : picuSaraksts) {
-                    if (p.getNr() == nr) {
-                        System.out.println("Pasūtīta: " + p.getNosaukums() + " par " + p.getCena() + "€");
-                        exists = true;
+                    break;
+                case 7:
+                    // Kārto pēc popularitātes
+                    filtretasPicas.sort((p1, p2) -> Integer.compare(getPopularitate(p2), getPopularitate(p1)));
+                    break;
+                case 8:
+                    // Pasūtīt picu
+                    System.out.print("Ievadiet picas numuru: ");
+                    int nr = scanner.nextInt();
+                    scanner.nextLine(); // Notīram buferi
+                    
+                    boolean exists = false;
+                    for (Pica p : picuSaraksts) {
+                        if (p.getNr() == nr) {
+                            System.out.println("Pasūtīta: " + p.getNosaukums() + " par " + p.getCena() + "€");
+                            exists = true;
+                            System.out.println("\nNospiediet Enter, lai turpinātu...");
+                            scanner.nextLine(); 
+                            break;
+                        }
+                    }
+                    if (!exists) {
+                        System.out.println("Šāda pica nav pieejama!");
                         System.out.println("\nNospiediet Enter, lai turpinātu...");
                         scanner.nextLine(); 
-                        break;
                     }
-                }
-                if (!exists) {
-                    System.out.println("Šāda pica nav pieejama!");
-                    System.out.println("\nNospiediet Enter, lai turpinātu...");
-                    scanner.nextLine(); 
-                }
-            } 
-            else if (choice == 9) {
-                return; // Atgriežamies uz galveno izvēlni
-            } 
-            else if (choice == 0) {
-                // **ATIETASTA VISU SARAKSTU**
-                filtretasPicas = new ArrayList<>(picuSaraksts);
-            }
-            else {
-                System.out.println("Nepareiza izvēle!");
+                    break;
+                case 9:
+                    return; // Atgriežamies uz galveno izvēlni
+                case 0:
+                    // **ATIETASTA VISU SARAKSTU**
+                    filtretasPicas = new ArrayList<>(picuSaraksts);
+                    break;
+                default:
+                    System.out.println("Nepareiza izvēle!");
             }
 
         } while (true);
@@ -251,30 +259,29 @@ public class Main
         if (p.getNosaukums().contains("Četri sieri")) return 1;
         return 0;
     }
-private static void inicializetPicuSarakstu() {
-    picuSaraksts.add(new Pica(1, "Margarita", "25 cm", 5.0, "tomātu mērce, mocarella, baziliks, olivelļa"));
-    picuSaraksts.add(new Pica(2, "Pepperoni", "30 cm", 8.0, "tomātu mērce, mocarella, pepperoni, oregano"));
-    picuSaraksts.add(new Pica(3, "Havaju", "35 cm", 9.0, "tomātu mērce, mocarella, škļņķis, ananāsi"));
-    picuSaraksts.add(new Pica(4, "Galas", "40 cm", 12.0, "tomātu mērce, mocarella, bekons, desa"));
-    picuSaraksts.add(new Pica(5, "Četri sieri", "30 cm", 10.0, "mocarella, parmezāns, dorblu siers, gouda"));
-    picuSaraksts.add(new Pica(6, "BBQ", "50 cm", 18.0, "BBQ mērce, mocarella, vistas gaļa, sīpols"));
-    picuSaraksts.add(new Pica(7, "Veģetārā", "20 cm", 6.0, "tomātu mērce, mocarella, paprika, šampinjoni"));
-    picuSaraksts.add(new Pica(8, "Cēzara", "35 cm", 11.0, "cēzara mērce, vistas gaļa, kirštomāti, mocarella"));
-    picuSaraksts.add(new Pica(9, "Asais Meksikānis", "30 cm", 10.0, "tomātu mērce, jalapeno, vistas gaļa, sīpols"));
-    picuSaraksts.add(new Pica(10, "Ar škļņķi un sēnēm", "25 cm", 7.0, "tomātu mērce, škļņķis, šampinjoni, mocarella"));
-    picuSaraksts.add(new Pica(11, "Lauku", "40 cm", 13.0, "krējuma mērce, kartupeļi, bekons, sīpols"));
-    picuSaraksts.add(new Pica(12, "Jūras vešku", "50 cm", 20.0, "krēmvelda mērce, garneles, kalmāri, mocarella"));
-    picuSaraksts.add(new Pica(13, "Salami", "30 cm", 9.0, "tomātu mērce, mocarella, salami, olivas"));
-    picuSaraksts.add(new Pica(14, "Grieķu", "25 cm", 7.0, "tomātu mērce, feta siers, olivas, tomāti"));
-    picuSaraksts.add(new Pica(15, "Carbonara", "35 cm", 12.0, "krēmvelda mērce, bekons, parmezāns, sīpols"));
-    picuSaraksts.add(new Pica(16, "Firmas", "40 cm", 14.0, "tomātu mērce, vistas gaļa, bekons, šampinjoni"));
-    picuSaraksts.add(new Pica(17, "Ar tunci", "30 cm", 9.0, "tomātu mērce, tuncis, sīpoli, mocarella"));
-    picuSaraksts.add(new Pica(18, "Rančo", "50 cm", 17.0, "rančo mērce, vistas gaļa, bekons, čedara siers"));
-    picuSaraksts.add(new Pica(19, "Itāļu", "35 cm", 13.0, "tomātu mērce, mocarella, prosciutto, rukola"));
-    picuSaraksts.add(new Pica(20, "Ar trifelēm", "40 cm", 19.0, "krēmvelda mērce, trifelu eļļa, šampinjoni, mocarella"));
-}
 
-
+    private static void inicializetPicuSarakstu() {
+        picuSaraksts.add(new Pica(1, "Margarita", "25 cm", 5.0, "tomātu mērce, mocarella, baziliks, olivelļa"));
+        picuSaraksts.add(new Pica(2, "Pepperoni", "30 cm", 8.0, "tomātu mērce, mocarella, pepperoni, oregano"));
+        picuSaraksts.add(new Pica(3, "Havaju", "35 cm", 9.0, "tomātu mērce, mocarella, škļņķis, ananāsi"));
+        picuSaraksts.add(new Pica(4, "Galas", "40 cm", 12.0, "tomātu mērce, mocarella, bekons, desa"));
+        picuSaraksts.add(new Pica(5, "Četri sieri", "30 cm", 10.0, "mocarella, parmezāns, dorblu siers, gouda"));
+        picuSaraksts.add(new Pica(6, "BBQ", "50 cm", 18.0, "BBQ mērce, mocarella, vistas gaļa, sīpols"));
+        picuSaraksts.add(new Pica(7, "Veģetārā", "20 cm", 6.0, "tomātu mērce, mocarella, paprika, šampinjoni"));
+        picuSaraksts.add(new Pica(8, "Cēzara", "35 cm", 11.0, "cēzara mērce, vistas gaļa, kirštomāti, mocarella"));
+        picuSaraksts.add(new Pica(9, "Asais Meksikānis", "30 cm", 10.0, "tomātu mērce, jalapeno, vistas gaļa, sīpols"));
+        picuSaraksts.add(new Pica(10, "Ar škļņķi un sēnēm", "25 cm", 7.0, "tomātu mērce, škļņķis, šampinjoni, mocarella"));
+        picuSaraksts.add(new Pica(11, "Lauku", "40 cm", 13.0, "krējuma mērce, kartupeļi, bekons, sīpols"));
+        picuSaraksts.add(new Pica(12, "Jūras vešku", "50 cm", 20.0, "krēmvelda mērce, garneles, kalmāri, mocarella"));
+        picuSaraksts.add(new Pica(13, "Salami", "30 cm", 9.0, "tomātu mērce, mocarella, salami, olivas"));
+        picuSaraksts.add(new Pica(14, "Grieķu", "25 cm", 7.0, "tomātu mērce, feta siers, olivas, tomāti"));
+        picuSaraksts.add(new Pica(15, "Carbonara", "35 cm", 12.0, "krēmvelda mērce, bekons, parmezāns, sīpols"));
+        picuSaraksts.add(new Pica(16, "Firmas", "40 cm", 14.0, "tomātu mērce, vistas gaļa, bekons, šampinjoni"));
+        picuSaraksts.add(new Pica(17, "Ar tunci", "30 cm", 9.0, "tomātu mērce, tuncis, sīpoli, mocarella"));
+        picuSaraksts.add(new Pica(18, "Rančo", "50 cm", 17.0, "rančo mērce, vistas gaļa, bekons, čedara siers"));
+        picuSaraksts.add(new Pica(19, "Itāļu", "35 cm", 13.0, "tomātu mērce, mocarella, prosciutto, rukola"));
+        picuSaraksts.add(new Pica(20, "Ar trifelēm", "40 cm", 19.0, "krēmvelda mērce, trifelu eļļa, šampinjoni, mocarella"));
+    }
     
     // Funkcija, kas atrod lietotāju pēc lietotājvārda
     private static Person findUser(String username) {
