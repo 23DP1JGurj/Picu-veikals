@@ -1,9 +1,12 @@
 package lv.rvt;
 
 import java.util.*;
+
+import lv.rvt.tools.EmailService;
 import lv.rvt.tools.Helper;
 
 public class Main {   
+    private static EmailService emailService = new EmailService();
     // Picas saraksts
     private static ArrayList<Pica> picuSaraksts = new ArrayList<>();
     
@@ -35,9 +38,32 @@ public class Main {
                 case 2:
                     clearConsole();
                     System.out.println("Pasūtīt picu:");
-                    System.out.println("Izvēlieties picu pēc numura: ");
+                    System.out.print("Izvēlieties picu pēc numura: ");
                     int pizzaChoice = scanner.nextInt();
-                    System.out.println("Jūs pasūtījāt Pica nr." + pizzaChoice);
+                    scanner.nextLine(); // Чистим буфер
+
+
+                    Pica selectedPizza = null;
+                    for (Pica p : picuSaraksts) {
+                        if (p.getNr() == pizzaChoice) {
+                            selectedPizza = p;
+                            break;
+                        }
+                    }
+
+                    if (selectedPizza != null) {
+                        System.out.print("Ievadiet savu e-pastu: ");
+                        String customerEmail = scanner.nextLine();
+
+                        String orderDetails = "Jūs pasūtījāt: " + selectedPizza.getNosaukums() +
+                            "\nIzmērs: " + selectedPizza.getIzmers() +
+                            "\nCena: " + selectedPizza.getCena() + "€";
+                        emailService.sendOrderConfirmation(customerEmail, orderDetails);
+
+                        System.out.println("Pasūtījums apstiprināts! Apstiprinājums tika nosūtīts uz " + customerEmail);
+                    } else {
+                        System.out.println("Pica ar šo numuru nav pieejama!");
+                    }
                     break;
                 case 3:
                     clearConsole();
@@ -211,25 +237,34 @@ public class Main {
                     filtretasPicas.sort((p1, p2) -> Integer.compare(getPopularitate(p2), getPopularitate(p1)));
                     break;
                 case 8:
-                    // Pasūtīt picu
-                    System.out.print("Ievadiet picas numuru: ");
-                    int nr = scanner.nextInt();
-                    scanner.nextLine(); // Notīram buferi
-                    
-                    boolean exists = false;
+                    clearConsole();
+                    System.out.println("Pasūtīt picu:");
+                    System.out.print("Izvēlieties picu pēc numura: ");
+                    int pizzaChoice = scanner.nextInt();
+                    scanner.nextLine();
+
+                    Pica selectedPizza = null;
                     for (Pica p : picuSaraksts) {
-                        if (p.getNr() == nr) {
-                            System.out.println("Pasūtīta: " + p.getNosaukums() + " par " + p.getCena() + "€");
-                            exists = true;
-                            System.out.println("\nNospiediet Enter, lai turpinātu...");
-                            scanner.nextLine(); 
+                        if (p.getNr() == pizzaChoice) {
+                            selectedPizza = p;
                             break;
                         }
                     }
-                    if (!exists) {
-                        System.out.println("Šāda pica nav pieejama!");
-                        System.out.println("\nNospiediet Enter, lai turpinātu...");
-                        scanner.nextLine(); 
+
+                    if (selectedPizza != null) {
+                        System.out.print("Ievadiet savu e-pastu: ");
+                        String customerEmail = scanner.nextLine();
+
+                        String orderDetails = "Jūs pasūtījāt: " + selectedPizza.getNosaukums() +
+                            "\nIzmērs: " + selectedPizza.getIzmers() +
+                            "\nCena: " + selectedPizza.getCena() + "€";
+
+                        // Отправляем email клиенту
+                        emailService.sendOrderConfirmation(customerEmail, orderDetails);
+
+                        System.out.println("Pasūtījums apstiprināts! Apstiprinājums tika nosūtīts uz " + customerEmail);
+                    } else {
+                        System.out.println("Pica ar šo numuru nav pieejama!");
                     }
                     break;
                 case 9:
