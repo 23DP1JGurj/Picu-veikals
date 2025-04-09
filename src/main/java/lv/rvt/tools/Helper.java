@@ -1,59 +1,71 @@
 package lv.rvt.tools;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.*;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
 import lv.rvt.Person;
+
+import java.io.*;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.List;
 
 public class Helper {
-    private static final String USERS_FILE = "data/users.csv";
+    private static final String USER_FILE = "data/users.json";
 
-    public static List<Person> loadUsersFromCSV() {
-        List<Person> users = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader(USERS_FILE))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                String[] parts = line.split(",");
-                if (parts.length == 3) {
-                    String username = parts[0];
-                    String password = parts[1];
-                    boolean isAdmin = Boolean.parseBoolean(parts[2]);
-                    users.add(new Person(username, password, isAdmin));
-                }
-            }
+    // Ielādē lietotājus no JSON faila
+    public static ArrayList<Person> loadUsers() {
+        try (Reader reader = new FileReader(USER_FILE)) {
+            Type userListType = new TypeToken<ArrayList<Person>>() {}.getType();
+            ArrayList<Person> users = new Gson().fromJson(reader, userListType);
+            return users != null ? users : new ArrayList<>();
         } catch (IOException e) {
-            System.out.println("Error loading users: " + e.getMessage());
-        }
-        return users;
-    }
-
-    public static void saveUsersToCSV(List<Person> users) {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(USERS_FILE))) {
-            for (Person user : users) {
-                bw.write(user.getUsername() + "," + user.getPassword() + "," + user.isAdmin());
-                bw.newLine();
-            }
-        } catch (IOException e) {
-            System.out.println("Error saving users: " + e.getMessage());
+            return new ArrayList<>();
         }
     }
 
-    public static void addUserToCSV(Person user) {
-        List<Person> users = loadUsersFromCSV();
-        users.add(user);
-        saveUsersToCSV(users);
+    // Saglabā lietotājus JSON failā
+    public static void saveUsers(ArrayList<Person> users) {
+        try (Writer writer = new FileWriter(USER_FILE)) {
+            new Gson().toJson(users, writer);
+        } catch (IOException e) {
+            System.out.println("Kļūda saglabājot lietotājus!");
+        }
     }
 
-    public static Person findUserInCSV(String username) {
-        List<Person> users = loadUsersFromCSV();
-        for (Person user : users) {
-            if (user.getUsername().equals(username)) {
-                return user;
+    // Atrod lietotāju pēc lietotājvārda
+    public static Person findUser(String username, ArrayList<Person> users) {
+        for (Person p : users) {
+            if (p.getUsername().equalsIgnoreCase(username)) {
+                return p;
             }
         }
         return null;
     }
+
+    // Autentificē lietotāju
+    public static Person authenticate(String username, String password) {
+        ArrayList<Person> users = loadUsers();
+        Person user = findUser(username, users);
+        if (user != null && user.validatePassword(password)) {
+            return user;
+        }
+        return null;
+    }
+
+    // Reģistrē jaunu lietotāju
+    public static boolean registerUser(String username, String password, String email, boolean isAdmin) {
+        ArrayList<Person> users = loadUsers();
+
+        // Pārbauda, vai lietotājvārds jau eksistē
+        if (findUser(username, users) != null) {
+            return false;
+        }
+
+        // Izveido jaunu lietotāju un pievieno sarakstam
+        Person newUser = new Person(username, password, email, isAdmin);
+        users.add(newUser);
+        saveUsers(users);
+        return true;
+    }
 }
+
