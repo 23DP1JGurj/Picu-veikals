@@ -1,1 +1,19 @@
-[{"username":"janis","password":"1234","isAdmin":false,"email":"piccaveikalsad@gmail.com"},{"username":"anna","password":"5678","isAdmin":false},{"username":"asdsd","password":"asdasd","isAdmin":false,"email":"asds"}]
+[
+  {
+    "username": "janis",
+    "password": "1234",
+    "isAdmin": false,
+    "email": "piccaveikalsad@gmail.com"
+  },
+  {
+    "username": "anna",
+    "password": "5678",
+    "isAdmin": false
+  },
+  {
+    "username": "egors",
+    "password": "gurjevs",
+    "isAdmin": false,
+    "email": ""
+  }
+]

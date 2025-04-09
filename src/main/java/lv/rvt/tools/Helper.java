@@ -1,6 +1,7 @@
 package lv.rvt.tools;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import lv.rvt.Person;
@@ -25,12 +26,14 @@ public class Helper {
 
     // Saglabā lietotājus JSON failā
     public static void saveUsers(ArrayList<Person> users) {
-        try (Writer writer = new FileWriter(USER_FILE)) {
-            new Gson().toJson(users, writer);
-        } catch (IOException e) {
-            System.out.println("Kļūda saglabājot lietotājus!");
-        }
+    try (Writer writer = new FileWriter(USER_FILE)) {
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        gson.toJson(users, writer);
+    } catch (IOException e) {
+        System.out.println("Kļūda saglabājot lietotājus!");
     }
+    }
+
 
     // Atrod lietotāju pēc lietotājvārda
     public static Person findUser(String username, ArrayList<Person> users) {
