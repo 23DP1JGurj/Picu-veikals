@@ -11,6 +11,12 @@
     "isAdmin": false
   },
   {
+    "username": "a",
+    "password": "a",
+    "isAdmin": true,
+    "email": ""
+  },
+  {
     "username": "egors",
     "password": "gurjevs",
     "isAdmin": false,

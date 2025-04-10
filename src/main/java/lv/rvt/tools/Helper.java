@@ -9,9 +9,12 @@ import lv.rvt.Person;
 import java.io.*;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Helper {
     private static final String USER_FILE = "data/users.json";
+    private static final String REVIEWS_FILE = "data/reviews.json";
+    private static final String ISSUES_FILE = "data/issues.json";
 
     // Ielādē lietotājus no JSON faila
     public static ArrayList<Person> loadUsers() {
@@ -70,5 +73,49 @@ public class Helper {
         saveUsers(users);
         return true;
     }
+
+    
+
+    public static ArrayList<String> loadReviews() {
+        try (Reader reader = new FileReader(REVIEWS_FILE)) {
+            Type listType = new TypeToken<ArrayList<String>>() {}.getType();
+            ArrayList<String> reviews = new Gson().fromJson(reader, listType);
+            return reviews != null ? reviews : new ArrayList<>();
+        } catch (IOException e) {
+            return new ArrayList<>();
+        }
+    }
+
+
+    public static void saveReviews(ArrayList<String> reviews) {
+        try (Writer writer = new FileWriter(REVIEWS_FILE)) {
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            gson.toJson(reviews, writer);
+        } catch (IOException e) {
+            System.out.println("Kļūda saglabājot atsauksmes!");
+        }
+    }
+
+
+    public static ArrayList<String> loadIssues() {
+        try (Reader reader = new FileReader(ISSUES_FILE)) {
+            Type listType = new TypeToken<ArrayList<String>>() {}.getType();
+            ArrayList<String> issues = new Gson().fromJson(reader, listType);
+            return issues != null ? issues : new ArrayList<>();
+        } catch (IOException e) {
+            return new ArrayList<>();
+        }
+    }
+
+
+    public static void saveIssues(ArrayList<String> issues) {
+        try (Writer writer = new FileWriter(ISSUES_FILE)) {
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            gson.toJson(issues, writer);
+        } catch (IOException e) {
+            System.out.println("Kļūda saglabājot problēmas!");
+        }
+    }
+
 }
 
