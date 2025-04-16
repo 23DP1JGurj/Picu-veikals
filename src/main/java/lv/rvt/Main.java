@@ -15,6 +15,7 @@ public class Main {
     private static ArrayList<String> atsauksmes = new ArrayList<>();
     private static ArrayList<String> problemas = new ArrayList<>();
     private static Person loggedInUser = null;
+    
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -22,7 +23,6 @@ public class Main {
         inicializetPicuSarakstu();
         atsauksmes = Helper.loadReviews();
         problemas = Helper.loadIssues();
-
         do {
             clearConsole();
             System.out.println("=== Pica veikals ===");
@@ -63,8 +63,6 @@ public class Main {
                 default -> System.out.println("Nepareiza ievade, mēģiniet vēlreiz.");
             }
     
-            System.out.println("\nNospiediet Enter, lai turpinātu...");
-            scanner.nextLine();
         } while (choice != 0);
     }
 
@@ -92,7 +90,7 @@ public class Main {
                         if ((choice == 1 && !user.isAdmin()) || (choice == 2 && user.isAdmin())) {
                             loggedInUser = user;
                             System.out.println("Laipni lūdzam, " + username + (user.isAdmin() ? " (administrators)!" : "!"));
-                            return; // ← Возврат в главное меню
+                            return;
                         } else {
                             System.out.println("Jums nav piekļuves šim profilam.");
                         }
@@ -181,7 +179,10 @@ public class Main {
                 case 0 -> filtretasPicas = new ArrayList<>(picuSaraksts);
                 default -> System.out.println("Nepareiza izvēle!");
             }
+            System.out.println("\nNospiediet Enter, lai turpinātu...");
+            scanner.nextLine();
         } while (true);
+
     }
 
     private static int getPopularitate(Pica p) {
@@ -219,6 +220,8 @@ public class Main {
         } else {
             System.out.println("Pica ar šo numuru nav pieejama!");
         }
+        System.out.println("\nNospiediet Enter, lai turpinātu...");
+        scanner.nextLine();
     }
     private static void handleContactUs(Scanner scanner, Person loggedInUser) {
         int subChoice;
@@ -268,8 +271,13 @@ public class Main {
                 case 3 -> {
                     if (loggedInUser != null && loggedInUser.isAdmin()) {
                         System.out.println("=== VISAS ATSAUKSMES ===");
-                        if (atsauksmes.isEmpty()) System.out.println("Nav nevienas atsauksmes.");
-                        else atsauksmes.forEach(a -> System.out.println("- " + a));
+                        if (atsauksmes.isEmpty()) {
+                            System.out.println("Nav nevienas atsauksmes.");
+                        } else {
+                            for (int i = 0; i < atsauksmes.size(); i++) {
+                                System.out.println("- " + atsauksmes.get(i));
+                            }
+                        }
                     } else {
                         System.out.println("Nepieciešama administratora piekļuve.");
                     }
@@ -277,8 +285,13 @@ public class Main {
                 case 4 -> {
                     if (loggedInUser != null && loggedInUser.isAdmin()) {
                         System.out.println("=== VISAS PROBLĒMAS ===");
-                        if (problemas.isEmpty()) System.out.println("Nav reģistrētu problēmu.");
-                        else problemas.forEach(p -> System.out.println("- " + p));
+                        if (problemas.isEmpty()) {
+                            System.out.println("Nav reģistrētu problēmu.");
+                        } else {
+                            for (int i = 0; i < problemas.size(); i++) {
+                                System.out.println("- " + problemas.get(i));
+                            }
+                        }
                     } else {
                         System.out.println("Nepieciešama administratora piekļuve.");
                     }
@@ -286,7 +299,8 @@ public class Main {
                 case 0 -> { /* Atgriezties */ }
                 default -> System.out.println("Nepareiza izvēle.");
             }
-    
+            System.out.println("\nNospiediet Enter, lai turpinātu...");
+            scanner.nextLine();
         } while (subChoice != 0);
     }
     
