@@ -39,7 +39,6 @@ public class Main {
             }
             System.out.println("5 - Sazināties ar mums");
             System.out.println("0 - Iziet");
-            System.out.print("Ievadiet izvēles numuru: ");
             choice = getIntInput(scanner, "Ievadiet izvēles numuru: ");
 
             switch (choice) {
@@ -194,35 +193,77 @@ public class Main {
 
     private static void pasutitPicu(Scanner scanner) {
         clearConsole();
-        System.out.println("Pasūtīt picu:");
-        System.out.print("Izvēlieties picu pēc numura: ");
-        int pizzaChoice = getIntInput(scanner, "Ievadiet izvēles numuru: ");
-
-        Pica selectedPizza = null;
+        System.out.println("=== Pieejamās picas ===");
         for (Pica p : picuSaraksts) {
-            if (p.getNr() == pizzaChoice) {
-                selectedPizza = p;
-                break;
+            System.out.printf("%-3d | %-20s | %-6s | %.2f€%n", p.getNr(), p.getNosaukums(), p.getIzmers(), p.getCena());
+        }
+    
+        Pica selectedPizza = null;
+    
+        while (selectedPizza == null) {
+            System.out.print("Izvēlieties picu pēc numura vai ievadiet 0 lai atgrieztos: ");
+            int pizzaChoice = getIntInput(scanner, "");
+            if (pizzaChoice == 0) return;
+    
+            for (Pica p : picuSaraksts) {
+                if (p.getNr() == pizzaChoice) {
+                    selectedPizza = p;
+                    break;
+                }
+            }
+    
+            if (selectedPizza == null) {
+                System.out.println("Nepareizs numurs! Mēģiniet vēlreiz.");
             }
         }
-
-        if (selectedPizza != null) {
-            System.out.print("Ievadiet savu e-pastu: ");
-            String customerEmail = scanner.nextLine();
-
-            String orderDetails = "Jūs pasūtījāt: " + selectedPizza.getNosaukums() +
-                    "\nIzmērs: " + selectedPizza.getIzmers() +
-                    "\nCena: " + selectedPizza.getCena() + "€";
-
+    
+        System.out.print("Ievadiet savu e-pastu (vai atstājiet tukšu): ");
+        String customerEmail = scanner.nextLine().trim();
+    
+        System.out.print("Vai jums ir promokods? (jā/nē): ");
+        String hasPromo = scanner.nextLine().trim().toLowerCase();
+        boolean isYes = hasPromo.contains("j") || hasPromo.contains("y");
+        double discount = 0.0;
+    
+        if (isYes) {
+            System.out.print("Ievadiet promokodu: ");
+            String promoCode = scanner.nextLine().trim().toLowerCase();
+            if (promoCode.equals("atlaide10")) {
+                discount = 0.10;
+                System.out.println("Tika piemērota 10% atlaide!");
+            } else {
+                System.out.println("Nederīgs promokods.");
+            }
+        }
+    
+        double deliveryFee = 2.50;
+        double finalPrice = selectedPizza.getCena() * (1 - discount) + deliveryFee;
+    
+        String orderDetails = "Jūs pasūtījāt: " + selectedPizza.getNosaukums() +
+                "\nIzmērs: " + selectedPizza.getIzmers() +
+                String.format("\nCena ar atlaidi un piegādi: %.2f€ (t.sk. piegāde: %.2f€)", finalPrice, deliveryFee);
+    
+        boolean emailValid = isValidEmail(customerEmail);
+    
+        if (emailValid) {
             emailService.sendOrderConfirmation(customerEmail, orderDetails);
-
             System.out.println("Pasūtījums apstiprināts! Apstiprinājums tika nosūtīts uz " + customerEmail);
         } else {
-            System.out.println("Pica ar šo numuru nav pieejama!");
+            System.out.println("Pasūtījums apstiprināts! (E-pasts netika nosūtīts — nav norādīts vai nav derīgs)");
         }
+    
+        System.out.println("\n" + orderDetails);
         System.out.println("\nNospiediet Enter, lai turpinātu...");
         scanner.nextLine();
     }
+    
+    
+    private static boolean isValidEmail(String email) {
+        if (email == null || email.isEmpty()) return false;
+        // Vienkārša regex validācija
+        return email.matches("^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$");
+    }
+    
     private static void handleContactUs(Scanner scanner, Person loggedInUser) {
         int subChoice;
         do {
@@ -328,6 +369,7 @@ public class Main {
         picuSaraksts.add(new Pica(19, "Itāļu", "35 cm", 13.0, "tomātu mērce, mocarella, prosciutto, rukola"));
         picuSaraksts.add(new Pica(20, "Ar trifelēm", "40 cm", 19.0, "krēmvelda mērce, trifelu eļļa, šampinjoni, mocarella"));
     }
+
     public static int getIntInput(Scanner scanner, String prompt) {
         int input = -1;
         while (true) {
