@@ -17,12 +17,13 @@ public class Main {
     private static Person loggedInUser = null;
     
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         Scanner scanner = new Scanner(System.in);
         int choice;
         inicializetPicuSarakstu();
         atsauksmes = Helper.loadReviews();
         problemas = Helper.loadIssues();
+        AsciiDoorAnimation.play();
         do {
             clearConsole();
             System.out.println("=== Pica veikals ===");
@@ -73,7 +74,6 @@ public class Main {
             System.out.println("2 - Ienākt administratora profilā");
             System.out.println("3 - Izveidot jaunu profilu");
             System.out.println("0 - Atgriezties");
-            System.out.print("Ievadiet izvēles numuru: ");
 
             choice = getIntInput(scanner, "Ievadiet izvēles numuru: ");
 
@@ -372,19 +372,45 @@ public class Main {
 
     public static int getIntInput(Scanner scanner, String prompt) {
         int input = -1;
+        boolean errorShown = false;  // mainīgais, lai uzraudzītu, vai kļūda jau tika parādīta
+        String line;  // mainīgais, kur glabāsim ievadīto rindu
+    
+        // …kamēr nav veiksmīgi pārvērsts par skaitli…
         while (true) {
-            System.out.print(prompt);
-            String line = scanner.nextLine();
+            if (errorShown) {
+                // Ja iepriekš bija kļūda, izdzēšam iepriekšējo kļūdas paziņojumu
+                System.out.print("\033[F\033[2K"); // uz augšu 1 rindiņu un iztīra to
+                System.out.print("\033[F\033[2K"); // uz augšu vēl 1 rindiņu un iztīra to
+    
+                // Izvada atkārtoto aicinājumu lietotājam
+                System.out.print("Lūdzu, ievadiet derīgu skaitli (tikai cipari): ");
+            } else {
+                // Pirmreizējais aicinājums
+                System.out.print(prompt);
+            }
+    
+            // Nolasām lietotāja ievadi
+            line = scanner.nextLine();
+    
             try {
+                // Mēģinam pārvērst par int
                 input = Integer.parseInt(line);
-                break;
+                break;  // ja izdevās, iziet no cikla
             } catch (NumberFormatException e) {
-                System.out.println("Nepareiza ievade! Lūdzu, ievadiet skaitli.");
+                // Ja pārvēršana neizdevās — izvadām attiecīgo kļūdas paziņojumu
+                if (!errorShown) {
+                    // Pirmais kļūdas paziņojums
+                    System.out.println("Nepareiza ievade! Lūdzu, ievadiet skaitli.");
+                } else {
+                    // Otrs un turpmākie kļūdu paziņojumi
+                    System.out.println("Nepareizs skaitlis vai ievads! Lūdzu, ievadiet tikai skaitļus.");
+                }
+                errorShown = true;  // atzīmējam, ka kļūda jau ir bijusi
             }
         }
-        return input;
-    }
     
+        return input;  // atgriežam iegūto skaitli
+    }
     public static void clearConsole() {
         System.out.print("\033c");
         System.out.flush();
