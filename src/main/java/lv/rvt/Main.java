@@ -8,6 +8,7 @@ import java.util.*;
 
 import lv.rvt.tools.EmailService;
 import lv.rvt.tools.Helper;
+import lv.rvt.tools.InputHelper;
 
 public class Main {
     private static final EmailService emailService = new EmailService();
@@ -19,11 +20,11 @@ public class Main {
 
     public static void main(String[] args) throws InterruptedException {
         Scanner scanner = new Scanner(System.in);
-        int choice;
         inicializetPicuSarakstu();
         atsauksmes = Helper.loadReviews();
         problemas = Helper.loadIssues();
         AsciiDoorAnimation.play();
+        int choice;
         do {
             clearConsole();
             System.out.println("=== Pica veikals ===");
@@ -40,7 +41,12 @@ public class Main {
             }
             System.out.println("5 - Sazināties ar mums");
             System.out.println("0 - Iziet");
-            choice = getIntInput(scanner, "Ievadiet izvēles numuru: ");
+            choice = InputHelper.getIntInput(
+            scanner, 
+            "Ievadiet izvēles numuru: ", 
+            0, 
+            5
+            );
 
             switch (choice) {
                 case 1 -> attelotPicuSarakstu(scanner);
@@ -62,12 +68,10 @@ public class Main {
                 case 0 -> System.out.println("Paldies, ka izmantojāt Pica veikalu!");
                 default -> System.out.println("Nepareiza ievade, mēģiniet vēlreiz.");
             }
-    
         } while (choice != 0);
     }
 
     private static void loginOrRegister(Scanner scanner) {
-        int choice;
         while (true) {
             clearConsole();
             System.out.println("\n1 - Ienākt lietotāja profilā");
@@ -75,7 +79,12 @@ public class Main {
             System.out.println("3 - Izveidot jaunu profilu");
             System.out.println("0 - Atgriezties");
 
-            choice = getIntInput(scanner, "Ievadiet izvēles numuru: ");
+            int choice = InputHelper.getIntInput(
+            scanner, 
+            "Ievadiet izvēles numuru: ", 
+            0, 
+            3
+        );
 
             switch (choice) {
                 case 1, 2 -> {
@@ -123,17 +132,18 @@ public class Main {
     private static void attelotPicuSarakstu(Scanner scanner) {
         List<Pica> filtretasPicas = new ArrayList<>(picuSaraksts);
         int choice;
-
+    
         do {
             clearConsole();
             System.out.println("=== PICU SARAKSTS ===");
             System.out.printf("%-3s | %-20s | %-6s | %-7s | %-30s%n", "Nr", "Nosaukums", "Izmērs", "Cena", "Sastāvdaļas");
             System.out.println("----------------------------------------------------------------------------------------------");
-
+    
             for (Pica p : filtretasPicas) {
-                System.out.printf("%-3d | %-20s | %-6s | %6.2f€ | %-30s%n", p.getNr(), p.getNosaukums(), p.getIzmers(), p.getCena(), p.getSastavdalas());
+                System.out.printf("%-3d | %-20s | %-6s | %6.2f€ | %-30s%n",
+                        p.getNr(), p.getNosaukums(), p.getIzmers(), p.getCena(), p.getSastavdalas());
             }
-
+    
             System.out.println("\n=== FILTRĒŠANAS/KĀRTOŠANAS IESPĒJAS ===");
             System.out.println("1 - Izmērs no mazākā uz lielāko");
             System.out.println("2 - Izmērs no lielākā uz mazāko");
@@ -143,47 +153,75 @@ public class Main {
             System.out.println("6 - Picas ar sastāvdaļu");
             System.out.println("7 - Populārākās picas");
             System.out.println("8 - Pasūtīt picu");
-            System.out.println("9 - Atgriezties");
-            System.out.println("0 - Atiestatīt sarakstu");
-            System.out.print("Izvēlieties: ");
-
-            choice = getIntInput(scanner, "Ievadiet izvēles numuru: ");
-
+            System.out.println("9 - Atiestatīt sarakstu");
+            System.out.println("0 - Atgriezties");
+    
+            choice = InputHelper.getIntInput(
+                    scanner,
+                    "Ievadiet izvēles numuru: ",
+                    0,
+                    9
+            );
+    
             switch (choice) {
                 case 1 -> filtretasPicas.sort(Comparator.comparingInt(p -> Integer.parseInt(p.getIzmers().replace(" cm", ""))));
-                case 2 -> filtretasPicas.sort((p1, p2) -> Integer.parseInt(p2.getIzmers().replace(" cm", "")) - Integer.parseInt(p1.getIzmers().replace(" cm", "")));
+                case 2 -> filtretasPicas.sort((p1, p2) ->
+                        Integer.parseInt(p2.getIzmers().replace(" cm", "")) - Integer.parseInt(p1.getIzmers().replace(" cm", "")));
                 case 3 -> filtretasPicas.sort(Comparator.comparingDouble(Pica::getCena));
                 case 4 -> filtretasPicas.sort((p1, p2) -> Double.compare(p2.getCena(), p1.getCena()));
                 case 5 -> {
                     filtretasPicas = new ArrayList<>();
                     for (Pica p : picuSaraksts) {
-                        if (p.getSastavdalas().matches(".*(bekons|pepperoni|vistas|desa|šķiņķis).*")) {
+                        if (p.getSastavdalas().matches("(?i).*(bekons|pepperoni|vistas|desa|šķiņķis).*")) {
                             filtretasPicas.add(p);
                         }
                     }
                 }
                 case 6 -> {
-                    System.out.print("Ievadiet sastāvdaļu: ");
-                    String sastavdala = scanner.nextLine().toLowerCase();
+
+                    Set<String> uniqueIngredients = new TreeSet<>();
+                    for (Pica p : picuSaraksts) {
+                        String[] parts = p.getSastavdalas().split(",\\s*");
+                        uniqueIngredients.addAll(Arrays.asList(parts));
+                    }
+    
+                    List<String> ingredientList = new ArrayList<>(uniqueIngredients);
+                    clearConsole();
+                    System.out.println("\n=== INGREDIĒNTI ===");
+                    for (int i = 0; i < ingredientList.size(); i++) {
+                        System.out.printf("%2d - %s%n", i + 1, ingredientList.get(i));
+                    }
+    
+                    int ingChoice = InputHelper.getIntInput(
+                            scanner,
+                            "\nIevadiet ingredienta numuru, lai filtrētu picas: ",
+                            1,
+                            ingredientList.size()
+                    );
+    
+                    String selectedIngredient = ingredientList.get(ingChoice - 1).toLowerCase();
+    
                     filtretasPicas = new ArrayList<>();
                     for (Pica p : picuSaraksts) {
-                        if (p.getSastavdalas().toLowerCase().contains(sastavdala)) {
+                        if (p.getSastavdalas().toLowerCase().contains(selectedIngredient)) {
                             filtretasPicas.add(p);
                         }
                     }
                 }
                 case 7 -> filtretasPicas.sort((p1, p2) -> Integer.compare(getPopularitate(p2), getPopularitate(p1)));
                 case 8 -> pasutitPicu(scanner);
-                case 9 -> { return; }
-                case 0 -> filtretasPicas = new ArrayList<>(picuSaraksts);
-                default -> System.out.println("Nepareiza izvēle!");
+                case 9 -> filtretasPicas = new ArrayList<>(picuSaraksts);
+                case 0 -> {
+                    return;
+                }
             }
+    
             System.out.println("\nNospiediet Enter, lai turpinātu...");
             scanner.nextLine();
+    
         } while (true);
-
     }
-
+    
     private static int getPopularitate(Pica p) {
         if (p.getNosaukums().contains("Margarita")) return 3;
         if (p.getNosaukums().contains("Pepperoni")) return 2;
@@ -192,70 +230,135 @@ public class Main {
     }
 
     private static void pasutitPicu(Scanner scanner) {
-        clearConsole();
-        System.out.println("=== Pieejamās picas ===");
-        for (Pica p : picuSaraksts) {
-            System.out.printf("%-3d | %-20s | %-6s | %.2f€%n", p.getNr(), p.getNosaukums(), p.getIzmers(), p.getCena());
-        }
+        List<String> orderSummaries = new ArrayList<>();
+        double totalPrice = 0.0;
     
-        Pica selectedPizza = null;
-    
-        while (selectedPizza == null) {
-            System.out.print("Izvēlieties picu pēc numura vai ievadiet 0 lai atgrieztos: ");
-            int pizzaChoice = getIntInput(scanner, "");
-            if (pizzaChoice == 0) return;
-    
+        while (true) {
+            clearConsole();
+            System.out.println("=== Pieejamās picas ===");
             for (Pica p : picuSaraksts) {
-                if (p.getNr() == pizzaChoice) {
-                    selectedPizza = p;
-                    break;
+                System.out.printf("%-3d | %-20s | %-6s | %.2f€%n", p.getNr(), p.getNosaukums(), p.getIzmers(), p.getCena());
+            }
+            System.out.println();
+    
+
+            Pica selectedPizza = null;
+            while (selectedPizza == null) {
+                System.out.print("Izvēlieties picu pēc numura (izeja/exit - uz sākumu): ");
+                String input = scanner.nextLine().trim().toLowerCase();
+                if (input.equals("izeja") || input.equals("exit")) return;
+    
+                int pizzaChoice;
+                try {
+                    pizzaChoice = Integer.parseInt(input);
+                } catch (NumberFormatException e) {
+                    System.out.println("Nederīgs ievads. Mēģiniet vēlreiz.");
+                    continue;
+                }
+    
+                for (Pica p : picuSaraksts) {
+                    if (p.getNr() == pizzaChoice) {
+                        selectedPizza = p;
+                        break;
+                    }
+                }
+    
+                if (selectedPizza == null) {
+                    System.out.println("Nepareizs numurs. Mēģiniet vēlreiz.");
                 }
             }
     
-            if (selectedPizza == null) {
-                System.out.println("Nepareizs numurs! Mēģiniet vēlreiz.");
+            if (selectedPizza == null) continue;
+    
+
+            int quantity = 0;
+            while (quantity == 0) {
+                System.out.print("Ievadiet daudzumu (izeja/exit - uz sākumu): ");
+                String input = scanner.nextLine().trim().toLowerCase();
+                if (input.equals("izeja") || input.equals("exit")) return;
+    
+                try {
+                    int parsed = Integer.parseInt(input);
+                    if (parsed >= 1 && parsed <= 100) {
+                        quantity = parsed;
+                    } else {
+                        System.out.println("Lūdzu ievadiet skaitli no 1 līdz 100.");
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("Nederīgs ievads.");
+                }
             }
+    
+            double pizzaTotal = selectedPizza.getCena() * quantity;
+            orderSummaries.add(String.format("%dx %s (%s) - %.2f€", quantity, selectedPizza.getNosaukums(), selectedPizza.getIzmers(), pizzaTotal));
+            totalPrice += pizzaTotal;
+    
+            System.out.print("Vai vēlaties pasūtīt vēl vienu picu? (jā/nē): ");
+            String another = scanner.nextLine().trim().toLowerCase();
+            if (!(another.contains("j") || another.contains("y"))) break;
         }
-    
-        System.out.print("Ievadiet savu e-pastu (vai atstājiet tukšu): ");
+
+        System.out.print("\nIevadiet savu e-pastu (nev nepiciešams,izeja/exit - uz sākumu): ");
         String customerEmail = scanner.nextLine().trim();
-    
+        if (customerEmail.equals("izeja") || customerEmail.equals("exit")) return;
+
         System.out.print("Vai jums ir promokods? (jā/nē): ");
         String hasPromo = scanner.nextLine().trim().toLowerCase();
         boolean isYes = hasPromo.contains("j") || hasPromo.contains("y");
         double discount = 0.0;
     
         if (isYes) {
-            System.out.print("Ievadiet promokodu: ");
+            System.out.print("\nIevadiet promokodu (izeja/exit - uz sākumu): ");
             String promoCode = scanner.nextLine().trim().toLowerCase();
-            if (promoCode.equals("atlaide10")) {
+            if (promoCode.equals("izeja") || promoCode.equals("exit")) return;
+            if (promoCode.equals("0")) {
+
+            } else if (promoCode.equals("atlaide10")) {
                 discount = 0.10;
-                System.out.println("Tika piemērota 10% atlaide!");
+                System.out.println("\nTika piemērota 10% atlaide!");
             } else {
-                System.out.println("Nederīgs promokods.");
+                System.out.println("\nNederīgs promokods.");
             }
         }
+
+        System.out.print("\nVai vēlaties piegādi vai paši izņemsiet? (piegāde/savākšana): ");
+        String deliveryChoice = scanner.nextLine().trim().toLowerCase();
+        if (deliveryChoice.equals("izeja") || deliveryChoice.equals("exit")) return;
     
-        double deliveryFee = 2.50;
-        double finalPrice = selectedPizza.getCena() * (1 - discount) + deliveryFee;
+        boolean isDelivery = deliveryChoice.contains("pieg");
+        double deliveryFee = isDelivery ? 2.50 : 0.0;
+        double finalPrice = totalPrice * (1 - discount) + deliveryFee;
+
+        StringBuilder orderDetails = new StringBuilder("Jūs pasūtījāt:\n");
+        for (String item : orderSummaries) {
+            orderDetails.append(" - ").append(item).append("\n");
+        }
     
-        String orderDetails = "Jūs pasūtījāt: " + selectedPizza.getNosaukums() +
-                "\nIzmērs: " + selectedPizza.getIzmers() +
-                String.format("\nCena ar atlaidi un piegādi: %.2f€ (t.sk. piegāde: %.2f€)", finalPrice, deliveryFee);
+        orderDetails.append(String.format("Kopā: %.2f€\n", totalPrice));
+        if (discount > 0) {
+            orderDetails.append(String.format("Atlaide: -%.2f€\n", totalPrice * discount));
+        }
+        if (isDelivery) {
+            orderDetails.append(String.format("Piegāde: %.2f€\n", deliveryFee));
+        }
+    
+        orderDetails.append(String.format("Gala cena: %.2f€", finalPrice));
     
         boolean emailValid = isValidEmail(customerEmail);
-    
         if (emailValid) {
-            emailService.sendOrderConfirmation(customerEmail, orderDetails);
-            System.out.println("Pasūtījums apstiprināts! Apstiprinājums tika nosūtīts uz " + customerEmail);
+            emailService.sendOrderConfirmation(customerEmail, orderDetails.toString());
+            System.out.println("\nPasūtījums apstiprināts! Apstiprinājums tika nosūtīts uz " + customerEmail);
         } else {
-            System.out.println("Pasūtījums apstiprināts! (E-pasts netika nosūtīts — nav norādīts vai nav derīgs)");
+            System.out.println("\nPasūtījums apstiprināts! (E-pasts netika nosūtīts — nav norādīts vai nav derīgs)");
         }
     
         System.out.println("\n" + orderDetails);
         System.out.println("\nNospiediet Enter, lai turpinātu...");
         scanner.nextLine();
+        return;
     }
+    
+    
     
     
     private static boolean isValidEmail(String email) {
@@ -277,7 +380,12 @@ public class Main {
             }
             System.out.println("0 - Atgriezties");
             System.out.print("Izvēlieties: ");
-            subChoice = getIntInput(scanner, "Ievadiet izvēles numuru: ");
+            subChoice = InputHelper.getIntInput(
+            scanner, 
+            "Ievadiet izvēles numuru: ", 
+            0, 
+            5
+        );
             switch (subChoice) {
                 case 1 -> {
                     System.out.println("=== Atstāt atsauksmi ===");
@@ -370,46 +478,31 @@ public class Main {
         picuSaraksts.add(new Pica(20, "Ar trifelēm", "40 cm", 19.0, "krēmvelda mērce, trifelu eļļa, šampinjoni, mocarella"));
     }
 
-    public static int getIntInput(Scanner scanner, String prompt) {
+    public static int getIntInput(Scanner scanner, String prompt) throws InterruptedException {
         int input = -1;
-        boolean errorShown = false;  // mainīgais, lai uzraudzītu, vai kļūda jau tika parādīta
-        String line;  // mainīgais, kur glabāsim ievadīto rindu
+        boolean firstAttempt = true;
     
-        // …kamēr nav veiksmīgi pārvērsts par skaitli…
         while (true) {
-            if (errorShown) {
-                // Ja iepriekš bija kļūda, izdzēšam iepriekšējo kļūdas paziņojumu
-                System.out.print("\033[F\033[2K"); // uz augšu 1 rindiņu un iztīra to
-                System.out.print("\033[F\033[2K"); // uz augšu vēl 1 rindiņu un iztīra to
-    
-                // Izvada atkārtoto aicinājumu lietotājam
-                System.out.print("Lūdzu, ievadiet derīgu skaitli (tikai cipari): ");
-            } else {
-                // Pirmreizējais aicinājums
-                System.out.print(prompt);
+            if (!firstAttempt) {
+                clearConsole();  // очищаем консоль после ошибки
+                System.out.println("Nepareiza ievade, mēģiniet vēlreiz.");
+                System.out.println("Nospiediet Enter, lai turpinātu...");
+                scanner.nextLine(); // ждём Enter
             }
     
-            // Nolasām lietotāja ievadi
-            line = scanner.nextLine();
+            clearConsole();  // очищаем консоль перед выводом запроса
+            System.out.print(prompt);
+            String line = scanner.nextLine();
     
             try {
-                // Mēģinam pārvērst par int
                 input = Integer.parseInt(line);
-                break;  // ja izdevās, iziet no cikla
+                break;
             } catch (NumberFormatException e) {
-                // Ja pārvēršana neizdevās — izvadām attiecīgo kļūdas paziņojumu
-                if (!errorShown) {
-                    // Pirmais kļūdas paziņojums
-                    System.out.println("Nepareiza ievade! Lūdzu, ievadiet skaitli.");
-                } else {
-                    // Otrs un turpmākie kļūdu paziņojumi
-                    System.out.println("Nepareizs skaitlis vai ievads! Lūdzu, ievadiet tikai skaitļus.");
-                }
-                errorShown = true;  // atzīmējam, ka kļūda jau ir bijusi
+                firstAttempt = false;
             }
         }
     
-        return input;  // atgriežam iegūto skaitli
+        return input;
     }
     public static void clearConsole() {
         System.out.print("\033c");
