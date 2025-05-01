@@ -1,11 +1,8 @@
 package lv.rvt;
 
-import com.google.gson.reflect.TypeToken;
-import com.google.gson.Gson;
-import java.io.*;
-import java.lang.reflect.Type;
 import java.util.*;
-
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import lv.rvt.tools.EmailService;
 import lv.rvt.tools.Helper;
 import lv.rvt.tools.InputHelper;
@@ -16,7 +13,6 @@ public class Main {
     private static ArrayList<String> atsauksmes = new ArrayList<>();
     private static ArrayList<String> problemas = new ArrayList<>();
     private static Person loggedInUser = null;
-    
 
     public static void main(String[] args) throws InterruptedException {
         Scanner scanner = new Scanner(System.in);
@@ -36,16 +32,22 @@ public class Main {
             System.out.println("3 - Akcijas");
             if (loggedInUser == null) {
                 System.out.println("4 - Ielogoties profilā"); 
+                System.out.println("5 - Sazināties ar mums");
             } else {
                 System.out.println("4 - Iziet no profila");
+                System.out.println("5 - Sazināties ar mums");
+                System.out.println("6 - Mana pasūtījumu vēsture");
             }
-            System.out.println("5 - Sazināties ar mums");
             System.out.println("0 - Iziet");
+
+
+            int maxChoice = (loggedInUser != null) ? 6 : 5;
+
             choice = InputHelper.getIntInput(
-            scanner, 
-            "Ievadiet izvēles numuru: ", 
-            0, 
-            5
+                scanner, 
+                "Ievadiet izvēles numuru: ", 
+                0, 
+                maxChoice
             );
 
             switch (choice) {
@@ -65,6 +67,15 @@ public class Main {
                     }
                 }
                 case 5 -> handleContactUs(scanner, loggedInUser);
+                case 6 -> {
+                    if (loggedInUser != null) {
+                        if (loggedInUser.isAdmin()) {
+                            showAllOrders();
+                        } else {
+                            showUserOrders(loggedInUser.getUsername());
+                        }
+                    }
+                }
                 case 0 -> System.out.println("Paldies, ka izmantojāt Pica veikalu!");
                 default -> System.out.println("Nepareiza ievade, mēģiniet vēlreiz.");
             }
@@ -210,7 +221,18 @@ public class Main {
                         }
                     }
                 }
-                case 7 -> filtretasPicas.sort((p1, p2) -> Integer.compare(getPopularitate(p2), getPopularitate(p1)));
+                case 7 -> {
+                    filtretasPicas = new ArrayList<>();
+                    for (Pica p : picuSaraksts) {
+                        String name = p.getNosaukums().toLowerCase();
+                        if (name.contains("margarita") || name.contains("pepperoni")
+                                || name.contains("sieri") || name.contains("havaju")
+                                || name.contains("gavaj") || name.contains("gavay")) {
+                            filtretasPicas.add(p);
+                        }
+                    }
+                    filtretasPicas.sort((p1, p2) -> Integer.compare(getPopularitate(p2), getPopularitate(p1)));
+                }
                 case 8 -> pasutitPicu(scanner);
                 case 9 -> filtretasPicas = new ArrayList<>(picuSaraksts);
                 case 0 -> {
@@ -218,22 +240,22 @@ public class Main {
                 }
             }
     
-            System.out.println("\nNospiediet Enter, lai turpinātu...");
-            scanner.nextLine();
-    
         } while (true);
     }
     
     private static int getPopularitate(Pica p) {
-        if (p.getNosaukums().contains("Margarita")) return 3;
-        if (p.getNosaukums().contains("Pepperoni")) return 2;
-        if (p.getNosaukums().contains("Četri sieri")) return 1;
+        String name = p.getNosaukums().toLowerCase();
+        if (name.contains("margarita")) return 4;
+        if (name.contains("pepperoni")) return 3;
+        if (name.contains("havaju") || name.contains("gavaj") || name.contains("gavay")) return 2;
+        if (name.contains("sieri")) return 1;
         return 0;
     }
 
     private static void pasutitPicu(Scanner scanner) {
         List<String> orderSummaries = new ArrayList<>();
         double totalPrice = 0.0;
+        Map<Integer, Integer> pizzaCountMap = new HashMap<>();
     
         while (true) {
             clearConsole();
@@ -243,7 +265,6 @@ public class Main {
             }
             System.out.println();
     
-
             Pica selectedPizza = null;
             while (selectedPizza == null) {
                 System.out.print("Izvēlieties picu pēc numura (izeja/exit - uz sākumu): ");
@@ -270,9 +291,6 @@ public class Main {
                 }
             }
     
-            if (selectedPizza == null) continue;
-    
-
             int quantity = 0;
             while (quantity == 0) {
                 System.out.print("Ievadiet daudzumu (izeja/exit - uz sākumu): ");
@@ -294,16 +312,20 @@ public class Main {
             double pizzaTotal = selectedPizza.getCena() * quantity;
             orderSummaries.add(String.format("%dx %s (%s) - %.2f€", quantity, selectedPizza.getNosaukums(), selectedPizza.getIzmers(), pizzaTotal));
             totalPrice += pizzaTotal;
+            pizzaCountMap.put(
+                selectedPizza.getNr(),
+                pizzaCountMap.getOrDefault(selectedPizza.getNr(), 0) + quantity
+            );
     
             System.out.print("Vai vēlaties pasūtīt vēl vienu picu? (jā/nē): ");
             String another = scanner.nextLine().trim().toLowerCase();
             if (!(another.contains("j") || another.contains("y"))) break;
         }
-
-        System.out.print("\nIevadiet savu e-pastu (nev nepiciešams, izeja/exit - uz sākumu): ");
+    
+        System.out.print("\nIevadiet savu e-pastu (nev nepieciešams, izeja/exit - uz sākumu): ");
         String customerEmail = scanner.nextLine().trim();
         if (customerEmail.equals("izeja") || customerEmail.equals("exit")) return;
-
+    
         System.out.print("Vai jums ir promokods? (jā/nē): ");
         String hasPromo = scanner.nextLine().trim().toLowerCase();
         boolean isYes = hasPromo.contains("j") || hasPromo.contains("y");
@@ -313,32 +335,57 @@ public class Main {
             System.out.print("\nIevadiet promokodu (izeja/exit - uz sākumu): ");
             String promoCode = scanner.nextLine().trim().toLowerCase();
             if (promoCode.equals("izeja") || promoCode.equals("exit")) return;
-            if (promoCode.equals("0")) {
-
-            } else if (promoCode.equals("atlaide10")) {
+            if (promoCode.equals("atlaide10")) {
                 discount = 0.10;
                 System.out.println("\nTika piemērota 10% atlaide!");
             } else {
                 System.out.println("\nNederīgs promokods.");
             }
         }
-
+    
         System.out.print("\nVai vēlaties piegādi vai paši izņemsiet? (piegāde/savākšana): ");
         String deliveryChoice = scanner.nextLine().trim().toLowerCase();
         if (deliveryChoice.equals("izeja") || deliveryChoice.equals("exit")) return;
     
         boolean isDelivery = deliveryChoice.contains("pieg");
         double deliveryFee = isDelivery ? 2.50 : 0.0;
-        double finalPrice = totalPrice * (1 - discount) + deliveryFee;
+    
 
+        double akcijasAtlaide = 0.0;
+    
+
+        if (pizzaCountMap.containsKey(1) && pizzaCountMap.containsKey(2)) {
+            int comboCount = Math.min(pizzaCountMap.get(1), pizzaCountMap.get(2));
+            for (Pica p : picuSaraksts) {
+                if (p.getNr() == 1 || p.getNr() == 2) {
+                    akcijasAtlaide += p.getCena() * 0.20 * comboCount;
+                }
+            }
+        }
+    
+
+        if (pizzaCountMap.containsKey(4)) {
+            int count = pizzaCountMap.get(4);
+            for (Pica p : picuSaraksts) {
+                if (p.getNr() == 4) {
+                    akcijasAtlaide += p.getCena() * 0.40 * count;
+                }
+            }
+        }
+    
+        double finalPrice = (totalPrice - akcijasAtlaide) * (1 - discount) + deliveryFee;
+    
         StringBuilder orderDetails = new StringBuilder("Jūs pasūtījāt:\n");
         for (String item : orderSummaries) {
             orderDetails.append(" - ").append(item).append("\n");
         }
     
         orderDetails.append(String.format("Kopā: %.2f€\n", totalPrice));
+        if (akcijasAtlaide > 0) {
+            orderDetails.append(String.format("Akcijas atlaide: -%.2f€\n", akcijasAtlaide));
+        }
         if (discount > 0) {
-            orderDetails.append(String.format("Atlaide: -%.2f€\n", totalPrice * discount));
+            orderDetails.append(String.format("Promokoda atlaide: -%.2f€\n", (totalPrice - akcijasAtlaide) * discount));
         }
         if (isDelivery) {
             orderDetails.append(String.format("Piegāde: %.2f€\n", deliveryFee));
@@ -355,9 +402,13 @@ public class Main {
         }
     
         System.out.println("\n" + orderDetails);
-        System.out.println("\nNospiediet Enter, lai turpinātu...");
-        scanner.nextLine();
-        return;
+        Order order = new Order(
+        loggedInUser != null ? loggedInUser.getUsername() : null,
+        orderSummaries,
+        finalPrice,
+        isDelivery ? "Piegāde" : "Savākšana"
+        );
+        Helper.saveOrder(order);
     }
     
     
@@ -371,6 +422,8 @@ public class Main {
     
     private static void handleContactUs(Scanner scanner, Person loggedInUser) {
         int subChoice;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    
         do {
             clearConsole();
             System.out.println("=== Sazināties ar mums ===");
@@ -382,17 +435,14 @@ public class Main {
             }
             System.out.println("0 - Atgriezties");
             System.out.print("Izvēlieties: ");
-            subChoice = InputHelper.getIntInput(
-            scanner, 
-            "Ievadiet izvēles numuru: ", 
-            0, 
-            5
-        );
+            subChoice = InputHelper.getIntInput(scanner, "Ievadiet izvēles numuru: ", 0, 5);
+    
             switch (subChoice) {
                 case 1 -> {
                     System.out.println("=== Atstāt atsauksmi ===");
                     System.out.print("Jūsu viedoklis: ");
                     String feedback = scanner.nextLine();
+                    String timestamp = LocalDateTime.now().format(formatter);
     
                     String userInfo = loggedInUser != null
                             ? " (Lietotājs: " + loggedInUser.getUsername() +
@@ -400,7 +450,7 @@ public class Main {
                                   ? ", E-pasts: " + loggedInUser.getEmail() : "") + ")"
                             : "";
     
-                    atsauksmes.add(feedback + userInfo);
+                    atsauksmes.add("[" + timestamp + "] " + feedback + userInfo);
                     Helper.saveReviews(atsauksmes); 
                     System.out.println("Paldies par Jūsu atsauksmi!");
                 }
@@ -408,6 +458,7 @@ public class Main {
                     System.out.println("=== Ziņot par problēmu ===");
                     System.out.print("Vai ir kāda problēma: ");
                     String issue = scanner.nextLine();
+                    String timestamp = LocalDateTime.now().format(formatter);
     
                     String userInfo = loggedInUser != null
                             ? " (Lietotājs: " + loggedInUser.getUsername() +
@@ -415,7 +466,7 @@ public class Main {
                                   ? ", E-pasts: " + loggedInUser.getEmail() : "") + ")"
                             : "";
     
-                    problemas.add(issue + userInfo);
+                    problemas.add("[" + timestamp + "] " + issue + userInfo);
                     Helper.saveIssues(problemas); 
                     System.out.println("Problēma tika reģistrēta. Paldies!");
                 }
@@ -425,8 +476,8 @@ public class Main {
                         if (atsauksmes.isEmpty()) {
                             System.out.println("Nav nevienas atsauksmes.");
                         } else {
-                            for (int i = 0; i < atsauksmes.size(); i++) {
-                                System.out.println("- " + atsauksmes.get(i));
+                            for (String review : atsauksmes) {
+                                System.out.println("- " + review);
                             }
                         }
                     } else {
@@ -439,8 +490,8 @@ public class Main {
                         if (problemas.isEmpty()) {
                             System.out.println("Nav reģistrētu problēmu.");
                         } else {
-                            for (int i = 0; i < problemas.size(); i++) {
-                                System.out.println("- " + problemas.get(i));
+                            for (String issue : problemas) {
+                                System.out.println("- " + issue);
                             }
                         }
                     } else {
@@ -450,11 +501,12 @@ public class Main {
                 case 0 -> { /* Atgriezties */ }
                 default -> System.out.println("Nepareiza izvēle.");
             }
+    
             System.out.println("\nNospiediet Enter, lai turpinātu...");
             scanner.nextLine();
+            return;
         } while (subChoice != 0);
     }
-    
     
 
     private static void inicializetPicuSarakstu() {
@@ -486,13 +538,13 @@ public class Main {
     
         while (true) {
             if (!firstAttempt) {
-                clearConsole();  // очищаем консоль после ошибки
+                clearConsole(); 
                 System.out.println("Nepareiza ievade, mēģiniet vēlreiz.");
                 System.out.println("Nospiediet Enter, lai turpinātu...");
-                scanner.nextLine(); // ждём Enter
+                scanner.nextLine();
             }
     
-            clearConsole();  // очищаем консоль перед выводом запроса
+            clearConsole();
             System.out.print(prompt);
             String line = scanner.nextLine();
     
@@ -505,6 +557,35 @@ public class Main {
         }
     
         return input;
+    }
+
+    private static void showAllOrders() {
+        List<Order> orders = Helper.loadOrders();
+        if (orders.isEmpty()) {
+            System.out.println("Nav neviena pasūtījuma.");
+        } else {
+            System.out.println("=== Visi pasūtījumi ===");
+            for (Order order : orders) {
+                System.out.println("\n" + order);
+            }
+        }
+    }
+
+    private static void showUserOrders(String username) {
+        List<Order> orders = Helper.loadOrders();
+        boolean hasOrders = false;
+
+        System.out.println("=== Jūsu pasūtījumu vēsture ===");
+        for (Order order : orders) {
+            if (order.getUsername().equals(username)) {
+                System.out.println("\n" + order);
+                hasOrders = true;
+            }
+        }
+
+        if (!hasOrders) {
+            System.out.println("Jums nav neviena pasūtījuma.");
+        }
     }
     public static void clearConsole() {
         System.out.print("\033c");

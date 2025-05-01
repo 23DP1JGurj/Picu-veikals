@@ -1,0 +1,29 @@
+[
+  {
+    "items": [
+      "4x Galas (40 cm) - 48.00€"
+    ],
+    "totalPrice": 31.299999999999997,
+    "deliveryMethod": "Piegāde",
+    "orderTime": "2025-05-01 15:03:18"
+  },
+  {
+    "username": "anna",
+    "items": [
+      "2x Margarita (25 cm) - 10.00€",
+      "2x Pepperoni (30 cm) - 16.00€"
+    ],
+    "totalPrice": 20.8,
+    "deliveryMethod": "Savākšana",
+    "orderTime": "2025-05-01 15:04:12"
+  },
+  {
+    "username": "janis",
+    "items": [
+      "2x Pepperoni (30 cm) - 16.00€"
+    ],
+    "totalPrice": 16.0,
+    "deliveryMethod": "Savākšana",
+    "orderTime": "2025-05-01 15:10:42"
+  }
+]

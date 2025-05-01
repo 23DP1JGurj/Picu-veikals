@@ -1,6 +1,5 @@
 package lv.rvt;
 
-import java.util.*;
 
 public class Pica {
     private int nr;
