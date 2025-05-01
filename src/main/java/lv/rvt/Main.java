@@ -52,7 +52,7 @@ public class Main {
                 case 1 -> attelotPicuSarakstu(scanner);
                 case 2 -> pasutitPicu(scanner);
                 case 3 -> {
-                    System.out.println("Akcijas:");
+                    System.out.println("\nAkcijas:");
                     System.out.println("1 - Pica nr.1 un nr.2 kopā par īpašu cenu");
                     System.out.println("2 - Pica nr.4 ar 40% atlaidi");
                 }
@@ -68,6 +68,8 @@ public class Main {
                 case 0 -> System.out.println("Paldies, ka izmantojāt Pica veikalu!");
                 default -> System.out.println("Nepareiza ievade, mēģiniet vēlreiz.");
             }
+            System.out.println("\nNospiediet Enter, lai turpinātu...");
+            scanner.nextLine();
         } while (choice != 0);
     }
 
@@ -298,7 +300,7 @@ public class Main {
             if (!(another.contains("j") || another.contains("y"))) break;
         }
 
-        System.out.print("\nIevadiet savu e-pastu (nev nepiciešams,izeja/exit - uz sākumu): ");
+        System.out.print("\nIevadiet savu e-pastu (nev nepiciešams, izeja/exit - uz sākumu): ");
         String customerEmail = scanner.nextLine().trim();
         if (customerEmail.equals("izeja") || customerEmail.equals("exit")) return;
 
