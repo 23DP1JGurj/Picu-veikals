@@ -25,5 +25,13 @@
     "totalPrice": 16.0,
     "deliveryMethod": "Savākšana",
     "orderTime": "2025-05-01 15:10:42"
+  },
+  {
+    "items": [
+      "2x Pepperoni (30 cm) - 16.00€"
+    ],
+    "totalPrice": 16.0,
+    "deliveryMethod": "Savākšana",
+    "orderTime": "2025-05-03 14:26:42"
   }
 ]
