@@ -1,35 +1,9 @@
-/*
-||                                                                       ⢰⣶⣾⣿⣿⣿⣿⣿⣷⣦⡀            ||
-||                                                                       ⣾⣿ ⠈⠙⢿⣿⣿⣿⣿⣿⣦           ||
-||                                                                   ⡀⣠⣿⣿⣿⠆⠰⠶⠀⠘⢿⣿⣿⣿⣿⣿⣆        ||
-||    ____  _                        _ _         _                 ⢀⣼⣿⣿⣿⠏⠀⢀⣠⣤⣤⣀⠙⣿⣿⣿⣿⣿⣷⡀      ||
-||   |  _ \(_) ___ _   _  __   _____(_) | ____ _| |___            ⢠⠋⢈⣉⠉⣡⣤⢰⣿⣿⣿⣿⣿⣷⡈⢿⣿⣿⣿⣿⣷⡀    ||
-||   | |_) | |/ __| | | | \ \ / / _ \ | |/ / _` | / __|          ⡴⢡⣾⣿⣿⣷⠋ ⣿⣿⣿⣿⣿⣿⣿⠃⠀⡻⣿⣿⣿⣿⡇    ||
-||   |  __/| | (__| |_| |  \ V /  __/ |   < (_| | \__ \       ⢀⠜⠁⠸⣿⣿⣿⠟⠀⠀⠘⠿⣿⣿⣿⡿⠋⠰⠖⠱⣽⠟⠋⠉⡇    ||
-||   |_|   |_|\___|\__,_|   \_/ \___|_|_|\_\__,_|_|___/      ⡰⠉⠖⣀⠀⠀⢁⣀⠀⣴⣶⣦⠀⢴⡆⠀⠀⢀⣀⣀⣉⡽⠷⠶⠋⠀     ||
-||                                                          ⡰⢡⣾⣿⣿⣿⡄⠛⠋⠘⣿⣿⡿⠀⠀⣐⣲⣤⣯⠞⠉⠁          ||
-||                                                       ⢀⠔⠁⣿⣿⣿⣿⣿⡟⠀ ⠀ ⣄⣀⡞⠉⠉⠉⠉⠁               ||
-||                                                       ⡜⠀⠀⠻⣿⣿⠿⣻⣥  ⢠⡟⠉⠉⠀                      ||
-||  ⠀⠀                                                  ⠓⡤⠖⠺⢶⡾⠃⠀ ⠈⠙⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀           ||
-||==================================================================================================||
-||==================================================================================================||
-||    === Pica veikals ===                                                                          ||
-||   1 - Picu saraksts                                                                              ||
-||   2 - Pasūtīt picu                                                                               ||
-||   3 - Akcijas                                                                                    ||
-||   4 - Ielogoties profilā                                                                         ||
-||   5 - Sazināties ar mums                                                                         ||
-||   0 - Iziet                                                                                      ||
-||   Ievadiet izvēles numuru:                                                                       || 
-
-
-
- */
 
 
 package lv.rvt;
 
 import java.util.*;
+import java.util.stream.Collectors;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import lv.rvt.tools.EmailService;
@@ -52,40 +26,62 @@ public class PicaVeikalsApp {
         int choice;
         do {
             clearConsole();
-            System.out.println("=== Pica veikals ===");
+            System.out.println("||                                                                       ⢰⣶⣾⣿⣿⣿⣿⣿⣷⣦⡀                ||");
+            System.out.println("||                                                                       ⣾⣿ ⠈⠙⢿⣿⣿⣿⣿⣿⣦               ||");
+            System.out.println("||                                                                   ⡀⣠⣿⣿⣿⠆⠰⠶⠀⠘⢿⣿⣿⣿⣿⣿⣆              ||");
+            System.out.println("||    ____  _                        _ _         _                 ⢀⣼⣿⣿⣿⠏⠀⢀⣠⣤⣤⣀⠙⣿⣿⣿⣿⣿⣷⡀             ||");
+            System.out.println("||   |  _ \\(_) ___ _   _  __   _____(_) | ____ _| |___            ⢠⠋⢈⣉⠉⣡⣤⢰⣿⣿⣿⣿⣿⣷⡈⢿⣿⣿⣿⣿⣷⡀            ||");
+            System.out.println("||   | |_) | |/ __| | | | \\ \\ / / _ \\ | |/ / _` | / __|          ⡴⢡⣾⣿⣿⣷⠋ ⣿⣿⣿⣿⣿⣿⣿⠃⠀⡻⣿⣿⣿⣿⡇            ||");
+            System.out.println("||   |  __/| | (__| |_| |  \\ V /  __/ |   < (_| | \\__ \\       ⢀⠜⠁⠸⣿⣿⣿⠟⠀⠀⠘⠿⣿⣿⣿⡿⠋⠰⠖⠱⣽⠟⠋⠉⡇             ||");
+            System.out.println("||   |_|   |_|\\___|\\__,_|   \\_/ \\___|_|_|\\_\\__,_|_|___/      ⡰⠉⠖⣀⠀⠀⢁⣀⠀⣴⣶⣦⠀⢴⡆⠀⠀⢀⣀⣀⣉⡽⠷⠶⠋⠀             ||");
+            System.out.println("||                                                          ⡰⢡⣾⣿⣿⣿⡄⠛⠋⠘⣿⣿⡿⠀⠀⣐⣲⣤⣯⠞⠉⠁                  ||");
+            System.out.println("||                                                       ⢀⠔⠁⣿⣿⣿⣿⣿⡟⠀ ⠀ ⣄⣀⡞⠉⠉⠉⠉⠁                      ||");
+            System.out.println("||                                                       ⡜⠀⠀⠻⣿⣿⠿⣻⣥  ⢠⡟⠉⠉⠀                           ||");
+            System.out.println("||  ⠀⠀                                                  ⠓⡤⠖⠺⢶⡾⠃⠀ ⠈⠙⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀                  ||");
+            System.out.println("||==================================================================================================||");            
+            System.out.println("||==================================================================================================||");
+            System.out.println("||                                                                                                  ||");
             if (loggedInUser != null) {
-                System.out.println("Sveicināts, " + loggedInUser.getUsername() + "!");
+                System.out.printf ("||    Sveicināts, %-89s||\n", loggedInUser.getUsername() + "!");
             }
-            System.out.println("1 - Picu saraksts");
-            System.out.println("2 - Pasūtīt picu");
-            System.out.println("3 - Akcijas");
+            System.out.println("||                                                                                                  ||");
+            System.out.println("||   1 - Picu saraksts                                                                              ||");
+            System.out.println("||   2 - Pasūtīt picu                                                                               ||");
+            System.out.println("||   3 - Akcijas                                                                                    ||");
+            
             if (loggedInUser == null) {
-                System.out.println("4 - Ielogoties profilā");
-                System.out.println("5 - Sazināties ar mums");
+                System.out.println("||   4 - Ielogoties profilā                                                                         ||");
+                System.out.println("||   5 - Sazināties ar mums                                                                         ||");
+                System.out.println("||   0 - Iziet                                                                                      ||");
             } else {
-                System.out.println("4 - Iziet no profila");
-                System.out.println("5 - Sazināties ar mums");
-                System.out.println("6 - Mana pasūtījumu vēsture");
+                System.out.println("||   4 - Iziet no profila                                                                           ||");
+                System.out.println("||   5 - Sazināties ar mums                                                                         ||");
+                System.out.println("||   6 - Mana pasūtījumu vēsture                                                                    ||");
+                System.out.println("||   0 - Iziet                                                                                      ||");
             }
-            System.out.println("0 - Iziet");
-
+            System.out.println("||                                                                                                  ||");
             int maxChoice = (loggedInUser != null) ? 6 : 5;
 
             choice = InputHelper.getIntInput(
                 scanner,
-                "Ievadiet izvēles numuru: ",
+                "\nIevadiet izvēles numuru: ",
                 0,
                 maxChoice
             );
 
             switch (choice) {
                 case 1 -> attelotPicuSarakstu(scanner);
+            
                 case 2 -> pasutitPicu(scanner);
+            
                 case 3 -> {
-                    System.out.println("\nAkcijas:");
-                    System.out.println("1 - Pica nr.1 un nr.2 kopā par īpašu cenu");
-                    System.out.println("2 - Pica nr.4 ar 40% atlaidi");
+                    System.out.println("\nAkcijas");
+                    System.out.println("1 - Pica nr.1 20 cm un nr.2 20 cm kopā par īpašu cenu ");
+                    System.out.println("2 - Pica nr.4 30 cm ar 40% atlaidi");
+                    System.out.println("\nNospiediet Enter, lai turpinātu...");
+                    scanner.nextLine();
                 }
+            
                 case 4 -> {
                     if (loggedInUser == null) {
                         loginOrRegister(scanner);
@@ -93,8 +89,12 @@ public class PicaVeikalsApp {
                         loggedInUser = null;
                         System.out.println("Jūs esat izrakstījies no profila.");
                     }
+                    System.out.println("\nNospiediet Enter, lai turpinātu...");
+                    scanner.nextLine();
                 }
+            
                 case 5 -> handleContactUs(scanner, loggedInUser);
+            
                 case 6 -> {
                     if (loggedInUser != null) {
                         if (loggedInUser.isAdmin()) {
@@ -103,26 +103,28 @@ public class PicaVeikalsApp {
                             showUserOrders(loggedInUser.getUsername());
                         }
                     }
+                    System.out.println("\nNospiediet Enter, lai turpinātu...");
+                    scanner.nextLine();
                 }
+            
                 case 0 -> System.out.println("Paldies, ka izmantojāt Pica veikalu!");
+            
                 default -> System.out.println("Nepareiza ievade, mēģiniet vēlreiz.");
             }
-            System.out.println("\nNospiediet Enter, lai turpinātu...");
-            scanner.nextLine();
         } while (choice != 0);
     }
 
     private static void loginOrRegister(Scanner scanner) {
         while (true) {
             clearConsole();
-            System.out.println("\n1 - Ienākt lietotāja profilā");
+            System.out.println("Lietotāja profils");
+            System.out.println("1 - Ienākt lietotāja profilā");
             System.out.println("2 - Ienākt administratora profilā");
             System.out.println("3 - Izveidot jaunu profilu");
             System.out.println("0 - Atgriezties");
-
             int choice = InputHelper.getIntInput(
             scanner, 
-            "Ievadiet izvēles numuru: ", 
+            "\nIevadiet izvēles numuru: ", 
             0, 
             3
         );
@@ -170,135 +172,202 @@ public class PicaVeikalsApp {
             scanner.nextLine();
         }
     }
-    private static void attelotPicuSarakstu(Scanner scanner) {
-        List<Pica> filtretasPicas = new ArrayList<>(picuSaraksts);
-        int choice;
-    
-        do {
-            clearConsole();
-            System.out.println("=== PICU SARAKSTS ===");
-            System.out.printf("%-3s | %-20s | %-6s | %-7s | %-30s%n", "Nr", "Nosaukums", "Izmērs", "Cena", "Sastāvdaļas");
-            System.out.println("----------------------------------------------------------------------------------------------");
-    
-            for (Pica p : filtretasPicas) {
-                System.out.printf("%-3d | %-20s | %-6s | %6.2f€ | %-30s%n",
-                        p.getNr(), p.getNosaukums(), p.getIzmers(), p.getCena(), p.getSastavdalas());
+   private static void attelotPicuSarakstu(Scanner scanner) {
+    List<Pica> filtretasPicas = new ArrayList<>(picuSaraksts);
+    int choice;
+    boolean isSorted = false;
+    Comparator<Pica> currentComparator = null;
+    String aktivaisIzmers = null;
+    do {
+        clearConsole();
+        if (aktivaisIzmers != null) {
+            System.out.println("========================= PICU SARAKSTS =========================");
+            System.out.printf("| %-40s | %-6s |\n", "Nosaukums", aktivaisIzmers);
+            System.out.println("=================================================================");
+        } else {
+            System.out.println("============================= PICU SARAKSTS =============================");
+            System.out.printf("| %-40s | %-6s | %-6s | %-6s |\n", "Nosaukums", "20cm", "30cm", "40cm");
+            System.out.println("===========================================================================");
+        }
+        
+        for (Pica p : filtretasPicas) {
+            String sastav = p.getSastavdalas();
+            if (aktivaisIzmers != null) {
+                String cena = String.format("%.2f€", p.getCena(aktivaisIzmers));
+                System.out.printf("| #%2d %-36s | %-6s |\n", p.getNr(),  p.getNosaukums(), cena);
+                System.out.println("  " + sastav);
+            } else {
+                String cena20 = String.format("%.2f€", p.getCena20cm());
+                String cena30 = String.format("%.2f€", p.getCena30cm());
+                String cena40 = String.format("%.2f€", p.getCena40cm());
+                System.out.printf("| #%2d %-36s | %-6s | %-6s | %-6s |\n", p.getNr(), p.getNosaukums(), cena20, cena30, cena40);
+                System.out.println("  " + sastav);
             }
-    
-            System.out.println("\n=== FILTRĒŠANAS/KĀRTOŠANAS IESPĒJAS ===");
-            System.out.println("1 - Izmērs no mazākā uz lielāko");
-            System.out.println("2 - Izmērs no lielākā uz mazāko");
-            System.out.println("3 - Cena no mazākās uz lielāko");
-            System.out.println("4 - Cena no lielākās uz mazāko");
-            System.out.println("5 - Gaļas picas");
-            System.out.println("6 - Picas ar sastāvdaļu");
-            System.out.println("7 - Populārākās picas");
-            System.out.println("8 - Pasūtīt picu");
-            System.out.println("9 - Atiestatīt sarakstu");
-            System.out.println("0 - Atgriezties");
-    
-            choice = InputHelper.getIntInput(
-                    scanner,
-                    "Ievadiet izvēles numuru: ",
-                    0,
-                    9
-            );
-    
-            switch (choice) {
-                case 1 -> filtretasPicas.sort(Comparator.comparingInt(p -> Integer.parseInt(p.getIzmers().replace(" cm", ""))));
-                case 2 -> filtretasPicas.sort((p1, p2) ->
-                        Integer.parseInt(p2.getIzmers().replace(" cm", "")) - Integer.parseInt(p1.getIzmers().replace(" cm", "")));
-                case 3 -> filtretasPicas.sort(Comparator.comparingDouble(Pica::getCena));
-                case 4 -> filtretasPicas.sort((p1, p2) -> Double.compare(p2.getCena(), p1.getCena()));
-                case 5 -> {
-                    filtretasPicas = new ArrayList<>();
-                    for (Pica p : picuSaraksts) {
-                        if (p.getSastavdalas().matches("(?i).*(bekons|pepperoni|vistas|desa|šķiņķis).*")) {
-                            filtretasPicas.add(p);
-                        }
-                    }
-                }
-                case 6 -> {
+        }
 
-                    Set<String> uniqueIngredients = new TreeSet<>();
-                    for (Pica p : picuSaraksts) {
-                        String[] parts = p.getSastavdalas().split(",\\s*");
-                        uniqueIngredients.addAll(Arrays.asList(parts));
-                    }
-    
-                    List<String> ingredientList = new ArrayList<>(uniqueIngredients);
-                    clearConsole();
-                    System.out.println("\n=== INGREDIĒNTI ===");
-                    for (int i = 0; i < ingredientList.size(); i++) {
-                        System.out.printf("%2d - %s%n", i + 1, ingredientList.get(i));
-                    }
-    
-                    int ingChoice = InputHelper.getIntInput(
-                            scanner,
-                            "\nIevadiet ingredienta numuru, lai filtrētu picas: ",
-                            1,
-                            ingredientList.size()
-                    );
-    
-                    String selectedIngredient = ingredientList.get(ingChoice - 1).toLowerCase();
-    
-                    filtretasPicas = new ArrayList<>();
-                    for (Pica p : picuSaraksts) {
-                        if (p.getSastavdalas().toLowerCase().contains(selectedIngredient)) {
-                            filtretasPicas.add(p);
-                        }
-                    }
-                }
-                case 7 -> {
-                    filtretasPicas = new ArrayList<>();
-                    for (Pica p : picuSaraksts) {
-                        String name = p.getNosaukums().toLowerCase();
-                        if (name.contains("margarita") || name.contains("pepperoni")
-                                || name.contains("sieri") || name.contains("havaju")
-                                || name.contains("gavaj") || name.contains("gavay")) {
-                            filtretasPicas.add(p);
-                        }
-                    }
-                    filtretasPicas.sort((p1, p2) -> Integer.compare(getPopularitate(p2), getPopularitate(p1)));
-                }
-                case 8 -> pasutitPicu(scanner);
-                case 9 -> filtretasPicas = new ArrayList<>(picuSaraksts);
-                case 0 -> {
-                    return;
-                }
+        System.out.println("\n=== FILTRĒŠANAS/KĀRTOŠANAS IESPĒJAS ===");
+        System.out.println("1 - Picas ar 20 cm");
+        System.out.println("2 - Picas ar 30 cm");
+        System.out.println("3 - Picas ar 40 cm");
+        System.out.println("4 - Cena no lielākās uz mazāko");
+        System.out.println("5 - Cena no mazākās uz lielāko");
+        System.out.println("6 - Gaļas picas");
+        System.out.println("7 - Veģetārās picas");
+        System.out.println("8 - Populārākās picas");
+        System.out.println("9 - Meklēt pēc sastāvdaļas");
+        System.out.println("10 - Nosaukums no A līdz Z");
+        System.out.println("11 - Nosaukums no Z līdz A");
+        System.out.println("12 - Pasūtīt picu");
+        System.out.println("13 - Atiestatīt sarakstu");
+        System.out.println("0 - Atgriezties");
+
+        choice = InputHelper.getIntInput(scanner, "Ievadiet izvēles numuru: ", 0, 13);
+
+        switch (choice) {
+            case 1 -> {
+                filtretasPicas = picuSaraksts.stream()
+                    .filter(p -> p.getCena20cm() > 0)
+                    .collect(Collectors.toList());
+                aktivaisIzmers = "20 cm";
             }
+            case 2 -> {
+                filtretasPicas = picuSaraksts.stream()
+                    .filter(p -> p.getCena30cm() > 0)
+                    .collect(Collectors.toList());
+                aktivaisIzmers = "30 cm";
+            }
+            case 3 -> {
+                filtretasPicas = picuSaraksts.stream()
+                    .filter(p -> p.getCena40cm() > 0)
+                    .collect(Collectors.toList());
+                aktivaisIzmers = "40 cm";
+            }
+            case 4 -> {
+                currentComparator = Comparator.comparingDouble(p -> Math.max(Math.max(p.getCena20cm(), p.getCena30cm()), p.getCena40cm()));
+                currentComparator = currentComparator.reversed();
+                isSorted = true;
+            }
+            case 5 -> { 
+                currentComparator = Comparator.comparingDouble(p -> {
+                    double min = Double.MAX_VALUE;
+                    if (p.getCena20cm() > 0) min = Math.min(min, p.getCena20cm());
+                    if (p.getCena30cm() > 0) min = Math.min(min, p.getCena30cm());
+                    if (p.getCena40cm() > 0) min = Math.min(min, p.getCena40cm());
+                    return min;
+                });
+                isSorted = true;
+            }
+            case 6 -> filtretasPicas = picuSaraksts.stream()
+                    .filter(p -> p.getSastavdalas().matches("(?i).*(bekons|pepperoni|vistas|desa|\u0161ki\u0146\u0137is|salami|tuncis).*"))
+                    .collect(Collectors.toList());
+            case 7 -> filtretasPicas = picuSaraksts.stream()
+                    .filter(p -> !p.getSastavdalas().matches("(?i).*(bekons|pepperoni|vistas|desa|\u0161ki\u0146\u0137is|salami|tuncis).*"))
+                    .collect(Collectors.toList());
+            case 8 -> filtretasPicas = picuSaraksts.stream()
+                    .sorted((p1, p2) -> Integer.compare(getPopularitate(p2), getPopularitate(p1))) // сортировка по популярности
+                    .collect(Collectors.toList());
+                
+            case 9 -> {
+                Set<String> uniqueIngredients = new TreeSet<>();
+                for (Pica p : picuSaraksts) {
+                    String[] parts = p.getSastavdalas().split(",\\s*");
+                    uniqueIngredients.addAll(Arrays.asList(parts));
+                }
+                List<String> ingredientList = new ArrayList<>(uniqueIngredients);
+                clearConsole();
+                System.out.println("\n=== INGREDIĒNTI ===");
+                for (int i = 0; i < ingredientList.size(); i++) {
+                    System.out.printf("%2d - %s%n", i + 1, ingredientList.get(i));
+                }
+                int ingChoice = InputHelper.getIntInput(scanner, "\nIevadiet ingredienta numuru, lai filtrētu picas: ", 1, ingredientList.size());
+                String selectedIngredient = ingredientList.get(ingChoice - 1).toLowerCase();
+                filtretasPicas = picuSaraksts.stream()
+                        .filter(p -> p.getSastavdalas().toLowerCase().contains(selectedIngredient))
+                        .collect(Collectors.toList());
+            }
+            case 10 -> {
+                currentComparator = Comparator.comparing(Pica::getNosaukums, String.CASE_INSENSITIVE_ORDER);
+                isSorted = true;
+            }
+            case 11 -> {
+                currentComparator = Comparator.comparing(Pica::getNosaukums, String.CASE_INSENSITIVE_ORDER).reversed();
+                isSorted = true;
+            }
+            case 12 -> pasutitPicu(scanner);
+            case 13 -> {
+                filtretasPicas = new ArrayList<>(picuSaraksts);
+                currentComparator = null;
+                aktivaisIzmers = null;
+                isSorted = false;
+            }
+            case 0 -> {
+                return;
+            }
+        }
+
+        if (isSorted && currentComparator != null) {
+            filtretasPicas.sort(currentComparator);
+        }
+
+    } while (true);
+}
     
-        } while (true);
+private static int getPopularitate(Pica p) {
+    List<Order> orders = Helper.loadOrders();
+    String targetName = p.getNosaukums().toLowerCase();
+
+    int count = 0;
+
+    for (Order order : orders) {
+        for (String item : order.getItems()) {
+
+            String[] parts = item.split("x ");
+            if (parts.length < 2) continue;
+
+            try {
+                int quantity = Integer.parseInt(parts[0].trim());
+                String namePart = parts[1].toLowerCase();
+
+                if (namePart.contains(targetName)) {
+                    count += quantity;
+                }
+            } catch (NumberFormatException e) {
+                continue;
+            }
+        }
     }
-    
-    private static int getPopularitate(Pica p) {
-        String name = p.getNosaukums().toLowerCase();
-        if (name.contains("margarita")) return 4;
-        if (name.contains("pepperoni")) return 3;
-        if (name.contains("havaju") || name.contains("gavaj") || name.contains("gavay")) return 2;
-        if (name.contains("sieri")) return 1;
-        return 0;
-    }
+
+    return count;
+}
+
 
     private static void pasutitPicu(Scanner scanner) {
         List<String> orderSummaries = new ArrayList<>();
         double totalPrice = 0.0;
         Map<Integer, Integer> pizzaCountMap = new HashMap<>();
-    
+
         while (true) {
             clearConsole();
             System.out.println("=== Pieejamās picas ===");
+            System.out.println("============================= PIEEJAMĀS PICAS =============================");
+            System.out.printf("| %-40s | %-6s | %-6s | %-6s |\n", "Nosaukums", "20cm", "30cm", "40cm");
+            System.out.println("===========================================================================");
             for (Pica p : picuSaraksts) {
-                System.out.printf("%-3d | %-20s | %-6s | %.2f€%n", p.getNr(), p.getNosaukums(), p.getIzmers(), p.getCena());
+                String sastav = p.getSastavdalas();
+                String cena20 = String.format("%.2f€", p.getCena20cm());
+                String cena30 = String.format("%.2f€", p.getCena30cm());
+                String cena40 = String.format("%.2f€", p.getCena40cm());
+                System.out.printf("| #%2d %-36s | %-6s | %-6s | %-6s |\n", p.getNr(), p.getNosaukums(), cena20, cena30, cena40);
+                System.out.println("  " + sastav);
             }
             System.out.println();
-    
+
             Pica selectedPizza = null;
             while (selectedPizza == null) {
                 System.out.print("Izvēlieties picu pēc numura (izeja/exit - uz sākumu): ");
                 String input = scanner.nextLine().trim().toLowerCase();
                 if (input.equals("izeja") || input.equals("exit")) return;
-    
+
                 int pizzaChoice;
                 try {
                     pizzaChoice = Integer.parseInt(input);
@@ -306,25 +375,51 @@ public class PicaVeikalsApp {
                     System.out.println("Nederīgs ievads. Mēģiniet vēlreiz.");
                     continue;
                 }
-    
+
                 for (Pica p : picuSaraksts) {
                     if (p.getNr() == pizzaChoice) {
                         selectedPizza = p;
                         break;
                     }
                 }
-    
+
                 if (selectedPizza == null) {
                     System.out.println("Nepareizs numurs. Mēģiniet vēlreiz.");
                 }
             }
-    
+
+            String pizzaSize = "";
+            while (pizzaSize.isEmpty()) {
+                System.out.print("Izvēlieties picu izmēru (20 cm, 30 cm, 40 cm): ");
+                String inputSize = scanner.nextLine().trim().toLowerCase().replaceAll("\\s+", "");
+            
+                switch (inputSize) {
+                    case "20":
+                    case "20cm":
+                        pizzaSize = "20 cm";
+                        break;
+                    case "30":
+                    case "30cm":
+                        pizzaSize = "30 cm";
+                        break;
+                    case "40":
+                    case "40cm":
+                        pizzaSize = "40 cm";
+                        break;
+                    default:
+                        System.out.println("Nederīgs ievads. Lūdzu, izvēlieties izmēru no: 20 cm, 30 cm, 40 cm.");
+                }
+            }
+            
+
+            double pizzaPrice = selectedPizza.getCena(pizzaSize);
+
             int quantity = 0;
             while (quantity == 0) {
                 System.out.print("Ievadiet daudzumu (izeja/exit - uz sākumu): ");
                 String input = scanner.nextLine().trim().toLowerCase();
                 if (input.equals("izeja") || input.equals("exit")) return;
-    
+
                 try {
                     int parsed = Integer.parseInt(input);
                     if (parsed >= 1 && parsed <= 100) {
@@ -336,29 +431,29 @@ public class PicaVeikalsApp {
                     System.out.println("Nederīgs ievads.");
                 }
             }
-    
-            double pizzaTotal = selectedPizza.getCena() * quantity;
-            orderSummaries.add(String.format("%dx %s (%s) - %.2f€", quantity, selectedPizza.getNosaukums(), selectedPizza.getIzmers(), pizzaTotal));
+
+            double pizzaTotal = pizzaPrice * quantity;
+            orderSummaries.add(String.format("%dx %s (%s) - %.2f€", quantity, selectedPizza.getNosaukums(), pizzaSize, pizzaTotal));
             totalPrice += pizzaTotal;
             pizzaCountMap.put(
                 selectedPizza.getNr(),
                 pizzaCountMap.getOrDefault(selectedPizza.getNr(), 0) + quantity
             );
-    
+
             System.out.print("Vai vēlaties pasūtīt vēl vienu picu? (jā/nē): ");
             String another = scanner.nextLine().trim().toLowerCase();
             if (!(another.contains("j") || another.contains("y"))) break;
         }
-    
+
         System.out.print("\nIevadiet savu e-pastu (nev nepieciešams, izeja/exit - uz sākumu): ");
         String customerEmail = scanner.nextLine().trim();
         if (customerEmail.equals("izeja") || customerEmail.equals("exit")) return;
-    
+
         System.out.print("Vai jums ir promokods? (jā/nē): ");
         String hasPromo = scanner.nextLine().trim().toLowerCase();
         boolean isYes = hasPromo.contains("j") || hasPromo.contains("y");
         double discount = 0.0;
-    
+
         if (isYes) {
             System.out.print("\nIevadiet promokodu (izeja/exit - uz sākumu): ");
             String promoCode = scanner.nextLine().trim().toLowerCase();
@@ -370,44 +465,41 @@ public class PicaVeikalsApp {
                 System.out.println("\nNederīgs promokods.");
             }
         }
-    
+
         System.out.print("\nVai vēlaties piegādi vai paši izņemsiet? (piegāde/savākšana): ");
         String deliveryChoice = scanner.nextLine().trim().toLowerCase();
         if (deliveryChoice.equals("izeja") || deliveryChoice.equals("exit")) return;
-    
+
         boolean isDelivery = deliveryChoice.contains("pieg");
         double deliveryFee = isDelivery ? 2.50 : 0.0;
-    
 
         double akcijasAtlaide = 0.0;
-    
 
         if (pizzaCountMap.containsKey(1) && pizzaCountMap.containsKey(2)) {
             int comboCount = Math.min(pizzaCountMap.get(1), pizzaCountMap.get(2));
             for (Pica p : picuSaraksts) {
                 if (p.getNr() == 1 || p.getNr() == 2) {
-                    akcijasAtlaide += p.getCena() * 0.20 * comboCount;
+                    akcijasAtlaide += p.getCena("20 cm") * 0.20 * comboCount; 
                 }
             }
         }
-    
 
         if (pizzaCountMap.containsKey(4)) {
             int count = pizzaCountMap.get(4);
             for (Pica p : picuSaraksts) {
                 if (p.getNr() == 4) {
-                    akcijasAtlaide += p.getCena() * 0.40 * count;
+                    akcijasAtlaide += p.getCena("30 cm") * 0.40 * count;
                 }
             }
         }
-    
+
         double finalPrice = (totalPrice - akcijasAtlaide) * (1 - discount) + deliveryFee;
-    
+
         StringBuilder orderDetails = new StringBuilder("Jūs pasūtījāt:\n");
         for (String item : orderSummaries) {
             orderDetails.append(" - ").append(item).append("\n");
         }
-    
+
         orderDetails.append(String.format("Kopā: %.2f€\n", totalPrice));
         if (akcijasAtlaide > 0) {
             orderDetails.append(String.format("Akcijas atlaide: -%.2f€\n", akcijasAtlaide));
@@ -418,9 +510,9 @@ public class PicaVeikalsApp {
         if (isDelivery) {
             orderDetails.append(String.format("Piegāde: %.2f€\n", deliveryFee));
         }
-    
+
         orderDetails.append(String.format("Gala cena: %.2f€", finalPrice));
-    
+
         boolean emailValid = isValidEmail(customerEmail);
         if (emailValid) {
             emailService.sendOrderConfirmation(customerEmail, orderDetails.toString());
@@ -428,15 +520,17 @@ public class PicaVeikalsApp {
         } else {
             System.out.println("\nPasūtījums apstiprināts! (E-pasts netika nosūtīts — nav norādīts vai nav derīgs)");
         }
-    
+
         System.out.println("\n" + orderDetails);
         Order order = new Order(
-        loggedInUser != null ? loggedInUser.getUsername() : null,
-        orderSummaries,
-        finalPrice,
-        isDelivery ? "Piegāde" : "Savākšana"
+            loggedInUser != null ? loggedInUser.getUsername() : null,
+            orderSummaries,
+            finalPrice,
+            isDelivery ? "Piegāde" : "Savākšana"
         );
         Helper.saveOrder(order);
+        System.out.println("\nNospiediet Enter, lai turpinātu...");
+        scanner.nextLine();
     }
     
     
@@ -538,92 +632,30 @@ public class PicaVeikalsApp {
     
 
     private static void inicializetPicuSarakstu() {
-        picuSaraksts.add(new Pica(1, "Margarita", "25 cm", 5.0, "tomātu mērce, mocarella, baziliks, olivelļa"));
-        picuSaraksts.add(new Pica(2, "Pepperoni", "30 cm", 8.0, "tomātu mērce, mocarella, pepperoni, oregano"));
-        picuSaraksts.add(new Pica(3, "Havaju", "35 cm", 9.0, "tomātu mērce, mocarella, škļņķis, ananāsi"));
-        picuSaraksts.add(new Pica(4, "Galas", "40 cm", 12.0, "tomātu mērce, mocarella, bekons, desa"));
-        picuSaraksts.add(new Pica(5, "Četri sieri", "30 cm", 10.0, "mocarella, parmezāns, dorblu siers, gouda"));
-        picuSaraksts.add(new Pica(6, "BBQ", "50 cm", 18.0, "BBQ mērce, mocarella, vistas gaļa, sīpols"));
-        picuSaraksts.add(new Pica(7, "Veģetārā", "20 cm", 6.0, "tomātu mērce, mocarella, paprika, šampinjoni"));
-        picuSaraksts.add(new Pica(8, "Cēzara", "35 cm", 11.0, "cēzara mērce, vistas gaļa, kirštomāti, mocarella"));
-        picuSaraksts.add(new Pica(9, "Asais Meksikānis", "30 cm", 10.0, "tomātu mērce, jalapeno, vistas gaļa, sīpols"));
-        picuSaraksts.add(new Pica(10, "Ar škļņķi un sēnēm", "25 cm", 7.0, "tomātu mērce, škļņķis, šampinjoni, mocarella"));
-        picuSaraksts.add(new Pica(11, "Lauku", "40 cm", 13.0, "krējuma mērce, kartupeļi, bekons, sīpols"));
-        picuSaraksts.add(new Pica(12, "Jūras vešku", "50 cm", 20.0, "krēmvelda mērce, garneles, kalmāri, mocarella"));
-        picuSaraksts.add(new Pica(13, "Salami", "30 cm", 9.0, "tomātu mērce, mocarella, salami, olivas"));
-        picuSaraksts.add(new Pica(14, "Grieķu", "25 cm", 7.0, "tomātu mērce, feta siers, olivas, tomāti"));
-        picuSaraksts.add(new Pica(15, "Carbonara", "35 cm", 12.0, "krēmvelda mērce, bekons, parmezāns, sīpols"));
-        picuSaraksts.add(new Pica(16, "Firmas", "40 cm", 14.0, "tomātu mērce, vistas gaļa, bekons, šampinjoni"));
-        picuSaraksts.add(new Pica(17, "Ar tunci", "30 cm", 9.0, "tomātu mērce, tuncis, sīpoli, mocarella"));
-        picuSaraksts.add(new Pica(18, "Rančo", "50 cm", 17.0, "rančo mērce, vistas gaļa, bekons, čedara siers"));
-        picuSaraksts.add(new Pica(19, "Itāļu", "35 cm", 13.0, "tomātu mērce, mocarella, prosciutto, rukola"));
-        picuSaraksts.add(new Pica(20, "Ar trifelēm", "40 cm", 19.0, "krēmvelda mērce, trifelu eļļa, šampinjoni, mocarella"));
+        picuSaraksts.add(new Pica(1, "Margarita", 7.99, 10.49, 13.49, "tomātu mērce, mocarella, baziliks, olivelļa"));
+        picuSaraksts.add(new Pica(2, "Pepperoni", 9.49, 12.99, 16.49, "tomātu mērce, mocarella, pepperoni, oregano"));
+        picuSaraksts.add(new Pica(3, "Havaju", 9.99, 13.49, 17.49, "tomātu mērce, mocarella, škļņķis, ananāsi"));
+        picuSaraksts.add(new Pica(4, "Gaļas", 10.49, 14.95, 19.49, "tomātu mērce, mocarella, bekons, desa"));
+        picuSaraksts.add(new Pica(5, "Četri sieri", 10.99, 13.99, 17.99, "mocarella, parmezāns, dorblu siers, gouda"));
+        picuSaraksts.add(new Pica(6, "BBQ", 11.49, 14.45, 18.99, "BBQ mērce, mocarella, vistas gaļa, sīpols"));
+        picuSaraksts.add(new Pica(7, "Veģetārā", 8.49, 11.49, 14.49, "tomātu mērce, mocarella, paprika, šampinjoni"));
+        picuSaraksts.add(new Pica(8, "Cēzara", 10.49, 13.99, 17.99, "cēzara mērce, vistas gaļa, kirštomāti, mocarella"));
+        picuSaraksts.add(new Pica(9, "Asais Meksikānis", 9.99, 13.49, 17.49, "tomātu mērce, jalapeno, vistas gaļa, sīpols"));
+        picuSaraksts.add(new Pica(10, "Ar šķiņķi un sēnēm", 8.99, 11.99, 14.99, "tomātu mērce, škļņķis, šampinjoni, mocarella"));
+        picuSaraksts.add(new Pica(11, "Lauku", 10.49, 13.99, 17.99, "krējuma mērce, kartupeļi, bekons, sīpols"));
+        picuSaraksts.add(new Pica(12, "Jūras velšu", 12.49, 16.49, 21.49, "krēmvelda mērce, garneles, kalmāri, mocarella"));
+        picuSaraksts.add(new Pica(13, "Salami", 9.49, 12.49, 15.99, "tomātu mērce, mocarella, salami, olivas"));
+        picuSaraksts.add(new Pica(14, "Grieķu", 8.49, 10.99, 13.99, "tomātu mērce, feta siers, olivas, tomāti"));
+        picuSaraksts.add(new Pica(15, "Carbonara", 10.99, 14.49, 18.49, "krēmvelda mērce, bekons, parmezāns, sīpols"));
+        picuSaraksts.add(new Pica(16, "Firmas", 11.49, 14.99, 19.49, "tomātu mērce, vistas gaļa, bekons, šampinjoni"));
+        picuSaraksts.add(new Pica(17, "Ar tunci", 9.49, 12.49, 15.99, "tomātu mērce, tuncis, sīpoli, mocarella"));
+        picuSaraksts.add(new Pica(18, "Rančo", 11.49, 14.99, 18.99, "rančo mērce, vistas gaļa, bekons, čedara siers"));
+        picuSaraksts.add(new Pica(19, "Itāļu", 10.99, 14.99, 18.99, "tomātu mērce, mocarella, prosciutto, rukola"));
+        picuSaraksts.add(new Pica(20, "Ar trifelēm", 12.99, 17.49, 21.99, "krēmvelda mērce, trifelu eļļa, šampinjoni, mocarella"));
     }
+    
 
-    /*
-=============================  PICU SARAKSTS  ==============================
-|    Nosaukums                                       | 20cm  | 30cm |  40cm |
-============================================================================
- 1.  Margarita.........................................7.99€  10.49€  13.49€
-       tomātu mērce, mocarella, baziliks, olivelļa
 
- 2.  Pepperoni.........................................9.49€  12.99€  16.49€
-       tomātu mērce, mocarella, pepperoni, oregano
-
- 3.  Havaju............................................9.99€  13.49€  17.49€
-       tomātu mērce, mocarella, škļņķis, ananāsi
-
- 4.  Gaļas............................................10.49€  14.95€  19.49€
-       tomātu mērce, mocarella, bekons, desa
-
- 5.  Četri sieri......................................10.99€  13.99€  17.99€
-       mocarella, parmezāns, dorblu siers, gouda
-
- 6.  BBQ..............................................11.49€  14.45€  18.99€
-       BBQ mērce, mocarella, vistas gaļa, sīpols
-
- 7.  Veģetārā..........................................8.49€  11.49€  14.49€
-       tomātu mērce, mocarella, paprika, šampinjoni
-
- 8.  Cēzara...........................................10.49€  13.99€  17.99€
-       cēzara mērce, vistas gaļa, kirštomāti, mocarella
-
- 9.  Asais Meksikānis..................................9.99€  13.49€  17.49€
-       tomātu mērce, jalapeno, vistas gaļa, sīpols
-
-10.  Ar šķiņķi un sēnēm................................8.99€  11.99€  14.99€
-       tomātu mērce, škļņķis, šampinjoni, mocarella
-
-11.  Lauku............................................10.49€  13.99€  17.99€
-       krējuma mērce, kartupeļi, bekons, sīpols
-
-12.  Jūras velšu......................................12.49€  16.49€  21.49€
-       krēmvelda mērce, garneles, kalmāri, mocarella
-
-13.  Salami............................................9.49€  12.49€  15.99€
-       tomātu mērce, mocarella, salami, olivas
-
-14.  Grieķu............................................8.49€  10.99€  13.99€
-       tomātu mērce, feta siers, olivas, tomāti
-
-15.  Carbonara........................................10.99€  14.49€  18.49€
-       krēmvelda mērce, bekons, parmezāns, sīpols
-
-16.  Firmas...........................................11.49€  14.99€  19.49€
-       tomātu mērce, vistas gaļa, bekons, šampinjoni
-
-17.  Ar tunci..........................................9.49€  12.49€  15.99€
-       tomātu mērce, tuncis, sīpoli, mocarella
-
-18.  Rančo............................................11.49€  14.99€  18.99€
-       rančo mērce, vistas gaļa, bekons, čedara siers
-
-19.  Itāļu............................................10.99€  14.99€  18.99€
-       tomātu mērce, mocarella, prosciutto, rukola
-
-20.  Ar trifelēm......................................12.99€  17.49€  21.99€
-       krēmvelda mērce, trifelu eļļa, šampinjoni, mocarella
-     */
 
     public static int getIntInput(Scanner scanner, String prompt) throws InterruptedException {
         int input = -1;

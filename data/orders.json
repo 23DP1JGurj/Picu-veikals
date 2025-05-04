@@ -33,5 +33,29 @@
     "totalPrice": 16.0,
     "deliveryMethod": "Savākšana",
     "orderTime": "2025-05-03 14:26:42"
+  },
+  {
+    "items": [
+      "3x Margarita (20 cm) - 23.97€"
+    ],
+    "totalPrice": 26.47,
+    "deliveryMethod": "Piegāde",
+    "orderTime": "2025-05-04 12:43:25"
+  },
+  {
+    "items": [
+      "5x Gaļas (30 cm) - 74.75€"
+    ],
+    "totalPrice": 47.349999999999994,
+    "deliveryMethod": "Piegāde",
+    "orderTime": "2025-05-04 12:44:28"
+  },
+  {
+    "items": [
+      "5x Carbonara (30 cm) - 72.45€"
+    ],
+    "totalPrice": 72.45,
+    "deliveryMethod": "Savākšana",
+    "orderTime": "2025-05-04 12:58:26"
   }
 ]
