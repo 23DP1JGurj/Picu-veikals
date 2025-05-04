@@ -1,4 +1,11 @@
-
+/*
+ Не работает история заказов
+ Названия выделить bold
+ Добавить ещё акций
+ Сейчас работает раздел пицц по популярности?
+ (Та идея о которой я говорил что бы сделать список топ пицц основанный на заказах за всё время,(сделать только топ 5 за всё время))
+ Убрать анимацию при запуске программы
+ */
 
 package lv.rvt;
 
@@ -35,9 +42,9 @@ public class PicaVeikalsApp {
             System.out.println("||   |  __/| | (__| |_| |  \\ V /  __/ |   < (_| | \\__ \\       ⢀⠜⠁⠸⣿⣿⣿⠟⠀⠀⠘⠿⣿⣿⣿⡿⠋⠰⠖⠱⣽⠟⠋⠉⡇             ||");
             System.out.println("||   |_|   |_|\\___|\\__,_|   \\_/ \\___|_|_|\\_\\__,_|_|___/      ⡰⠉⠖⣀⠀⠀⢁⣀⠀⣴⣶⣦⠀⢴⡆⠀⠀⢀⣀⣀⣉⡽⠷⠶⠋⠀             ||");
             System.out.println("||                                                          ⡰⢡⣾⣿⣿⣿⡄⠛⠋⠘⣿⣿⡿⠀⠀⣐⣲⣤⣯⠞⠉⠁                  ||");
-            System.out.println("||                                                       ⢀⠔⠁⣿⣿⣿⣿⣿⡟⠀ ⠀ ⣄⣀⡞⠉⠉⠉⠉⠁                      ||");
+            System.out.println("||                                                       ⢀⠔⠁⣿⣿⣿⣿⣿⡟⠀   ⣄⣀⡞⠉⠉⠉⠉⠁                      ||");
             System.out.println("||                                                       ⡜⠀⠀⠻⣿⣿⠿⣻⣥  ⢠⡟⠉⠉⠀                           ||");
-            System.out.println("||  ⠀⠀                                                  ⠓⡤⠖⠺⢶⡾⠃⠀ ⠈⠙⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀                  ||");
+            System.out.println("||                                                      ⠓⡤⠖⠺⢶⡾⠃⠀ ⠈⠙⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀                  ||");
             System.out.println("||==================================================================================================||");            
             System.out.println("||==================================================================================================||");
             System.out.println("||                                                                                                  ||");
@@ -466,7 +473,7 @@ private static int getPopularitate(Pica p) {
             }
         }
 
-        System.out.print("\nVai vēlaties piegādi vai paši izņemsiet? (piegāde/savākšana): ");
+        System.out.print("\nVai vēlaties piegādi vai paši izņemsiet? (piegāde/pašizvešana): ");
         String deliveryChoice = scanner.nextLine().trim().toLowerCase();
         if (deliveryChoice.equals("izeja") || deliveryChoice.equals("exit")) return;
 
@@ -634,14 +641,14 @@ private static int getPopularitate(Pica p) {
     private static void inicializetPicuSarakstu() {
         picuSaraksts.add(new Pica(1, "Margarita", 7.99, 10.49, 13.49, "tomātu mērce, mocarella, baziliks, olivelļa"));
         picuSaraksts.add(new Pica(2, "Pepperoni", 9.49, 12.99, 16.49, "tomātu mērce, mocarella, pepperoni, oregano"));
-        picuSaraksts.add(new Pica(3, "Havaju", 9.99, 13.49, 17.49, "tomātu mērce, mocarella, škļņķis, ananāsi"));
+        picuSaraksts.add(new Pica(3, "Havaju", 9.99, 13.49, 17.49, "tomātu mērce, mocarella, škiņķis, ananāsi"));
         picuSaraksts.add(new Pica(4, "Gaļas", 10.49, 14.95, 19.49, "tomātu mērce, mocarella, bekons, desa"));
         picuSaraksts.add(new Pica(5, "Četri sieri", 10.99, 13.99, 17.99, "mocarella, parmezāns, dorblu siers, gouda"));
         picuSaraksts.add(new Pica(6, "BBQ", 11.49, 14.45, 18.99, "BBQ mērce, mocarella, vistas gaļa, sīpols"));
         picuSaraksts.add(new Pica(7, "Veģetārā", 8.49, 11.49, 14.49, "tomātu mērce, mocarella, paprika, šampinjoni"));
         picuSaraksts.add(new Pica(8, "Cēzara", 10.49, 13.99, 17.99, "cēzara mērce, vistas gaļa, kirštomāti, mocarella"));
-        picuSaraksts.add(new Pica(9, "Asais Meksikānis", 9.99, 13.49, 17.49, "tomātu mērce, jalapeno, vistas gaļa, sīpols"));
-        picuSaraksts.add(new Pica(10, "Ar šķiņķi un sēnēm", 8.99, 11.99, 14.99, "tomātu mērce, škļņķis, šampinjoni, mocarella"));
+        picuSaraksts.add(new Pica(9, "Āsais Meksikānis", 9.99, 13.49, 17.49, "tomātu mērce, jalapeno, vistas gaļa, sīpols"));
+        picuSaraksts.add(new Pica(10, "Ar šķiņķi un sēnēm", 8.99, 11.99, 14.99, "tomātu mērce, škiņķis, šampinjoni, mocarella"));
         picuSaraksts.add(new Pica(11, "Lauku", 10.49, 13.99, 17.99, "krējuma mērce, kartupeļi, bekons, sīpols"));
         picuSaraksts.add(new Pica(12, "Jūras velšu", 12.49, 16.49, 21.49, "krēmvelda mērce, garneles, kalmāri, mocarella"));
         picuSaraksts.add(new Pica(13, "Salami", 9.49, 12.49, 15.99, "tomātu mērce, mocarella, salami, olivas"));
