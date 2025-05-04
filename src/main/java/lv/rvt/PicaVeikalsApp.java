@@ -1,3 +1,32 @@
+/*
+||                                                                       ⢰⣶⣾⣿⣿⣿⣿⣿⣷⣦⡀            ||
+||                                                                       ⣾⣿ ⠈⠙⢿⣿⣿⣿⣿⣿⣦           ||
+||                                                                   ⡀⣠⣿⣿⣿⠆⠰⠶⠀⠘⢿⣿⣿⣿⣿⣿⣆        ||
+||    ____  _                        _ _         _                 ⢀⣼⣿⣿⣿⠏⠀⢀⣠⣤⣤⣀⠙⣿⣿⣿⣿⣿⣷⡀      ||
+||   |  _ \(_) ___ _   _  __   _____(_) | ____ _| |___            ⢠⠋⢈⣉⠉⣡⣤⢰⣿⣿⣿⣿⣿⣷⡈⢿⣿⣿⣿⣿⣷⡀    ||
+||   | |_) | |/ __| | | | \ \ / / _ \ | |/ / _` | / __|          ⡴⢡⣾⣿⣿⣷⠋ ⣿⣿⣿⣿⣿⣿⣿⠃⠀⡻⣿⣿⣿⣿⡇    ||
+||   |  __/| | (__| |_| |  \ V /  __/ |   < (_| | \__ \       ⢀⠜⠁⠸⣿⣿⣿⠟⠀⠀⠘⠿⣿⣿⣿⡿⠋⠰⠖⠱⣽⠟⠋⠉⡇    ||
+||   |_|   |_|\___|\__,_|   \_/ \___|_|_|\_\__,_|_|___/      ⡰⠉⠖⣀⠀⠀⢁⣀⠀⣴⣶⣦⠀⢴⡆⠀⠀⢀⣀⣀⣉⡽⠷⠶⠋⠀     ||
+||                                                          ⡰⢡⣾⣿⣿⣿⡄⠛⠋⠘⣿⣿⡿⠀⠀⣐⣲⣤⣯⠞⠉⠁          ||
+||                                                       ⢀⠔⠁⣿⣿⣿⣿⣿⡟⠀ ⠀ ⣄⣀⡞⠉⠉⠉⠉⠁               ||
+||                                                       ⡜⠀⠀⠻⣿⣿⠿⣻⣥  ⢠⡟⠉⠉⠀                      ||
+||  ⠀⠀                                                  ⠓⡤⠖⠺⢶⡾⠃⠀ ⠈⠙⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀           ||
+||==================================================================================================||
+||==================================================================================================||
+||    === Pica veikals ===                                                                          ||
+||   1 - Picu saraksts                                                                              ||
+||   2 - Pasūtīt picu                                                                               ||
+||   3 - Akcijas                                                                                    ||
+||   4 - Ielogoties profilā                                                                         ||
+||   5 - Sazināties ar mums                                                                         ||
+||   0 - Iziet                                                                                      ||
+||   Ievadiet izvēles numuru:                                                                       || 
+
+
+
+ */
+
+
 package lv.rvt;
 
 import java.util.*;
@@ -530,6 +559,71 @@ public class PicaVeikalsApp {
         picuSaraksts.add(new Pica(19, "Itāļu", "35 cm", 13.0, "tomātu mērce, mocarella, prosciutto, rukola"));
         picuSaraksts.add(new Pica(20, "Ar trifelēm", "40 cm", 19.0, "krēmvelda mērce, trifelu eļļa, šampinjoni, mocarella"));
     }
+
+    /*
+=============================  PICU SARAKSTS  ==============================
+|    Nosaukums                                       | 20cm  | 30cm |  40cm |
+============================================================================
+ 1.  Margarita.........................................7.99€  10.49€  13.49€
+       tomātu mērce, mocarella, baziliks, olivelļa
+
+ 2.  Pepperoni.........................................9.49€  12.99€  16.49€
+       tomātu mērce, mocarella, pepperoni, oregano
+
+ 3.  Havaju............................................9.99€  13.49€  17.49€
+       tomātu mērce, mocarella, škļņķis, ananāsi
+
+ 4.  Gaļas............................................10.49€  14.95€  19.49€
+       tomātu mērce, mocarella, bekons, desa
+
+ 5.  Četri sieri......................................10.99€  13.99€  17.99€
+       mocarella, parmezāns, dorblu siers, gouda
+
+ 6.  BBQ..............................................11.49€  14.45€  18.99€
+       BBQ mērce, mocarella, vistas gaļa, sīpols
+
+ 7.  Veģetārā..........................................8.49€  11.49€  14.49€
+       tomātu mērce, mocarella, paprika, šampinjoni
+
+ 8.  Cēzara...........................................10.49€  13.99€  17.99€
+       cēzara mērce, vistas gaļa, kirštomāti, mocarella
+
+ 9.  Asais Meksikānis..................................9.99€  13.49€  17.49€
+       tomātu mērce, jalapeno, vistas gaļa, sīpols
+
+10.  Ar šķiņķi un sēnēm................................8.99€  11.99€  14.99€
+       tomātu mērce, škļņķis, šampinjoni, mocarella
+
+11.  Lauku............................................10.49€  13.99€  17.99€
+       krējuma mērce, kartupeļi, bekons, sīpols
+
+12.  Jūras velšu......................................12.49€  16.49€  21.49€
+       krēmvelda mērce, garneles, kalmāri, mocarella
+
+13.  Salami............................................9.49€  12.49€  15.99€
+       tomātu mērce, mocarella, salami, olivas
+
+14.  Grieķu............................................8.49€  10.99€  13.99€
+       tomātu mērce, feta siers, olivas, tomāti
+
+15.  Carbonara........................................10.99€  14.49€  18.49€
+       krēmvelda mērce, bekons, parmezāns, sīpols
+
+16.  Firmas...........................................11.49€  14.99€  19.49€
+       tomātu mērce, vistas gaļa, bekons, šampinjoni
+
+17.  Ar tunci..........................................9.49€  12.49€  15.99€
+       tomātu mērce, tuncis, sīpoli, mocarella
+
+18.  Rančo............................................11.49€  14.99€  18.99€
+       rančo mērce, vistas gaļa, bekons, čedara siers
+
+19.  Itāļu............................................10.99€  14.99€  18.99€
+       tomātu mērce, mocarella, prosciutto, rukola
+
+20.  Ar trifelēm......................................12.99€  17.49€  21.99€
+       krēmvelda mērce, trifelu eļļa, šampinjoni, mocarella
+     */
 
     public static int getIntInput(Scanner scanner, String prompt) throws InterruptedException {
         int input = -1;
