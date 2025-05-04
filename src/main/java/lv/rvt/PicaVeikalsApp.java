@@ -1,11 +1,4 @@
-/*
- Не работает история заказов
- Названия выделить bold
- Добавить ещё акций
- Сейчас работает раздел пицц по популярности?
- (Та идея о которой я говорил что бы сделать список топ пицц основанный на заказах за всё время,(сделать только топ 5 за всё время))
- Убрать анимацию при запуске программы
- */
+
 
 package lv.rvt;
 
@@ -29,7 +22,6 @@ public class PicaVeikalsApp {
         inicializetPicuSarakstu();
         atsauksmes = Helper.loadReviews();
         problemas = Helper.loadIssues();
-        AsciiDoorAnimation.play();
         int choice;
         do {
             clearConsole();
@@ -271,8 +263,9 @@ public class PicaVeikalsApp {
                     .filter(p -> !p.getSastavdalas().matches("(?i).*(bekons|pepperoni|vistas|desa|\u0161ki\u0146\u0137is|salami|tuncis).*"))
                     .collect(Collectors.toList());
             case 8 -> filtretasPicas = picuSaraksts.stream()
-                    .sorted((p1, p2) -> Integer.compare(getPopularitate(p2), getPopularitate(p1))) // сортировка по популярности
-                    .collect(Collectors.toList());
+            .sorted((p1, p2) -> Integer.compare(getPopularitate(p2), getPopularitate(p1)))
+            .limit(5)
+            .collect(Collectors.toList());
                 
             case 9 -> {
                 Set<String> uniqueIngredients = new TreeSet<>();
@@ -706,19 +699,20 @@ private static int getPopularitate(Pica p) {
     private static void showUserOrders(String username) {
         List<Order> orders = Helper.loadOrders();
         boolean hasOrders = false;
-
+    
         System.out.println("=== Jūsu pasūtījumu vēsture ===");
         for (Order order : orders) {
-            if (order.getUsername().equals(username)) {
+            if (order.getUsername() != null && order.getUsername().equals(username)) {
                 System.out.println("\n" + order);
                 hasOrders = true;
             }
         }
-
+    
         if (!hasOrders) {
             System.out.println("Jums nav neviena pasūtījuma.");
         }
     }
+    
     public static void clearConsole() {
         System.out.print("\033c");
         System.out.flush();

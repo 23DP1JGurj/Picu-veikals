@@ -57,5 +57,14 @@
     "totalPrice": 72.45,
     "deliveryMethod": "Savākšana",
     "orderTime": "2025-05-04 12:58:26"
+  },
+  {
+    "username": "anna",
+    "items": [
+      "5x Havaju (40 cm) - 87.45€"
+    ],
+    "totalPrice": 89.94999999999999,
+    "deliveryMethod": "Piegāde",
+    "orderTime": "2025-05-04 18:06:31"
   }
 ]
