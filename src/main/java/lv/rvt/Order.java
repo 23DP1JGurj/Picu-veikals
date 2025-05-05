@@ -1,5 +1,6 @@
 package lv.rvt;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class Order {
@@ -8,6 +9,8 @@ public class Order {
     private double totalPrice;             
     private String deliveryMethod;         
     private LocalDateTime orderTime;       
+
+    private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     public Order(String username, List<String> items, double totalPrice, String deliveryMethod) {
         this.username = username;
@@ -57,13 +60,22 @@ public class Order {
     public void setOrderTime(LocalDateTime orderTime) {
         this.orderTime = orderTime;
     }
-    @Override
     public String toString() {
         String itemsList = String.join(", ", items);
-        return "Pasūtījums no lietotāja: " + username + "\n" +
-           "Pasūtītās picas: " + itemsList + "\n" +
-           "Kopējā cena: " + totalPrice + "€\n" +
-           "Piegādes metode: " + deliveryMethod + "\n" +
-           "Pasūtījuma laiks: " + orderTime;
+        String formattedTotal = String.format("%.2f€", totalPrice);
+        String formattedTime = orderTime.format(TIME_FORMATTER);
+
+        return String.format(
+            "Pasūtījums no lietotāja: %s%n" +
+            "Pasūtītās picas: %s%n" +
+            "Kopējā cena: %s%n" +
+            "Piegādes metode: %s%n" +
+            "Pasūtījuma laiks: %s",
+            username != null ? username : "Viesis",
+            itemsList,
+            formattedTotal,
+            deliveryMethod,
+            formattedTime
+        );
     }
 }

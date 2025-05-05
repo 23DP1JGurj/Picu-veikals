@@ -7,6 +7,7 @@ import java.time.format.DateTimeFormatter;
 import lv.rvt.tools.EmailService;
 import lv.rvt.tools.Helper;
 import lv.rvt.tools.InputHelper;
+import static lv.rvt.ConsoleColors.*;
 
 public class PicaVeikalsApp {
     private static final EmailService emailService = new EmailService();
@@ -23,45 +24,64 @@ public class PicaVeikalsApp {
         int choice;
         do {
             clearConsole();
-            System.out.println("||                                                                       ⢰⣶⣾⣿⣿⣿⣿⣿⣷⣦⡀                ||");
-            System.out.println("||                                                                       ⣾⣿ ⠈⠙⢿⣿⣿⣿⣿⣿⣦               ||");
-            System.out.println("||                                                                   ⡀⣠⣿⣿⣿⠆⠰⠶⠀⠘⢿⣿⣿⣿⣿⣿⣆              ||");
-            System.out.println("||    ____  _                        _ _         _                 ⢀⣼⣿⣿⣿⠏⠀⢀⣠⣤⣤⣀⠙⣿⣿⣿⣿⣿⣷⡀             ||");
-            System.out.println("||   |  _ \\(_) ___ _   _  __   _____(_) | ____ _| |___            ⢠⠋⢈⣉⠉⣡⣤⢰⣿⣿⣿⣿⣿⣷⡈⢿⣿⣿⣿⣿⣷⡀            ||");
-            System.out.println("||   | |_) | |/ __| | | | \\ \\ / / _ \\ | |/ / _` | / __|          ⡴⢡⣾⣿⣿⣷⠋ ⣿⣿⣿⣿⣿⣿⣿⠃⠀⡻⣿⣿⣿⣿⡇            ||");
-            System.out.println("||   |  __/| | (__| |_| |  \\ V /  __/ |   < (_| | \\__ \\       ⢀⠜⠁⠸⣿⣿⣿⠟⠀⠀⠘⠿⣿⣿⣿⡿⠋⠰⠖⠱⣽⠟⠋⠉⡇             ||");
-            System.out.println("||   |_|   |_|\\___|\\__,_|   \\_/ \\___|_|_|\\_\\__,_|_|___/      ⡰⠉⠖⣀⠀⠀⢁⣀⠀⣴⣶⣦⠀⢴⡆⠀⠀⢀⣀⣀⣉⡽⠷⠶⠋⠀             ||");
-            System.out.println("||                                                          ⡰⢡⣾⣿⣿⣿⡄⠛⠋⠘⣿⣿⡿⠀⠀⣐⣲⣤⣯⠞⠉⠁                  ||");
-            System.out.println("||                                                       ⢀⠔⠁⣿⣿⣿⣿⣿⡟⠀   ⣄⣀⡞⠉⠉⠉⠉⠁                      ||");
-            System.out.println("||                                                       ⡜⠀⠀⠻⣿⣿⠿⣻⣥  ⢠⡟⠉⠉⠀                           ||");
-            System.out.println("||                                                      ⠓⡤⠖⠺⢶⡾⠃⠀ ⠈⠙⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀                  ||");
-            System.out.println("||==================================================================================================||");            
-            System.out.println("||==================================================================================================||");
-            System.out.println("||                                                                                                  ||");
+            System.out.println(GREEN + "||                                                              " + LIGHT_BROWN + "         ⢰⣶⣾⣿⣿⣿⣿⣿⣷⣦⡀             " + GREEN + "   ||" + RESET);
+            System.out.println(GREEN + "||                                                         " + YELLOW + "             ⣾⠏  " + LIGHT_BROWN + "⠈⠙⢿⣿⣿⣿⣿⣿⣦             " + GREEN + "  ||" + RESET);
+            System.out.println(GREEN + "||                                                         " + YELLOW + "          ⡀⣠⠏" + RED+ "⠰⠶⠀   " + LIGHT_BROWN + "⠘⢿⣿⣿⣿⣿⣿⣆           " + GREEN + "   ||" + RESET);
+            System.out.println(GREEN + "||  " + ORANGE + "  ____  _                        _ _         _ " + YELLOW + "                ⢀⣼⠏⠀   " + RED+ "⢀⣠⣤⣤⣀" + LIGHT_BROWN + "⠙⣿⣿⣿⣿⣿⣷⡀           " + GREEN + "  ||" + RESET);
+            System.out.println(GREEN + "|| " + ORANGE + "  |  _ \\(_) ___ _   _  __   _____(_) | ____ _| |___        " + YELLOW + "    ⢠⠋" + RED+ "⢈⣉⠉" + RED+ "  ⢰⣿⣿⣿⣿⣿⣷⡈ " + LIGHT_BROWN + "⢿⣿⣿⣿⣿⣷⡀           " + GREEN + "||" + RESET);
+            System.out.println(GREEN + "|| " + ORANGE + "  | |_) | |/ __| | | | \\ \\ / / _ \\ | |/ / _` | / __|     " + YELLOW + "     ⡴" + RED+ "⢡⣾⣿⣿⣷⠋ ⣿⣿⣿⣿⣿⣿⣿⠃" + LIGHT_BROWN + "⠀⡻⣿⣿⣿⣿⡇          " + GREEN + "  ||" + RESET);
+            System.out.println(GREEN + "||  " + ORANGE + " |  __/| | (__| |_| |  \\ V /  __/ |   < (_| | \\__ \\      " + YELLOW + "  ⢀⠜⠁" + RED+ "⠸⣿⣿⣿⠟⠀⠀⠘⠿⣿⣿⣿⡿⠋⠰⠖" + LIGHT_BROWN + "⠱⣽⠟⠋⠉⡇          " + GREEN + "  ||" + RESET);
+            System.out.println(GREEN + "||  " + ORANGE + " |_|   |_|\\___|\\__,_|   \\_/ \\___|_|_|\\_\\__,_|_|___/   " + YELLOW + "    ⡰⠉⠖⣀⠀" + RED+ "⠀⢁⣀⠀⣴⣶⣦⠀⢴⡆⠀" + LIGHT_BROWN + "   ⣀⣉⡽⠷⠶⠋⠀         " + GREEN + "   ||" + RESET);
+            System.out.println(GREEN + "||                                                  " + YELLOW + "        ⡰" + RED+ "⢡⣾⣿⣿⣿⡄⠛⠋⠘⣿⣿⡿⠀" + YELLOW + "⠀⣐⣲⣤⣯⠞⠉⠁           " + GREEN + "       ||" + RESET);
+            System.out.println(GREEN + "||                                                " + YELLOW + "       ⢀⠔⠁" + RED+ "⣿⣿⣿⣿⣿⡟⠀ " + YELLOW + "  ⣄⣀⡞⠉⠉⠉⠉⠁                 " + GREEN + "     ||" + RESET);
+            System.out.println(GREEN + "||                                            " + YELLOW + "           ⡜⠀⠀" + RED+ "⠻⣿⣿⠿⣻ " + YELLOW + " ⢠⡟⠉⠉⠀                        " + GREEN + "    ||" + RESET);
+            System.out.println(GREEN + "||                                                  " + YELLOW + "    ⠓⡤⠖⠺⢶⡾⠃⠉⠉⠈⠙⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀             " + GREEN + "     ||" + RESET);
+            System.out.println(GREEN + "||==================================================================================================||" + RESET);            
+            System.out.println(GREEN + "||==================================================================================================||" + RESET);
+            System.out.println(GREEN + "||                                                                                                  ||" + RESET);
             if (loggedInUser != null) {
-                System.out.printf ("||    Sveicināts, %-89s||\n", loggedInUser.getUsername() + "!");
+                final int INNER_WIDTH = 98;
+        
+                String greet = "Sveicināts, " + loggedInUser.getUsername() + "!";
+                int leftIndent = 3;  
+                int paddingRight = INNER_WIDTH - leftIndent - greet.length();
+                if (paddingRight < 0) paddingRight = 0;
+        
+                String line =
+                    GREEN + "||" +
+                    " ".repeat(leftIndent) +
+                    greet +
+                    " ".repeat(paddingRight) +
+                    GREEN + "||";
+        
+                System.out.println(line);
+            } else {
+                System.out.println(GREEN + "||                                                                                      " + GREEN + "            ||" + RESET);
             }
-            System.out.println("||                                                                                                  ||");
-            System.out.println("||   1 - Picu saraksts                                                                              ||");
-            System.out.println("||   2 - Pasūtīt picu                                                                               ||");
-            System.out.println("||   3 - Akcijas                                                                                    ||");
+            System.out.println(GREEN + "|| " + CYAN + "  1 - Picu saraksts                                                   " + GREEN + "                           ||" + RESET);
+            System.out.println(GREEN + "|| " + CYAN + "  2 - Pasūtīt picu                                                                     " + GREEN + "          ||" + RESET);
+            System.out.println(GREEN + "|| " + CYAN + "  3 - Akcijas                                                                            " + GREEN + "        ||" + RESET);
             
             if (loggedInUser == null) {
-                System.out.println("||   4 - Ielogoties profilā                                                                         ||");
-                System.out.println("||   5 - Sazināties ar mums                                                                         ||");
-                System.out.println("||   0 - Iziet                                                                                      ||");
+                System.out.println(GREEN + "|| " + CYAN + "  4 - Ielogoties profilā                                                              " + GREEN + "           ||" + RESET);
+                System.out.println(GREEN + "|| " + CYAN + "  5 - Sazināties ar mums                                                              " + GREEN + "           ||" + RESET);
+                System.out.println(GREEN + "|| " + CYAN + "  0 - Iziet                                                                           " + GREEN + "           ||" + RESET);
             } else {
-                System.out.println("||   4 - Iziet no profila                                                                           ||");
-                System.out.println("||   5 - Sazināties ar mums                                                                         ||");
-                System.out.println("||   6 - Mana pasūtījumu vēsture                                                                    ||");
-                System.out.println("||   0 - Iziet                                                                                      ||");
+                System.out.println(GREEN + "|| " + CYAN + "  4 - Iziet no profila                                                                " + GREEN + "           ||" + RESET);
+                System.out.println(GREEN + "|| " + CYAN + "  5 - Sazināties ar mums                                                              " + GREEN + "           ||" + RESET);
+                if (loggedInUser != null && loggedInUser.isAdmin()) {
+                    System.out.println(GREEN + "|| " + CYAN + "  6 - Lietotāju pasūtījumu vēsture                                                         " + GREEN + "      ||" + RESET);
+                } else {
+                    System.out.println(GREEN + "|| " + CYAN + "  6 - Mana pasūtījumu vēsture                                                         " + GREEN + "           ||" + RESET);
+                }
+                System.out.println(GREEN + "|| " + CYAN + "  0 - Iziet                                                                          " + GREEN + "            ||" + RESET);
             }
-            System.out.println("||                                                                                                  ||");
+            System.out.println(GREEN + "||                                                                                                  ||" + RESET);
             int maxChoice = (loggedInUser != null) ? 6 : 5;
 
             choice = InputHelper.getIntInput(
                 scanner,
-                "\nIevadiet izvēles numuru: ",
+                CYAN + "\nIevadiet izvēles numuru: " + RESET,
                 0,
                 maxChoice
             );
@@ -72,12 +92,12 @@ public class PicaVeikalsApp {
                 case 2 -> pasutitPicu(scanner);
             
                 case 3 -> {
-                    System.out.println("\n=== Akcijas ===");
+                    System.out.println(CYAN + "\n=== Akcijas ===");
                     System.out.println("1 - Pica nr.1 (20 cm) un nr.2 (20 cm) kopā ar 20% atlaidi");
                     System.out.println("2 - Pica nr.4 (30 cm) ar 40% atlaidi");
                     System.out.println("3 - Ja pasūtāt vairāk nekā 5 picas kopā, piegāde ir bez maksas");
                     System.out.println("4 - Ja pasūtāt 2 vai vairāk vienādas 40 cm picas, saņemat 25% atlaidi uz šīm picām");
-                    System.out.println("\nNospiediet Enter, lai turpinātu...");
+                    System.out.println("\nNospiediet Enter, lai turpinātu..." + RESET);
                     scanner.nextLine();
                 }
             
@@ -86,9 +106,9 @@ public class PicaVeikalsApp {
                         loginOrRegister(scanner);
                     } else {
                         loggedInUser = null;
-                        System.out.println("Jūs esat izrakstījies no profila.");
+                        System.out.println(CYAN + "Jūs esat izrakstījies no profila.");
                     }
-                    System.out.println("\nNospiediet Enter, lai turpinātu...");
+                    System.out.println("\nNospiediet Enter, lai turpinātu..." + RESET);
                     scanner.nextLine();
                 }
             
@@ -102,72 +122,73 @@ public class PicaVeikalsApp {
                             showUserOrders(loggedInUser.getUsername());
                         }
                     }
-                    System.out.println("\nNospiediet Enter, lai turpinātu...");
+                    System.out.println(CYAN + "\nNospiediet Enter, lai turpinātu..." + RESET);
                     scanner.nextLine();
                 }
             
-                case 0 -> System.out.println("Paldies, ka izmantojāt Pica veikalu!");
+                case 0 -> System.out.println(CYAN + "Paldies, ka izmantojāt Pica veikalu!");
             
-                default -> System.out.println("Nepareiza ievade, mēģiniet vēlreiz.");
+                default -> System.out.println("Nepareiza ievade, mēģiniet vēlreiz." + RESET);
             }
+
         } while (choice != 0);
     }
 
     private static void loginOrRegister(Scanner scanner) {
         while (true) {
             clearConsole();
-            System.out.println("Lietotāja profils");
-            System.out.println("1 - Ienākt lietotāja profilā");
+            System.out.println(GREEN + "Lietotāja profils" + RESET);
+            System.out.println(CYAN + "1 - Ienākt lietotāja profilā");
             System.out.println("2 - Ienākt administratora profilā");
             System.out.println("3 - Izveidot jaunu profilu");
-            System.out.println("0 - Atgriezties");
+            System.out.println("0 - Atgriezties" + RESET);
             int choice = InputHelper.getIntInput(
             scanner, 
-            "\nIevadiet izvēles numuru: ", 
+            CYAN + "\nIevadiet izvēles numuru: " + RESET, 
             0, 
             3
         );
 
             switch (choice) {
                 case 1, 2 -> {
-                    System.out.print("Ievadiet lietotājvārdu: ");
+                    System.out.print(CYAN + "Ievadiet lietotājvārdu: " + RESET);
                     String username = scanner.nextLine();
-                    System.out.print("Ievadiet paroli: ");
+                    System.out.print(CYAN + "Ievadiet paroli: " + RESET);
                     String password = scanner.nextLine();
 
                     Person user = Helper.authenticate(username, password);
                     if (user != null) {
                         if ((choice == 1 && !user.isAdmin()) || (choice == 2 && user.isAdmin())) {
                             loggedInUser = user;
-                            System.out.println("Laipni lūdzam, " + username + (user.isAdmin() ? " (administrators)!" : "!"));
+                            System.out.println(CYAN + "Laipni lūdzam, " + username + (user.isAdmin() ? " (administrators)!" : "!"));
                             return;
                         } else {
-                            System.out.println("Jums nav piekļuves šim profilam.");
+                            System.out.println(CYAN + "Jums nav piekļuves šim profilam.");
                         }
                     } else {
-                        System.out.println("Nepareizs lietotājvārds vai parole.");
+                        System.out.println(CYAN + "Nepareizs lietotājvārds vai parole." + RESET);
                     }
                 }
                 case 3 -> {
-                    System.out.print("Ievadiet jauno lietotājvārdu: ");
+                    System.out.print(CYAN + "Ievadiet jauno lietotājvārdu: " + RESET);
                     String newUsername = scanner.nextLine();
-                    System.out.print("Ievadiet jauno paroli: ");
+                    System.out.print(CYAN + "Ievadiet jauno paroli: " + RESET);
                     String newPassword = scanner.nextLine();
-                    System.out.print("Ievadiet savu e-pastu (nav obligāti): ");
+                    System.out.print(CYAN + "Ievadiet savu e-pastu (nav obligāti): " + RESET);
                     String email = scanner.nextLine();
 
                     boolean success = Helper.registerUser(newUsername, newPassword, email, false);
                     if (success) {
-                        System.out.println("Profils veiksmīgi izveidots!");
+                        System.out.println(CYAN + "Profils veiksmīgi izveidots!");
                     } else {
-                        System.out.println("Šāds lietotājvārds jau pastāv!");
+                        System.out.println("Šāds lietotājvārds jau pastāv!" + RESET);
                     }
                 }
                 case 0 -> { return; }
-                default -> System.out.println("Nederīgs ievads, mēģiniet vēlreiz.");
+                default -> System.out.println(CYAN + "Nederīgs ievads, mēģiniet vēlreiz." + RESET);
             }
 
-            System.out.println("\nNospiediet Enter, lai turpinātu...");
+            System.out.println(CYAN + "\nNospiediet Enter, lai turpinātu..." + RESET);
             scanner.nextLine();
         }
     }
@@ -182,37 +203,62 @@ public class PicaVeikalsApp {
     do {
         clearConsole();
         if (aktivaisIzmers != null) {
-            System.out.println("===================== PICU SARAKSTS =================");
-            System.out.printf("| %-40s | %-6s |\n", "Nosaukums", aktivaisIzmers);
-            System.out.println("=====================================================");
+            System.out.println(GREEN + "===================== PICU SARAKSTS ===================");
+            System.out.printf("| %-40s | %-7s  |\n", "Nosaukums", aktivaisIzmers);
+            System.out.println(GREEN + "=======================================================");
         } else {
-            System.out.println("============================= PICU SARAKSTS ===========================");
-            System.out.printf("| %-40s | %-6s | %-6s | %-6s |\n", "Nosaukums", "20cm", "30cm", "40cm");
-            System.out.println("=======================================================================");
+            System.out.println(GREEN + "============================= PICU SARAKSTS ==============================");
+            System.out.printf("| %-40s | %-7s | %-7s |  %-6s |\n", "Nosaukums", "20cm", "30cm", "40cm");
+            System.out.println(GREEN + "==========================================================================");
         }
         
         for (Pica p : filtretasPicas) {
             String sastav = p.getSastavdalas();
             if (aktivaisIzmers != null) {
-                String cena = String.format("%.2f€", p.getCena(aktivaisIzmers));
-                System.out.printf("| #%2d %-36s | %-6s |\n", p.getNr(),  p.getNosaukums(), cena);
-                if (raditSastavdalas && sastav != null && !sastav.isBlank()) {
-                    System.out.println("  " + sastav);
-                }
+                String cena = ORANGE + String.format("%7.2f€", p.getCena(aktivaisIzmers)) + RESET;
+                System.out.printf(
+                    GREEN + "| #%2d " + RESET
+                    + RED + "%-36s" + RESET
+                    + GREEN + " | " + RESET
+                    + "%s"       
+                    + GREEN + " |" + RESET + "%n",
+                    p.getNr(),
+                    p.getNosaukums(),
+                    cena
+                );
+            if (raditSastavdalas && sastav != null && !sastav.isBlank()) {
+                System.out.println(YELLOW + "  " + sastav + RESET);
+            }
             } else {
-                String cena20 = String.format("%.2f€", p.getCena20cm());
-                String cena30 = String.format("%.2f€", p.getCena30cm());
-                String cena40 = String.format("%.2f€", p.getCena40cm());
-                System.out.printf("| #%2d %-36s | %-6s | %-6s | %-6s |\n", p.getNr(), p.getNosaukums(), cena20, cena30, cena40);
+                String cena20 = ORANGE + String.format("%6.2f€", p.getCena20cm()) + RESET;
+                String cena30 = ORANGE + String.format("%6.2f€", p.getCena30cm()) + RESET;
+                String cena40 = ORANGE + String.format("%6.2f€", p.getCena40cm()) + RESET;
+
+                System.out.printf(
+                    GREEN + "| #%2d " + RESET
+                    + RED + "%-36s" + RESET
+                    + GREEN + " | " + RESET
+                    + "%s"         
+                    + GREEN + " | " + RESET
+                    + "%s"         
+                    + GREEN + " | " + RESET
+                    + "%s"         
+                    + GREEN + " |" + RESET + "%n",
+                    p.getNr(),
+                    p.getNosaukums(),
+                    cena20,
+                    cena30,
+                    cena40
+                );
                 if (raditSastavdalas && sastav != null && !sastav.isBlank()) {
-                    System.out.println("  " + sastav);
+                    System.out.println(YELLOW + "  " + sastav + RESET);
                 }
             }
             
         }
         
 
-        System.out.println("\n=== FILTRĒŠANAS/KĀRTOŠANAS IESPĒJAS ===");
+        System.out.println(CYAN + "\n=== FILTRĒŠANAS/KĀRTOŠANAS IESPĒJAS ===");
         System.out.println("1 - Picas ar 20 cm");
         System.out.println("2 - Picas ar 30 cm");
         System.out.println("3 - Picas ar 40 cm");
@@ -227,9 +273,9 @@ public class PicaVeikalsApp {
         System.out.println("12 - Pasūtīt picu");
         System.out.println("13 - Picas bez sastāvdaļām");
         System.out.println("14 - Atiestatīt sarakstu");
-        System.out.println("0 - Atgriezties");
+        System.out.println("0 - Atgriezties" + RESET);
 
-        choice = InputHelper.getIntInput(scanner, "Ievadiet izvēles numuru: ", 0, 14);
+        choice = InputHelper.getIntInput(scanner, CYAN + "Ievadiet izvēles numuru: " + RESET, 0, 14);
 
         switch (choice) {
             case 1 -> {
@@ -284,11 +330,11 @@ public class PicaVeikalsApp {
                 }
                 List<String> ingredientList = new ArrayList<>(uniqueIngredients);
                 clearConsole();
-                System.out.println("\n=== INGREDIĒNTI ===");
+                System.out.println(CYAN + "\n=== INGREDIĒNTI ===");
                 for (int i = 0; i < ingredientList.size(); i++) {
                     System.out.printf("%2d - %s%n", i + 1, ingredientList.get(i));
                 }
-                int ingChoice = InputHelper.getIntInput(scanner, "\nIevadiet ingredienta numuru, lai filtrētu picas: ", 1, ingredientList.size());
+                int ingChoice = InputHelper.getIntInput(scanner, "\nIevadiet ingredienta numuru, lai filtrētu picas: " + RESET, 1, ingredientList.size());
                 String selectedIngredient = ingredientList.get(ingChoice - 1).toLowerCase();
                 filtretasPicas = picuSaraksts.stream()
                         .filter(p -> p.getSastavdalas().toLowerCase().contains(selectedIngredient))
@@ -363,19 +409,23 @@ private static void pasutitPicu(Scanner scanner) {
 
     while (continueOrdering) {
         clearConsole();
-        System.out.println("=== Pieejamās picas ===");
-        System.out.printf("| %-40s | %-6s | %-6s | %-6s |\n", "Nosaukums", "20cm", "30cm", "40cm");
+        System.out.println(GREEN + "========================== Pieejamās picas ===============================");
+        System.out.printf(GREEN + "| %-40s | %-7s | %-7s | %-7s |\n" + GREEN , "Nosaukums", "20cm", "30cm", "40cm");
+        System.out.println(GREEN + "==========================================================================" + RESET);
+
         for (Pica p : picuSaraksts) {
             String sastav = p.getSastavdalas();
-            System.out.printf("| #%2d %-36s | %.2f€ | %.2f€ | %.2f€ |\n", p.getNr(), p.getNosaukums(), p.getCena20cm(), p.getCena30cm(), p.getCena40cm());
-            System.out.println("  " + sastav);
+            System.out.printf(GREEN + "| " + GREEN + "#%2d " + RED + "%-36s" + RESET + GREEN + " | " + ORANGE + "%6.2f€" + RESET + GREEN + " | " + ORANGE + "%6.2f€" + RESET + GREEN + " | " + ORANGE + "%6.2f€" + RESET + GREEN + " |\n" + RESET,
+                              p.getNr(), p.getNosaukums(), p.getCena20cm(), p.getCena30cm(), p.getCena40cm());
+            System.out.println("  " + YELLOW + sastav + RESET);
         }
 
         Pica selectedPizza = null;
         while (selectedPizza == null) {
-            System.out.print("Izvēlieties picu pēc numura (vai rakstiet 'exit' lai izietu): ");
+            System.out.print(CYAN + "\nIzvēlieties picu pēc numura (vai rakstiet 'exit' lai izietu): " + RESET);
             String input = scanner.nextLine().trim().toLowerCase();
             if (input.equals("exit") || input.equals("izeja")) return;
+    
             try {
                 int pizzaChoice = Integer.parseInt(input);
                 selectedPizza = picuSaraksts.stream()
@@ -383,49 +433,49 @@ private static void pasutitPicu(Scanner scanner) {
                         .findFirst()
                         .orElse(null);
                 if (selectedPizza == null) {
-                    System.out.println("Nepareizs picu numurs.");
+                    System.out.println(CYAN + "Nepareizs picu numurs." + RESET);
                 }
             } catch (NumberFormatException e) {
-                System.out.println("Lūdzu, ievadiet derīgu skaitli.");
+                System.out.println(CYAN + "Lūdzu, ievadiet derīgu skaitli." + RESET);
+        }
+    }
+
+    String pizzaSize = "";
+    while (pizzaSize.isEmpty()) {
+        System.out.print(CYAN + "Izvēlieties izmēru (20, 30, 40 cm): " + RESET);
+        String inputSize = scanner.nextLine().trim();
+        if (inputSize.matches("20")) pizzaSize = "20 cm";
+        else if (inputSize.matches("30")) pizzaSize = "30 cm";
+        else if (inputSize.matches("40")) pizzaSize = "40 cm";
+        else System.out.println(CYAN + "Nederīgs izmērs. Pieejamie izmēri: 20, 30 vai 40." + RESET);
+    }
+
+    double pizzaPrice = selectedPizza.getCena(pizzaSize);
+
+    int quantity = 0;
+    while (quantity <= 0) {
+        System.out.print(CYAN + "Ievadiet daudzumu (1-100): " + RESET);
+        String input = scanner.nextLine().trim();
+        if (input.equalsIgnoreCase("exit") || input.equalsIgnoreCase("izeja")) return;
+        try {
+            quantity = Integer.parseInt(input);
+            if (quantity < 1 || quantity > 100) {
+                System.out.println(CYAN + "Skaitlis ārpus robežām (1-100)." + RESET);
+                quantity = 0;
             }
+        } catch (NumberFormatException e) {
+            System.out.println(CYAN + "Nederīgs skaitlis." + RESET);
         }
-
-        String pizzaSize = "";
-        while (pizzaSize.isEmpty()) {
-            System.out.print("Izvēlieties izmēru (20, 30, 40 cm): ");
-            String inputSize = scanner.nextLine().trim();
-            if (inputSize.matches("20")) pizzaSize = "20 cm";
-            else if (inputSize.matches("30")) pizzaSize = "30 cm";
-            else if (inputSize.matches("40")) pizzaSize = "40 cm";
-            else System.out.println("Nederīgs izmērs. Pieejamie izmēri: 20, 30 vai 40.");
-        }
-
-        double pizzaPrice = selectedPizza.getCena(pizzaSize);
-
-        int quantity = 0;
-        while (quantity <= 0) {
-            System.out.print("Ievadiet daudzumu (1-100): ");
-            String input = scanner.nextLine().trim();
-            if (input.equalsIgnoreCase("exit") || input.equalsIgnoreCase("izeja")) return;
-            try {
-                quantity = Integer.parseInt(input);
-                if (quantity < 1 || quantity > 100) {
-                    System.out.println("Skaitlis ārpus robežām (1-100).");
-                    quantity = 0;
-                }
-            } catch (NumberFormatException e) {
-                System.out.println("Nederīgs skaitlis.");
-            }
-        }
+    }
 
         double pizzaTotal = pizzaPrice * quantity;
-        orderSummaries.add(String.format("%dx %s (%s) - %.2f€", quantity, selectedPizza.getNosaukums(), pizzaSize, pizzaTotal));
+        orderSummaries.add(String.format(CYAN + "%dx %s (%s) - %.2f€", quantity, selectedPizza.getNosaukums(), pizzaSize, pizzaTotal));
         totalPrice += pizzaTotal;
         pizzaCountMap.put(selectedPizza.getNr(), pizzaCountMap.getOrDefault(selectedPizza.getNr(), 0) + quantity);
         pizzaSizeMap.put(selectedPizza.getNr(), pizzaSize);
 
         while (true) {
-            System.out.print("Vai vēlaties pasūtīt vēl kādu picu? (jā/nē): ");
+            System.out.print(CYAN + "Vai vēlaties pasūtīt vēl kādu picu? (jā/nē): " + RESET);
             String continueOrder = scanner.nextLine().trim().toLowerCase();
             if (continueOrder.equals("jā") || continueOrder.equals("ja") || continueOrder.equals("j") || continueOrder.equals("yes") || continueOrder.equals("y")) {
                 break; 
@@ -433,25 +483,25 @@ private static void pasutitPicu(Scanner scanner) {
                 continueOrdering = false; 
                 break;
             } else {
-                System.out.println("Nederīga atbilde. Lūdzu, ievadiet 'jā' vai 'nē'.");
+                System.out.println(CYAN + "Nederīga atbilde. Lūdzu, ievadiet 'jā' vai 'nē'.");
             }
         }
     }
 
-    System.out.print("Ievadiet e-pastu (var izlaist, nospiežot Enter): ");
+    System.out.print(CYAN + "Ievadiet e-pastu (var izlaist, nospiežot Enter): " + RESET);
     String customerEmail = scanner.nextLine().trim();
     boolean sendEmail = false;
     if (!customerEmail.isEmpty()) {
         if (isValidEmail(customerEmail)) {
             sendEmail = true;
         } else {
-            System.out.println("Nederīgs e-pasts. Apstiprinājums netiks nosūtīts.");
+            System.out.println(CYAN + "Nederīgs e-pasts. Apstiprinājums netiks nosūtīts.");
         }
     }
 
     boolean hasPromo = false;
     while (true) {
-        System.out.print("Vai jums ir promokods? (jā/nē): ");
+        System.out.print(CYAN + "Vai jums ir promokods? (jā/nē): " + RESET);
         String promoInput = scanner.nextLine().trim().toLowerCase();
         if (promoInput.matches("jā|ja|y|yes")) {
             hasPromo = true;
@@ -459,25 +509,25 @@ private static void pasutitPicu(Scanner scanner) {
         } else if (promoInput.matches("nē|ne|n|no")) {
             break;
         } else {
-            System.out.println("Lūdzu, atbildiet ar 'jā' vai 'nē'.");
+            System.out.println(CYAN + "Lūdzu, atbildiet ar 'jā' vai 'nē'." + RESET);
         }
     }
 
     double discount = 0.0;
     if (hasPromo) {
-        System.out.print("Ievadiet promokodu: ");
+        System.out.print(CYAN + "Ievadiet promokodu: " + RESET);
         String promoCode = scanner.nextLine().trim().toLowerCase();
         if (promoCode.equals("atlaide10")) {
             discount = 0.10;
-            System.out.println("Promokods derīgs: 10% atlaide piemērota.");
+            System.out.println(CYAN + "Promokods derīgs: 10% atlaide piemērota.");
         } else {
-            System.out.println("Nederīgs promokods.");
+            System.out.println(CYAN + "Nederīgs promokods.");
         }
     }
 
     boolean isDelivery = false;
     while (true) {
-        System.out.print("Izvēlieties piegādes veidu ('piegāde' vai 'pašizvešana'): ");
+        System.out.print(CYAN + "Izvēlieties piegādes veidu ('piegāde' vai 'pašizvešana'): " + RESET);
         String deliveryInput = scanner.nextLine().trim().toLowerCase();
         if (deliveryInput.equals("piegāde")) {
             isDelivery = true;
@@ -485,7 +535,7 @@ private static void pasutitPicu(Scanner scanner) {
         } else if (deliveryInput.equals("pašizvešana")) {
             break;
         } else {
-            System.out.println("Lūdzu, ievadiet tikai 'piegāde' vai 'pašizvešana'.");
+            System.out.println(CYAN + "Lūdzu, ievadiet tikai 'piegāde' vai 'pašizvešana'." + RESET);
         }
     }
 
@@ -544,7 +594,7 @@ private static void pasutitPicu(Scanner scanner) {
     Order order = new Order(loggedInUser != null ? loggedInUser.getUsername() : null, orderSummaries, finalPrice, isDelivery ? "Piegāde" : "Pašizvešana");
     Helper.saveOrder(order);
 
-    System.out.println("\nNospiediet Enter, lai turpinātu...");
+    System.out.println(CYAN + "\nNospiediet Enter, lai turpinātu..." + RESET);
     scanner.nextLine();
     }
     
@@ -558,30 +608,30 @@ private static void pasutitPicu(Scanner scanner) {
     
     private static void handleContactUs(Scanner scanner, Person loggedInUser) {
         int subChoice;
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(CYAN + "yyyy-MM-dd HH:mm:ss" + RESET);
     
         do {
             clearConsole();
-            System.out.println("=== Sazināties ar mums ===");
-            System.out.println("1 - Atstāt atsauksmi");
+            System.out.println(GREEN + "=== Sazināties ar mums ===" + RESET);
+            System.out.println(CYAN + "1 - Atstāt atsauksmi");
             System.out.println("2 - Ziņot par problēmu");
             if (loggedInUser != null && loggedInUser.isAdmin()) {
                 System.out.println("3 - Skatīt visas atsauksmes");
                 System.out.println("4 - Skatīt visas problēmas");
             }
             System.out.println("0 - Atgriezties");
-            System.out.print("Izvēlieties: ");
-            subChoice = InputHelper.getIntInput(scanner, "Ievadiet izvēles numuru: ", 0, 5);
+            System.out.print("Izvēlieties: " + RESET);
+            subChoice = InputHelper.getIntInput(scanner, CYAN + "Ievadiet izvēles numuru: " + RESET, 0, 5);
     
             switch (subChoice) {
                 case 1 -> {
-                    System.out.println("=== Atstāt atsauksmi ===");
-                    System.out.print("Jūsu viedoklis: ");
+                    System.out.println(CYAN + "=== Atstāt atsauksmi ===");
+                    System.out.print("Jūsu viedoklis: " + RESET);
                     String feedback = scanner.nextLine();
                     String timestamp = LocalDateTime.now().format(formatter);
     
                     String userInfo = loggedInUser != null
-                            ? " (Lietotājs: " + loggedInUser.getUsername() +
+                            ? CYAN +" (Lietotājs: " + loggedInUser.getUsername() +
                               (loggedInUser.getEmail() != null && !loggedInUser.getEmail().isEmpty()
                                   ? ", E-pasts: " + loggedInUser.getEmail() : "") + ")"
                             : "";
@@ -591,20 +641,20 @@ private static void pasutitPicu(Scanner scanner) {
                     System.out.println("Paldies par Jūsu atsauksmi!");
                 }
                 case 2 -> {
-                    System.out.println("=== Ziņot par problēmu ===");
-                    System.out.print("Vai ir kāda problēma: ");
+                    System.out.println(CYAN + "=== Ziņot par problēmu ===");
+                    System.out.print("Vai ir kāda problēma: " + RESET);
                     String issue = scanner.nextLine();
                     String timestamp = LocalDateTime.now().format(formatter);
     
                     String userInfo = loggedInUser != null
-                            ? " (Lietotājs: " + loggedInUser.getUsername() +
+                            ? CYAN + " (Lietotājs: " + loggedInUser.getUsername() +
                               (loggedInUser.getEmail() != null && !loggedInUser.getEmail().isEmpty()
                                   ? ", E-pasts: " + loggedInUser.getEmail() : "") + ")"
                             : "";
     
                     problemas.add("[" + timestamp + "] " + issue + userInfo);
                     Helper.saveIssues(problemas); 
-                    System.out.println("Problēma tika reģistrēta. Paldies!");
+                    System.out.println(CYAN + "Problēma tika reģistrēta. Paldies!");
                 }
                 case 3 -> {
                     if (loggedInUser != null && loggedInUser.isAdmin()) {
@@ -617,7 +667,7 @@ private static void pasutitPicu(Scanner scanner) {
                             }
                         }
                     } else {
-                        System.out.println("Nepieciešama administratora piekļuve.");
+                        System.out.println(CYAN + "Nepieciešama administratora piekļuve.");
                     }
                 }
                 case 4 -> {
@@ -631,14 +681,14 @@ private static void pasutitPicu(Scanner scanner) {
                             }
                         }
                     } else {
-                        System.out.println("Nepieciešama administratora piekļuve.");
+                        System.out.println(CYAN + "Nepieciešama administratora piekļuve.");
                     }
                 }
                 case 0 -> { /* Atgriezties */ }
                 default -> System.out.println("Nepareiza izvēle.");
             }
     
-            System.out.println("\nNospiediet Enter, lai turpinātu...");
+            System.out.println("\nNospiediet Enter, lai turpinātu..." + RESET);
             scanner.nextLine();
             return;
         } while (subChoice != 0);
@@ -678,8 +728,8 @@ private static void pasutitPicu(Scanner scanner) {
         while (true) {
             if (!firstAttempt) {
                 clearConsole(); 
-                System.out.println("Nepareiza ievade, mēģiniet vēlreiz.");
-                System.out.println("Nospiediet Enter, lai turpinātu...");
+                System.out.println(CYAN + "Nepareiza ievade, mēģiniet vēlreiz.");
+                System.out.println("Nospiediet Enter, lai turpinātu..." + RESET);
                 scanner.nextLine();
             }
     
@@ -701,9 +751,9 @@ private static void pasutitPicu(Scanner scanner) {
     private static void showAllOrders() {
         List<Order> orders = Helper.loadOrders();
         if (orders.isEmpty()) {
-            System.out.println("Nav neviena pasūtījuma.");
+            System.out.println(CYAN + "Nav neviena pasūtījuma.");
         } else {
-            System.out.println("=== Visi pasūtījumi ===");
+            System.out.println(CYAN + "=== Visi pasūtījumi ===");
             for (Order order : orders) {
                 System.out.println("\n" + order);
             }
@@ -714,7 +764,7 @@ private static void pasutitPicu(Scanner scanner) {
         List<Order> orders = Helper.loadOrders();
         boolean hasOrders = false;
     
-        System.out.println("=== Jūsu pasūtījumu vēsture ===");
+        System.out.println(CYAN + "=== Jūsu pasūtījumu vēsture ===");
         for (Order order : orders) {
             if (order.getUsername() != null && order.getUsername().equals(username)) {
                 System.out.println("\n" + order);
@@ -723,7 +773,7 @@ private static void pasutitPicu(Scanner scanner) {
         }
     
         if (!hasOrders) {
-            System.out.println("Jums nav neviena pasūtījuma.");
+            System.out.println("Jums nav neviena pasūtījuma." + RESET);
         }
     }
     
