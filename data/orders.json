@@ -66,5 +66,16 @@
     "totalPrice": 89.94999999999999,
     "deliveryMethod": "Piegāde",
     "orderTime": "2025-05-04 18:06:31"
+  },
+  {
+    "items": [
+      "3x Margarita (20 cm) - 23.97€",
+      "3x Pepperoni (20 cm) - 28.47€",
+      "5x Gaļas (30 cm) - 74.75€",
+      "5x Četri sieri (40 cm) - 89.95€"
+    ],
+    "totalPrice": 159.95849999999996,
+    "deliveryMethod": "Piegāde",
+    "orderTime": "2025-05-05 06:26:24"
   }
 ]

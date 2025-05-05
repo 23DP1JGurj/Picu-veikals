@@ -74,9 +74,11 @@ public class PicaVeikalsApp {
                 case 2 -> pasutitPicu(scanner);
             
                 case 3 -> {
-                    System.out.println("\nAkcijas");
-                    System.out.println("1 - Pica nr.1 20 cm un nr.2 20 cm kopā par īpašu cenu ");
-                    System.out.println("2 - Pica nr.4 30 cm ar 40% atlaidi");
+                    System.out.println("\n=== Akcijas ===");
+                    System.out.println("1 - Pica nr.1 (20 cm) un nr.2 (20 cm) kopā ar 20% atlaidi");
+                    System.out.println("2 - Pica nr.4 (30 cm) ar 40% atlaidi");
+                    System.out.println("3 - Ja pasūtāt vairāk nekā 5 picas kopā, piegāde ir bez maksas");
+                    System.out.println("4 - Ja pasūtāt 2 vai vairāk vienādas 40 cm picas, saņemat 25% atlaidi uz šīm picām");
                     System.out.println("\nNospiediet Enter, lai turpinātu...");
                     scanner.nextLine();
                 }
@@ -177,6 +179,8 @@ public class PicaVeikalsApp {
     boolean isSorted = false;
     Comparator<Pica> currentComparator = null;
     String aktivaisIzmers = null;
+    boolean raditSastavdalas = true;
+
     do {
         clearConsole();
         if (aktivaisIzmers != null) {
@@ -194,15 +198,21 @@ public class PicaVeikalsApp {
             if (aktivaisIzmers != null) {
                 String cena = String.format("%.2f€", p.getCena(aktivaisIzmers));
                 System.out.printf("| #%2d %-36s | %-6s |\n", p.getNr(),  p.getNosaukums(), cena);
-                System.out.println("  " + sastav);
+                if (raditSastavdalas && sastav != null && !sastav.isBlank()) {
+                    System.out.println("  " + sastav);
+                }
             } else {
                 String cena20 = String.format("%.2f€", p.getCena20cm());
                 String cena30 = String.format("%.2f€", p.getCena30cm());
                 String cena40 = String.format("%.2f€", p.getCena40cm());
                 System.out.printf("| #%2d %-36s | %-6s | %-6s | %-6s |\n", p.getNr(), p.getNosaukums(), cena20, cena30, cena40);
-                System.out.println("  " + sastav);
+                if (raditSastavdalas && sastav != null && !sastav.isBlank()) {
+                    System.out.println("  " + sastav);
+                }
             }
+            
         }
+        
 
         System.out.println("\n=== FILTRĒŠANAS/KĀRTOŠANAS IESPĒJAS ===");
         System.out.println("1 - Picas ar 20 cm");
@@ -217,10 +227,11 @@ public class PicaVeikalsApp {
         System.out.println("10 - Nosaukums no A līdz Z");
         System.out.println("11 - Nosaukums no Z līdz A");
         System.out.println("12 - Pasūtīt picu");
-        System.out.println("13 - Atiestatīt sarakstu");
+        System.out.println("13 - Picas bez sastāvdaļām");
+        System.out.println("14 - Atiestatīt sarakstu");
         System.out.println("0 - Atgriezties");
 
-        choice = InputHelper.getIntInput(scanner, "Ievadiet izvēles numuru: ", 0, 13);
+        choice = InputHelper.getIntInput(scanner, "Ievadiet izvēles numuru: ", 0, 14);
 
         switch (choice) {
             case 1 -> {
@@ -294,12 +305,15 @@ public class PicaVeikalsApp {
                 isSorted = true;
             }
             case 12 -> pasutitPicu(scanner);
-            case 13 -> {
+            case 13 -> raditSastavdalas = false;
+            case 14 -> {
                 filtretasPicas = new ArrayList<>(picuSaraksts);
                 currentComparator = null;
                 aktivaisIzmers = null;
                 isSorted = false;
+                raditSastavdalas = true;
             }
+            
             case 0 -> {
                 return;
             }
@@ -341,196 +355,147 @@ private static int getPopularitate(Pica p) {
 }
 
 
-    private static void pasutitPicu(Scanner scanner) {
-        List<String> orderSummaries = new ArrayList<>();
-        double totalPrice = 0.0;
-        Map<Integer, Integer> pizzaCountMap = new HashMap<>();
+private static void pasutitPicu(Scanner scanner) {
+    List<String> orderSummaries = new ArrayList<>();
+    double totalPrice = 0.0;
+    Map<Integer, Integer> pizzaCountMap = new HashMap<>();
+    Map<Integer, String> pizzaSizeMap = new HashMap<>();
 
-        while (true) {
-            clearConsole();
-            System.out.println("=== Pieejamās picas ===");
-            System.out.println("============================= PIEEJAMĀS PICAS =============================");
-            System.out.printf("| %-40s | %-6s | %-6s | %-6s |\n", "Nosaukums", "20cm", "30cm", "40cm");
-            System.out.println("===========================================================================");
-            for (Pica p : picuSaraksts) {
-                String sastav = p.getSastavdalas();
-                String cena20 = String.format("%.2f€", p.getCena20cm());
-                String cena30 = String.format("%.2f€", p.getCena30cm());
-                String cena40 = String.format("%.2f€", p.getCena40cm());
-                System.out.printf("| #%2d %-36s | %-6s | %-6s | %-6s |\n", p.getNr(), p.getNosaukums(), cena20, cena30, cena40);
-                System.out.println("  " + sastav);
-            }
-            System.out.println();
-
-            Pica selectedPizza = null;
-            while (selectedPizza == null) {
-                System.out.print("Izvēlieties picu pēc numura (izeja/exit - uz sākumu): ");
-                String input = scanner.nextLine().trim().toLowerCase();
-                if (input.equals("izeja") || input.equals("exit")) return;
-
-                int pizzaChoice;
-                try {
-                    pizzaChoice = Integer.parseInt(input);
-                } catch (NumberFormatException e) {
-                    System.out.println("Nederīgs ievads. Mēģiniet vēlreiz.");
-                    continue;
-                }
-
-                for (Pica p : picuSaraksts) {
-                    if (p.getNr() == pizzaChoice) {
-                        selectedPizza = p;
-                        break;
-                    }
-                }
-
-                if (selectedPizza == null) {
-                    System.out.println("Nepareizs numurs. Mēģiniet vēlreiz.");
-                }
-            }
-
-            String pizzaSize = "";
-            while (pizzaSize.isEmpty()) {
-                System.out.print("Izvēlieties picu izmēru (20 cm, 30 cm, 40 cm): ");
-                String inputSize = scanner.nextLine().trim().toLowerCase().replaceAll("\\s+", "");
-            
-                switch (inputSize) {
-                    case "20":
-                    case "20cm":
-                        pizzaSize = "20 cm";
-                        break;
-                    case "30":
-                    case "30cm":
-                        pizzaSize = "30 cm";
-                        break;
-                    case "40":
-                    case "40cm":
-                        pizzaSize = "40 cm";
-                        break;
-                    default:
-                        System.out.println("Nederīgs ievads. Lūdzu, izvēlieties izmēru no: 20 cm, 30 cm, 40 cm.");
-                }
-            }
-            
-
-            double pizzaPrice = selectedPizza.getCena(pizzaSize);
-
-            int quantity = 0;
-            while (quantity == 0) {
-                System.out.print("Ievadiet daudzumu (izeja/exit - uz sākumu): ");
-                String input = scanner.nextLine().trim().toLowerCase();
-                if (input.equals("izeja") || input.equals("exit")) return;
-
-                try {
-                    int parsed = Integer.parseInt(input);
-                    if (parsed >= 1 && parsed <= 100) {
-                        quantity = parsed;
-                    } else {
-                        System.out.println("Lūdzu ievadiet skaitli no 1 līdz 100.");
-                    }
-                } catch (NumberFormatException e) {
-                    System.out.println("Nederīgs ievads.");
-                }
-            }
-
-            double pizzaTotal = pizzaPrice * quantity;
-            orderSummaries.add(String.format("%dx %s (%s) - %.2f€", quantity, selectedPizza.getNosaukums(), pizzaSize, pizzaTotal));
-            totalPrice += pizzaTotal;
-            pizzaCountMap.put(
-                selectedPizza.getNr(),
-                pizzaCountMap.getOrDefault(selectedPizza.getNr(), 0) + quantity
-            );
-
-            System.out.print("Vai vēlaties pasūtīt vēl vienu picu? (jā/nē): ");
-            String another = scanner.nextLine().trim().toLowerCase();
-            if (!(another.contains("j") || another.contains("y"))) break;
+    while (true) {
+        clearConsole();
+        System.out.println("=== Pieejamās picas ===");
+        System.out.printf("| %-40s | %-6s | %-6s | %-6s |\n", "Nosaukums", "20cm", "30cm", "40cm");
+        for (Pica p : picuSaraksts) {
+            String sastav = p.getSastavdalas();
+            System.out.printf("| #%2d %-36s | %.2f€ | %.2f€ | %.2f€ |\n", p.getNr(), p.getNosaukums(), p.getCena20cm(), p.getCena30cm(), p.getCena40cm());
+            System.out.println("  " + sastav);
         }
 
-        System.out.print("\nIevadiet savu e-pastu (nev nepieciešams, izeja/exit - uz sākumu): ");
-        String customerEmail = scanner.nextLine().trim();
-        if (customerEmail.equals("izeja") || customerEmail.equals("exit")) return;
-
-        System.out.print("Vai jums ir promokods? (jā/nē): ");
-        String hasPromo = scanner.nextLine().trim().toLowerCase();
-        boolean isYes = hasPromo.contains("j") || hasPromo.contains("y");
-        double discount = 0.0;
-
-        if (isYes) {
-            System.out.print("\nIevadiet promokodu (izeja/exit - uz sākumu): ");
-            String promoCode = scanner.nextLine().trim().toLowerCase();
-            if (promoCode.equals("izeja") || promoCode.equals("exit")) return;
-            if (promoCode.equals("atlaide10")) {
-                discount = 0.10;
-                System.out.println("\nTika piemērota 10% atlaide!");
-            } else {
-                System.out.println("\nNederīgs promokods.");
+        Pica selectedPizza = null;
+        while (selectedPizza == null) {
+            System.out.print("Izvēlieties picu pēc numura (izeja/exit): ");
+            String input = scanner.nextLine().trim().toLowerCase();
+            if (input.equals("izeja") || input.equals("exit")) return;
+            try {
+                int pizzaChoice = Integer.parseInt(input);
+                selectedPizza = picuSaraksts.stream().filter(p -> p.getNr() == pizzaChoice).findFirst().orElse(null);
+                if (selectedPizza == null) System.out.println("Nepareizs numurs.");
+            } catch (NumberFormatException e) {
+                System.out.println("Nederīgs ievads.");
             }
         }
 
-        System.out.print("\nVai vēlaties piegādi vai paši izņemsiet? (piegāde/pašizvešana): ");
-        String deliveryChoice = scanner.nextLine().trim().toLowerCase();
-        if (deliveryChoice.equals("izeja") || deliveryChoice.equals("exit")) return;
-
-        boolean isDelivery = deliveryChoice.contains("pieg");
-        double deliveryFee = isDelivery ? 2.50 : 0.0;
-
-        double akcijasAtlaide = 0.0;
-
-        if (pizzaCountMap.containsKey(1) && pizzaCountMap.containsKey(2)) {
-            int comboCount = Math.min(pizzaCountMap.get(1), pizzaCountMap.get(2));
-            for (Pica p : picuSaraksts) {
-                if (p.getNr() == 1 || p.getNr() == 2) {
-                    akcijasAtlaide += p.getCena("20 cm") * 0.20 * comboCount; 
-                }
+        String pizzaSize = "";
+        while (pizzaSize.isEmpty()) {
+            System.out.print("Izvēlieties izmēru (20, 30, 40 cm): ");
+            String inputSize = scanner.nextLine().trim().replaceAll("\\D", "");
+            switch (inputSize) {
+                case "20" -> pizzaSize = "20 cm";
+                case "30" -> pizzaSize = "30 cm";
+                case "40" -> pizzaSize = "40 cm";
+                default -> System.out.println("Nederīgs izmērs.");
             }
         }
 
-        if (pizzaCountMap.containsKey(4)) {
-            int count = pizzaCountMap.get(4);
-            for (Pica p : picuSaraksts) {
-                if (p.getNr() == 4) {
-                    akcijasAtlaide += p.getCena("30 cm") * 0.40 * count;
-                }
+        double pizzaPrice = selectedPizza.getCena(pizzaSize);
+
+        int quantity = 0;
+        while (quantity <= 0) {
+            System.out.print("Ievadiet daudzumu (1-100): ");
+            String input = scanner.nextLine().trim().toLowerCase();
+            if (input.equals("izeja") || input.equals("exit")) return;
+            try {
+                int parsed = Integer.parseInt(input);
+                if (parsed >= 1 && parsed <= 100) quantity = parsed;
+                else System.out.println("Skaitlis ārpus robežām.");
+            } catch (NumberFormatException e) {
+                System.out.println("Nederīgs ievads.");
             }
         }
 
-        double finalPrice = (totalPrice - akcijasAtlaide) * (1 - discount) + deliveryFee;
+        double pizzaTotal = pizzaPrice * quantity;
+        orderSummaries.add(String.format("%dx %s (%s) - %.2f€", quantity, selectedPizza.getNosaukums(), pizzaSize, pizzaTotal));
+        totalPrice += pizzaTotal;
+        pizzaCountMap.put(selectedPizza.getNr(), pizzaCountMap.getOrDefault(selectedPizza.getNr(), 0) + quantity);
+        pizzaSizeMap.put(selectedPizza.getNr(), pizzaSize);
 
-        StringBuilder orderDetails = new StringBuilder("Jūs pasūtījāt:\n");
-        for (String item : orderSummaries) {
-            orderDetails.append(" - ").append(item).append("\n");
-        }
+        System.out.print("Pasūtīt vēl? (jā/nē): ");
+        if (!scanner.nextLine().trim().toLowerCase().matches("j.*|y.*")) break;
+    }
 
-        orderDetails.append(String.format("Kopā: %.2f€\n", totalPrice));
-        if (akcijasAtlaide > 0) {
-            orderDetails.append(String.format("Akcijas atlaide: -%.2f€\n", akcijasAtlaide));
-        }
-        if (discount > 0) {
-            orderDetails.append(String.format("Promokoda atlaide: -%.2f€\n", (totalPrice - akcijasAtlaide) * discount));
-        }
-        if (isDelivery) {
-            orderDetails.append(String.format("Piegāde: %.2f€\n", deliveryFee));
-        }
+    System.out.print("Ievadiet e-pastu (var izlaist): ");
+    String customerEmail = scanner.nextLine().trim();
+    if (customerEmail.equals("izeja") || customerEmail.equals("exit")) return;
 
-        orderDetails.append(String.format("Gala cena: %.2f€", finalPrice));
-
-        boolean emailValid = isValidEmail(customerEmail);
-        if (emailValid) {
-            emailService.sendOrderConfirmation(customerEmail, orderDetails.toString());
-            System.out.println("\nPasūtījums apstiprināts! Apstiprinājums tika nosūtīts uz " + customerEmail);
+    System.out.print("Promokods? (jā/nē): ");
+    boolean hasPromo = scanner.nextLine().trim().toLowerCase().matches("j.*|y.*");
+    double discount = 0.0;
+    if (hasPromo) {
+        System.out.print("Ievadiet promokodu: ");
+        String promoCode = scanner.nextLine().trim().toLowerCase();
+        if (promoCode.equals("atlaide10")) {
+            discount = 0.10;
+            System.out.println("Tika piemērota 10% atlaide!");
         } else {
-            System.out.println("\nPasūtījums apstiprināts! (E-pasts netika nosūtīts — nav norādīts vai nav derīgs)");
+            System.out.println("Nederīgs promokods.");
         }
+    }
 
-        System.out.println("\n" + orderDetails);
-        Order order = new Order(
-            loggedInUser != null ? loggedInUser.getUsername() : null,
-            orderSummaries,
-            finalPrice,
-            isDelivery ? "Piegāde" : "Savākšana"
-        );
-        Helper.saveOrder(order);
-        System.out.println("\nNospiediet Enter, lai turpinātu...");
-        scanner.nextLine();
+    System.out.print("Piegāde vai pašizvešana? ");
+    boolean isDelivery = scanner.nextLine().trim().toLowerCase().contains("pieg");
+    double deliveryFee = isDelivery ? 2.50 : 0.0;
+
+    
+    double akcijasAtlaide = 0.0;
+
+    
+    if (pizzaCountMap.containsKey(1) && pizzaCountMap.containsKey(2)) {
+        int combo = Math.min(pizzaCountMap.get(1), pizzaCountMap.get(2));
+        akcijasAtlaide += picuSaraksts.get(0).getCena("20 cm") * 0.20 * combo;
+    }
+
+    
+    if (pizzaCountMap.containsKey(4) && "30 cm".equals(pizzaSizeMap.get(4))) {
+        akcijasAtlaide += picuSaraksts.get(3).getCena("30 cm") * 0.40 * pizzaCountMap.get(4);
+    }
+
+    
+    int totalPizzas = pizzaCountMap.values().stream().mapToInt(Integer::intValue).sum();
+    if (totalPizzas > 5) deliveryFee = 0.0;
+
+    
+    double lielaPicaAtlaide = 0.0;
+    for (Pica p : picuSaraksts) {
+        int count = pizzaCountMap.getOrDefault(p.getNr(), 0);
+        if ("40 cm".equals(pizzaSizeMap.get(p.getNr())) && count >= 2) {
+            lielaPicaAtlaide += p.getCena("40 cm") * 0.25 * count;
+        }
+    }
+
+    double finalPrice = (totalPrice - akcijasAtlaide - lielaPicaAtlaide) * (1 - discount) + deliveryFee;
+
+    StringBuilder orderDetails = new StringBuilder("Jūs pasūtījāt:\n");
+    for (String item : orderSummaries) orderDetails.append(" - ").append(item).append("\n");
+    orderDetails.append(String.format("Kopā: %.2f€\n", totalPrice));
+    if (akcijasAtlaide > 0) orderDetails.append(String.format("Akcijas atlaide: -%.2f€\n", akcijasAtlaide));
+    if (lielaPicaAtlaide > 0) orderDetails.append(String.format("40 cm picas atlaide: -%.2f€\n", lielaPicaAtlaide));
+    if (discount > 0) orderDetails.append(String.format("Promokoda atlaide: -%.2f€\n", (totalPrice - akcijasAtlaide - lielaPicaAtlaide) * discount));
+    if (deliveryFee > 0) orderDetails.append(String.format("Piegāde: %.2f€\n", deliveryFee));
+    else orderDetails.append("Piegāde: bez maksas\n");
+    orderDetails.append(String.format("Gala cena: %.2f€", finalPrice));
+
+    if (isValidEmail(customerEmail)) {
+        emailService.sendOrderConfirmation(customerEmail, orderDetails.toString());
+        System.out.println("Pasūtījums apstiprināts! Apstiprinājums nosūtīts uz " + customerEmail);
+    } else {
+        System.out.println("Pasūtījums apstiprināts! (E-pasts netika nosūtīts vai nederīgs)");
+    }
+
+    System.out.println("\n" + orderDetails);
+    Order order = new Order(loggedInUser != null ? loggedInUser.getUsername() : null, orderSummaries, finalPrice, isDelivery ? "Piegāde" : "Pašizvešana");
+    Helper.saveOrder(order);
+    System.out.println("\nNospiediet Enter, lai turpinātu...");
+    scanner.nextLine();
     }
     
     
