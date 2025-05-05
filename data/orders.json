@@ -77,5 +77,14 @@
     "totalPrice": 159.95849999999996,
     "deliveryMethod": "Piegāde",
     "orderTime": "2025-05-05 06:26:24"
+  },
+  {
+    "username": "egors",
+    "items": [
+      "1x Pepperoni (20 cm) - 9.49€"
+    ],
+    "totalPrice": 9.49,
+    "deliveryMethod": "Pašizvešana",
+    "orderTime": "2025-05-05 10:00:39"
   }
 ]

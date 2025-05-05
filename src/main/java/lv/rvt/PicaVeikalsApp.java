@@ -1,5 +1,3 @@
-
-
 package lv.rvt;
 
 import java.util.*;
@@ -184,13 +182,13 @@ public class PicaVeikalsApp {
     do {
         clearConsole();
         if (aktivaisIzmers != null) {
-            System.out.println("========================= PICU SARAKSTS =========================");
+            System.out.println("===================== PICU SARAKSTS =================");
             System.out.printf("| %-40s | %-6s |\n", "Nosaukums", aktivaisIzmers);
-            System.out.println("=================================================================");
+            System.out.println("=====================================================");
         } else {
-            System.out.println("============================= PICU SARAKSTS =============================");
+            System.out.println("============================= PICU SARAKSTS ===========================");
             System.out.printf("| %-40s | %-6s | %-6s | %-6s |\n", "Nosaukums", "20cm", "30cm", "40cm");
-            System.out.println("===========================================================================");
+            System.out.println("=======================================================================");
         }
         
         for (Pica p : filtretasPicas) {
@@ -373,7 +371,7 @@ private static void pasutitPicu(Scanner scanner) {
 
         Pica selectedPizza = null;
         while (selectedPizza == null) {
-            System.out.print("Izvēlieties picu pēc numura (izeja/exit): ");
+            System.out.print("\nIzvēlieties picu pēc numura (izeja/exit): ");
             String input = scanner.nextLine().trim().toLowerCase();
             if (input.equals("izeja") || input.equals("exit")) return;
             try {
