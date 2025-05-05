@@ -469,7 +469,7 @@ private static void pasutitPicu(Scanner scanner) {
     }
 
         double pizzaTotal = pizzaPrice * quantity;
-        orderSummaries.add(String.format(CYAN + "%dx %s (%s) - %.2f€", quantity, selectedPizza.getNosaukums(), pizzaSize, pizzaTotal));
+        orderSummaries.add(String.format("%dx %s (%s) - %.2f€", quantity, selectedPizza.getNosaukums(), pizzaSize, pizzaTotal));
         totalPrice += pizzaTotal;
         pizzaCountMap.put(selectedPizza.getNr(), pizzaCountMap.getOrDefault(selectedPizza.getNr(), 0) + quantity);
         pizzaSizeMap.put(selectedPizza.getNr(), pizzaSize);
@@ -608,7 +608,7 @@ private static void pasutitPicu(Scanner scanner) {
     
     private static void handleContactUs(Scanner scanner, Person loggedInUser) {
         int subChoice;
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(CYAN + "yyyy-MM-dd HH:mm:ss" + RESET);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     
         do {
             clearConsole();
@@ -631,14 +631,14 @@ private static void pasutitPicu(Scanner scanner) {
                     String timestamp = LocalDateTime.now().format(formatter);
     
                     String userInfo = loggedInUser != null
-                            ? CYAN +" (Lietotājs: " + loggedInUser.getUsername() +
+                            ? " (Lietotājs: " + loggedInUser.getUsername() +
                               (loggedInUser.getEmail() != null && !loggedInUser.getEmail().isEmpty()
                                   ? ", E-pasts: " + loggedInUser.getEmail() : "") + ")"
                             : "";
     
                     atsauksmes.add("[" + timestamp + "] " + feedback + userInfo);
                     Helper.saveReviews(atsauksmes); 
-                    System.out.println("Paldies par Jūsu atsauksmi!");
+                    System.out.println(CYAN + "Paldies par Jūsu atsauksmi!" + RESET);
                 }
                 case 2 -> {
                     System.out.println(CYAN + "=== Ziņot par problēmu ===");
@@ -647,7 +647,7 @@ private static void pasutitPicu(Scanner scanner) {
                     String timestamp = LocalDateTime.now().format(formatter);
     
                     String userInfo = loggedInUser != null
-                            ? CYAN + " (Lietotājs: " + loggedInUser.getUsername() +
+                            ? " (Lietotājs: " + loggedInUser.getUsername() +
                               (loggedInUser.getEmail() != null && !loggedInUser.getEmail().isEmpty()
                                   ? ", E-pasts: " + loggedInUser.getEmail() : "") + ")"
                             : "";
