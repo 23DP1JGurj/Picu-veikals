@@ -585,12 +585,12 @@ private static void pasutitPicu(Scanner scanner) {
 
     if (sendEmail) {
         emailService.sendOrderConfirmation(customerEmail, orderDetails.toString());
-        System.out.println("Pasūtījums apstiprināts! Apstiprinājums nosūtīts uz " + customerEmail);
+        System.out.println(CYAN + "Pasūtījums apstiprināts! Apstiprinājums nosūtīts uz " + customerEmail + RESET);
     } else {
-        System.out.println("Pasūtījums apstiprināts! (bez e-pasta apstiprinājuma)");
+        System.out.println(CYAN + "Pasūtījums apstiprināts! (bez e-pasta apstiprinājuma)" + RESET);
     }
 
-    System.out.println("\n" + orderDetails);
+    System.out.println(CYAN + "\n" + orderDetails + RESET);
     Order order = new Order(loggedInUser != null ? loggedInUser.getUsername() : null, orderSummaries, finalPrice, isDelivery ? "Piegāde" : "Pašizvešana");
     Helper.saveOrder(order);
 
@@ -688,7 +688,7 @@ private static void pasutitPicu(Scanner scanner) {
                 default -> System.out.println("Nepareiza izvēle.");
             }
     
-            System.out.println("\nNospiediet Enter, lai turpinātu..." + RESET);
+            System.out.println(CYAN + "\nNospiediet Enter, lai turpinātu..." + RESET);
             scanner.nextLine();
             return;
         } while (subChoice != 0);

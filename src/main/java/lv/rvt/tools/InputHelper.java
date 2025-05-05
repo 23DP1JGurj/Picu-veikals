@@ -1,6 +1,7 @@
 package lv.rvt.tools;
 import java.util.Scanner;
 import java.util.function.IntPredicate;
+import static lv.rvt.ConsoleColors.*;
 
 public class InputHelper {
 
@@ -25,7 +26,7 @@ public class InputHelper {
             try {
                 input = Integer.parseInt(line);
             } catch (NumberFormatException e) {
-                System.out.println("Nepareiza ievade! Lūdzu, ievadiet veselu skaitli.");
+                System.out.println(CYAN + "Nepareiza ievade! Lūdzu, ievadiet veselu skaitli." + RESET);
                 firstError = true;
                 continue;
             }
@@ -45,7 +46,7 @@ public class InputHelper {
                                   int min,
                                   int max) {
         String invalidMsg = String.format(
-            "Nepareiza izvēle! Lūdzu, ievadiet skaitli no %d līdz %d.", min, max);
+            CYAN + "Nepareiza izvēle! Lūdzu, ievadiet skaitli no %d līdz %d." + RESET, min, max);
         return getIntInput(scanner, prompt, 
                             i -> i >= min && i <= max, 
                             invalidMsg);
