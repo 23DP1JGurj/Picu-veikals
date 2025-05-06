@@ -1,5 +1,14 @@
 # Pica Veikals 🍕 [LV]
 
+```
+   ____  _                        _ _         _
+  |  _ \(_) ___ _   _  __   _____(_) | ____ _| |___    
+  | |_) | |/ __| | | | \ \ / / _ \ | |/ / _` | / __|  
+  |  __/| | (__| |_| |  \ V /  __/ |   < (_| | \__ \   
+  |_|   |_|\___|\__,_|   \_/ \___|_|_|\_\__,_|_|___/ 
+              PizzaShop Console App
+```
+
 ## 👥 Autori
 
 - **Rodions Poplavskis** <br> [![GitHub](https://img.shields.io/badge/GitHub-%23121011.svg?logo=github&logoColor=white)](https://github.com/23DP1RPopl)
@@ -115,6 +124,14 @@ Musu mājaslapa https://github.com/23DP1JGurj/Picu-veikals-majaslapa
 
 # Pica Shop 🍕 [ENG]
 
+```
+   ____  _                        _ _         _
+  |  _ \(_) ___ _   _  __   _____(_) | ____ _| |___    
+  | |_) | |/ __| | | | \ \ / / _ \ | |/ / _` | / __|  
+  |  __/| | (__| |_| |  \ V /  __/ |   < (_| | \__ \   
+  |_|   |_|\___|\__,_|   \_/ \___|_|_|\_\__,_|_|___/ 
+              PizzaShop Console App
+```
 
 ## 👥 Authors
 
