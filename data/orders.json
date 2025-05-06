@@ -146,5 +146,29 @@
     "totalPrice": 47.91,
     "deliveryMethod": "Piegāde",
     "orderTime": "2025-05-06 15:28:49"
+  },
+  {
+    "items": [
+      "3x Margarita (20 cm) - 23.97€"
+    ],
+    "totalPrice": 26.47,
+    "deliveryMethod": "Piegāde",
+    "orderTime": "2025-05-06 16:10:35"
+  },
+  {
+    "items": [
+      "2x Margarita (20 cm) - 15.98€"
+    ],
+    "totalPrice": 18.48,
+    "deliveryMethod": "Piegāde",
+    "orderTime": "2025-05-06 16:34:22"
+  },
+  {
+    "items": [
+      "3x Četri sieri (30 cm) - 41.97€"
+    ],
+    "totalPrice": 44.47,
+    "deliveryMethod": "Piegāde",
+    "orderTime": "2025-05-06 16:53:42"
   }
 ]

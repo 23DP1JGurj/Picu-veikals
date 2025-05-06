@@ -312,10 +312,10 @@ public class PicaVeikalsApp {
                 isSorted = true;
             }
             case 6 -> filtretasPicas = picuSaraksts.stream()
-                    .filter(p -> p.getSastavdalas().matches("(?i).*(bekons|pepperoni|vistas|desa|\u0161ki\u0146\u0137is|salami|tuncis).*"))
+                    .filter(p -> p.getSastavdalas().matches("(?i).*(bekons|pepperoni|garneles|vistas|desa|\u0161ki\u0146\u0137is|salami|tuncis).*"))
                     .collect(Collectors.toList());
             case 7 -> filtretasPicas = picuSaraksts.stream()
-                    .filter(p -> !p.getSastavdalas().matches("(?i).*(bekons|pepperoni|vistas|desa|\u0161ki\u0146\u0137is|salami|tuncis).*"))
+                    .filter(p -> !p.getSastavdalas().matches("(?i).*(bekons|pepperoni|garneles|vistas|desa|\u0161ki\u0146\u0137is|salami|tuncis).*"))
                     .collect(Collectors.toList());
             case 8 -> filtretasPicas = picuSaraksts.stream()
             .sorted((p1, p2) -> Integer.compare(getPopularitate(p2), getPopularitate(p1)))
@@ -623,8 +623,7 @@ private static void pasutitPicu(Scanner scanner) {
                 System.out.println("4 - Skatīt visas problēmas");
             }
             System.out.println("0 - Atgriezties");
-            System.out.print("Izvēlieties: " + RESET);
-            subChoice = InputHelper.getIntInput(scanner, CYAN + "Ievadiet izvēles numuru: " + RESET, 0, 5);
+            subChoice = InputHelper.getIntInput(scanner, CYAN + "\nIevadiet izvēles numuru: " + RESET, 0, 5);
     
             switch (subChoice) {
                 case 1 -> {
