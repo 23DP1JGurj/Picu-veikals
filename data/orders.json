@@ -1,118 +1,150 @@
 [
   {
+    "username": "janis",
     "items": [
-      "4x Galas (40 cm) - 48.00€"
+      "1x Margarita (20 cm) - 7.99€"
     ],
-    "totalPrice": 31.299999999999997,
-    "deliveryMethod": "Piegāde",
-    "orderTime": "2025-05-01 15:03:18"
+    "totalPrice": 7.99,
+    "deliveryMethod": "Pašizvešana",
+    "orderTime": "2025-04-16 11:23:45"
   },
   {
-    "username": "anna",
+    "username": "JegorsG",
     "items": [
-      "2x Margarita (25 cm) - 10.00€",
-      "2x Pepperoni (30 cm) - 16.00€"
+      "3x BBQ (30 cm) - 43.35€"
     ],
-    "totalPrice": 20.8,
-    "deliveryMethod": "Savākšana",
-    "orderTime": "2025-05-01 15:04:12"
+    "totalPrice": 43.35,
+    "deliveryMethod": "Piegāde",
+    "orderTime": "2025-04-17 18:45:00"
+  },
+  {
+    "username": "RadeonRX",
+    "items": [
+      "2x Havaju (40 cm) - 34.98€"
+    ],
+    "totalPrice": 34.98,
+    "deliveryMethod": "Piegāde",
+    "orderTime": "2025-04-18 14:20:10"
+  },
+  {
+    "username": "Jegors",
+    "items": [
+      "1x Grieķu (30 cm) - 10.99€"
+    ],
+    "totalPrice": 10.99,
+    "deliveryMethod": "Piegāde",
+    "orderTime": "2025-04-19 13:30:15"
   },
   {
     "username": "janis",
     "items": [
-      "2x Pepperoni (30 cm) - 16.00€"
+      "2x Pepperoni (30 cm) - 25.98€",
+      "1x Veģetārā (40 cm) - 14.49€"
     ],
-    "totalPrice": 16.0,
-    "deliveryMethod": "Savākšana",
-    "orderTime": "2025-05-01 15:10:42"
-  },
-  {
-    "items": [
-      "2x Pepperoni (30 cm) - 16.00€"
-    ],
-    "totalPrice": 16.0,
-    "deliveryMethod": "Savākšana",
-    "orderTime": "2025-05-03 14:26:42"
-  },
-  {
-    "items": [
-      "3x Margarita (20 cm) - 23.97€"
-    ],
-    "totalPrice": 26.47,
+    "totalPrice": 40.47,
     "deliveryMethod": "Piegāde",
-    "orderTime": "2025-05-04 12:43:25"
+    "orderTime": "2025-04-20 16:10:12"
   },
   {
+    "username": "Jegors",
     "items": [
-      "5x Gaļas (30 cm) - 74.75€"
+      "3x Ar trifelēm (40 cm) - 65.97€"
     ],
-    "totalPrice": 47.349999999999994,
+    "totalPrice": 65.97,
     "deliveryMethod": "Piegāde",
-    "orderTime": "2025-05-04 12:44:28"
+    "orderTime": "2025-04-22 18:10:05"
   },
   {
+    "username": "RadeonRX",
     "items": [
-      "5x Carbonara (30 cm) - 72.45€"
+      "1x Veģetārā (20 cm) - 8.49€"
     ],
-    "totalPrice": 72.45,
-    "deliveryMethod": "Savākšana",
-    "orderTime": "2025-05-04 12:58:26"
+    "totalPrice": 8.49,
+    "deliveryMethod": "Pašizvešana",
+    "orderTime": "2025-04-25 09:15:55"
   },
   {
-    "username": "anna",
+    "username": "janis",
     "items": [
-      "5x Havaju (40 cm) - 87.45€"
+      "1x Četri sieri (40 cm) - 17.99€",
+      "2x Havaju (20 cm) - 19.98€"
     ],
-    "totalPrice": 89.94999999999999,
+    "totalPrice": 37.97,
     "deliveryMethod": "Piegāde",
-    "orderTime": "2025-05-04 18:06:31"
+    "orderTime": "2025-04-28 09:05:30"
   },
   {
+    "username": "Jegors",
     "items": [
-      "3x Margarita (20 cm) - 23.97€",
-      "3x Pepperoni (20 cm) - 28.47€",
-      "5x Gaļas (30 cm) - 74.75€",
-      "5x Četri sieri (40 cm) - 89.95€"
+      "2x Lauku (20 cm) - 20.98€"
     ],
-    "totalPrice": 159.95849999999996,
-    "deliveryMethod": "Piegāde",
-    "orderTime": "2025-05-05 06:26:24"
+    "totalPrice": 20.98,
+    "deliveryMethod": "Pašizvešana",
+    "orderTime": "2025-04-30 08:55:45"
   },
   {
-    "username": "egors",
+    "username": "RadeonRX",
     "items": [
+      "4x Salami (30 cm) - 49.96€"
+    ],
+    "totalPrice": 49.96,
+    "deliveryMethod": "Pašizvešana",
+    "orderTime": "2025-05-01 17:05:40"
+  },
+  {
+    "username": "JegorsG",
+    "items": [
+      "1x Itāļu (40 cm) - 18.99€",
+      "1x Margarita (20 cm) - 7.99€"
+    ],
+    "totalPrice": 26.98,
+    "deliveryMethod": "Pašizvešana",
+    "orderTime": "2025-05-02 12:30:22"
+  },
+  {
+    "username": "Jegors",
+    "items": [
+      "1x Āsais Meksikānis (30 cm) - 13.49€",
       "1x Pepperoni (20 cm) - 9.49€"
     ],
-    "totalPrice": 9.49,
+    "totalPrice": 22.98,
     "deliveryMethod": "Pašizvešana",
-    "orderTime": "2025-05-05 10:00:39"
+    "orderTime": "2025-05-03 11:20:00"
   },
   {
-    "username": "Jagermeistar",
+    "username": "RadeonRX",
     "items": [
-      "2x Četri sieri (40 cm) - 35.98€",
-      "6x Pepperoni (30 cm) - 77.94€"
+      "1x Jūras velšu (40 cm) - 21.49€"
     ],
-    "totalPrice": 104.92499999999998,
+    "totalPrice": 21.49,
     "deliveryMethod": "Piegāde",
-    "orderTime": "2025-05-05 15:07:17"
+    "orderTime": "2025-05-04 20:00:00"
   },
   {
-    "username": "Jagermeistar",
+    "username": "Andrejs",
     "items": [
-      "1x BBQ (20 cm) - 11.49€"
+      "3x BBQ (40 cm) - 43.35€"
     ],
-    "totalPrice": 12.841000000000001,
+    "totalPrice": 21.49,
     "deliveryMethod": "Piegāde",
-    "orderTime": "2025-05-05 15:07:56"
+    "orderTime": "2025-05-05 20:32:05"
   },
   {
-    "username": "a",
+    "username": "RadeonRX",
     "items": [
-      "69x Četri sieri (20 cm) - 758.31€"
+      "2x Carbonara (40 cm) - 56.97€"
     ],
-    "totalPrice": 758.3100000000001,
+    "totalPrice": 56.97,
+    "deliveryMethod": "Pašizvešana",
+    "orderTime": "2025-05-06 10:45:30"
+  },
+  {
+    "items": [
+      "3x Margarita (30 cm) - 31.47€",
+      "1x Itāļu (40 cm) - 18.99€"
+    ],
+    "totalPrice": 47.91,
     "deliveryMethod": "Piegāde",
-    "orderTime": "2025-05-05 20:42:58"
+    "orderTime": "2025-05-06 15:28:49"
   }
 ]

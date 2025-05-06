@@ -565,6 +565,9 @@ private static void pasutitPicu(Scanner scanner) {
 
     double finalPrice = (totalPrice - akcijasAtlaide - lielaPicaAtlaide) * (1 - discount) + deliveryFee;
 
+    totalPrice = Math.round(totalPrice * 100.0) / 100.0;
+    finalPrice = Math.round(finalPrice * 100.0) / 100.0;
+
     StringBuilder orderDetails = new StringBuilder("Jūs pasūtījāt:\n");
     for (String item : orderSummaries) {
         orderDetails.append(" - ").append(item).append("\n");
@@ -658,9 +661,9 @@ private static void pasutitPicu(Scanner scanner) {
                 }
                 case 3 -> {
                     if (loggedInUser != null && loggedInUser.isAdmin()) {
-                        System.out.println("=== VISAS ATSAUKSMES ===");
+                        System.out.println(CYAN + "=== VISAS ATSAUKSMES ===");
                         if (atsauksmes.isEmpty()) {
-                            System.out.println("Nav nevienas atsauksmes.");
+                            System.out.println("Nav nevienas atsauksmes." + RESET);
                         } else {
                             for (String review : atsauksmes) {
                                 System.out.println("- " + review);
@@ -672,9 +675,9 @@ private static void pasutitPicu(Scanner scanner) {
                 }
                 case 4 -> {
                     if (loggedInUser != null && loggedInUser.isAdmin()) {
-                        System.out.println("=== VISAS PROBLĒMAS ===");
+                        System.out.println(CYAN + "=== VISAS PROBLĒMAS ===");
                         if (problemas.isEmpty()) {
-                            System.out.println("Nav reģistrētu problēmu.");
+                            System.out.println("Nav reģistrētu problēmu." + RESET);
                         } else {
                             for (String issue : problemas) {
                                 System.out.println("- " + issue);
