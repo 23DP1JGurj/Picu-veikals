@@ -223,5 +223,32 @@
     "totalPrice": 12.49,
     "deliveryMethod": "Piegāde",
     "orderTime": "2025-05-07 07:31:32"
+  },
+  {
+    "username": "Jegors",
+    "items": [
+      "2x Pepperoni (40 cm) - 32.98€"
+    ],
+    "totalPrice": 27.24,
+    "deliveryMethod": "Piegāde",
+    "orderTime": "2025-05-07 12:12:16"
+  },
+  {
+    "items": [
+      "2x Ar šķiņķi un sēnēm (40 cm) - 29.98€",
+      "1x Margarita (20 cm) - 7.99€"
+    ],
+    "totalPrice": 29.93,
+    "deliveryMethod": "Piegāde",
+    "orderTime": "2025-05-07 12:15:30"
+  },
+  {
+    "username": "Jegors",
+    "items": [
+      "3x Margarita (20 cm) - 23.97€"
+    ],
+    "totalPrice": 23.97,
+    "deliveryMethod": "Pašizvešana",
+    "orderTime": "2025-05-07 12:16:43"
   }
 ]
