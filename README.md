@@ -76,7 +76,7 @@ Pica Veikals ir Java konsoles lietotne, kas simulē picas veikalu ar šādām ie
    java -jar target/pica-veikals.jar
    ```
 
-> **Piezīme**: Ja neizmantojat Maven, kompilējiet un palaidiet manuāli, iekļaujot klases ceļā ārējās bibliotēkas (jakarta.mail, gson).
+> **Piezīme**: Ja neizmantojat Maven, kompilējiet un palaidiet manuāli, iekļaujot klases ceļā ārējās bibliotēkas (jakarta.mail, gson). Lai palastu programmu vajadzigs Maven.
 
 ## ⚖️ Projekta struktūra
 
@@ -201,7 +201,7 @@ Pica Veikals is a Java console application that simulates a pizza shop with the 
    java -jar target/pica-veikals.jar
    ```
 
-> **Note**: If you are not using Maven, compile and run manually by including external libraries (`jakarta.mail`, `gson`) on the classpath.
+> **Note**: If you are not using Maven, compile and run manually by including external libraries (`jakarta.mail`, `gson`) on the classpath. To launch app you need Maven.
 
 ## ⚖️ Project Structure
 
