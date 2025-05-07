@@ -3,6 +3,7 @@ package lv.rvt.tools;
 import jakarta.mail.*;
 import jakarta.mail.internet.*;
 import java.util.Properties;
+import static lv.rvt.ConsoleColors.*;
 
 public class EmailService {
     private final String username = "piccaveikals@gmail.com";
@@ -29,7 +30,7 @@ public class EmailService {
             message.setText("Paldies par jūsu pasūtījumu!\n\n" + orderDetails + "\n\nLabu apetīti!");
 
             Transport.send(message);
-            System.out.println("Email nosūtīts uz: " + customerEmail);
+            System.out.println(CYAN + "Email nosūtīts uz: " + customerEmail + RESET);
 
         } catch (MessagingException e) {
             e.printStackTrace();

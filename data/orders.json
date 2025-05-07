@@ -170,5 +170,58 @@
     "totalPrice": 44.47,
     "deliveryMethod": "Piegāde",
     "orderTime": "2025-05-06 16:53:42"
+  },
+  {
+    "items": [
+      "2x Pepperoni (30 cm) - 25.98€"
+    ],
+    "totalPrice": 28.48,
+    "deliveryMethod": "Piegāde",
+    "orderTime": "2025-05-07 07:20:31"
+  },
+  {
+    "username": "RadeonRX",
+    "items": [
+      "2x Salami (30 cm) - 24.98€"
+    ],
+    "totalPrice": 24.98,
+    "deliveryMethod": "Pašizvešana",
+    "orderTime": "2025-05-07 07:21:57"
+  },
+  {
+    "username": "RadeonRX",
+    "items": [
+      "5x Havaju (20 cm) - 49.95€"
+    ],
+    "totalPrice": 49.95,
+    "deliveryMethod": "Pašizvešana",
+    "orderTime": "2025-05-07 07:26:13"
+  },
+  {
+    "username": "Jegors",
+    "items": [
+      "1x Havaju (20 cm) - 9.99€"
+    ],
+    "totalPrice": 12.49,
+    "deliveryMethod": "Piegāde",
+    "orderTime": "2025-05-07 07:27:47"
+  },
+  {
+    "username": "Jegors",
+    "items": [
+      "1x Margarita (20 cm) - 7.99€"
+    ],
+    "totalPrice": 10.49,
+    "deliveryMethod": "Piegāde",
+    "orderTime": "2025-05-07 07:28:09"
+  },
+  {
+    "username": "Jegors",
+    "items": [
+      "1x Havaju (20 cm) - 9.99€"
+    ],
+    "totalPrice": 12.49,
+    "deliveryMethod": "Piegāde",
+    "orderTime": "2025-05-07 07:31:32"
   }
 ]

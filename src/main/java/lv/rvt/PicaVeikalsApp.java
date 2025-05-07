@@ -488,15 +488,24 @@ private static void pasutitPicu(Scanner scanner) {
         }
     }
 
-    System.out.print(CYAN + "Ievadiet e-pastu (var izlaist, nospiežot Enter): " + RESET);
-    String customerEmail = scanner.nextLine().trim();
+    String customerEmail = null;
     boolean sendEmail = false;
-    if (!customerEmail.isEmpty()) {
-        if (isValidEmail(customerEmail)) {
-            sendEmail = true;
-        } else {
+
+    if (loggedInUser != null && loggedInUser.getEmail() != null && isValidEmail(loggedInUser.getEmail())) {
+        customerEmail = loggedInUser.getEmail();
+        sendEmail = true;
+        System.out.println(CYAN + "E-pasts no profila: " + customerEmail + RESET);
+    } else {
+        System.out.print(CYAN + "Ievadiet e-pastu (var izlaist, nospiežot Enter): " + RESET);
+        String inputEmail = scanner.nextLine().trim();
+        if (!inputEmail.isEmpty()) {
+            if (isValidEmail(inputEmail)) {
+                customerEmail = inputEmail;
+                sendEmail = true;
+            } else {
             System.out.println(CYAN + "Nederīgs e-pasts. Apstiprinājums netiks nosūtīts.");
         }
+     }
     }
 
     boolean hasPromo = false;
@@ -541,7 +550,7 @@ private static void pasutitPicu(Scanner scanner) {
 
     double deliveryFee = isDelivery ? 2.50 : 0.0;
 
-    // Akcijas atlaides
+
     double akcijasAtlaide = 0.0;
     if (pizzaCountMap.containsKey(1) && pizzaCountMap.containsKey(2)) {
         int combo = Math.min(pizzaCountMap.get(1), pizzaCountMap.get(2));
@@ -605,7 +614,7 @@ private static void pasutitPicu(Scanner scanner) {
     
     private static boolean isValidEmail(String email) {
         if (email == null || email.isEmpty()) return false;
-        // Vienkārša regex validācija
+
         return email.matches("^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$");
     }
     
