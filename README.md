@@ -9,12 +9,12 @@
               PizzaShop Console App
 ```
 
-## 👥 Autori
+## Autori
 
 - **Rodions Poplavskis** <br> [![GitHub](https://img.shields.io/badge/GitHub-%23121011.svg?logo=github&logoColor=white)](https://github.com/23DP1RPopl)
 - **Jegors Gurjevs** <br> [![GitHub](https://img.shields.io/badge/GitHub-%23121011.svg?logo=github&logoColor=white)](https://github.com/23DP1JGurj)
 
-## 📝 Apraksts
+## Apraksts
 
 Pica Veikals ir Java konsoles lietotne, kas simulē picas veikalu ar šādām iespējām:
 
@@ -24,6 +24,25 @@ Pica Veikals ir Java konsoles lietotne, kas simulē picas veikalu ar šādām ie
 * **Lietotāju profili**: reģistrācija, autentifikācija (parasts lietotājs vs administrators).
 * **Pasūtījumu vēsture**: katram lietotājam un administratoram pieejama pasūtījumu arhīvs.
 * **Atsauksmes un problēmu ziņojumi** ar laika zīmogu un autoru, glabājas JSON formātā.
+
+## Projekta struktūra
+
+```text
+pica-veikals/
+├─ src/main/java/lv/rvt/
+│   ├── Main.java
+│   ├── PicaVeikalsApp.java
+│   ├── Pica.java
+│   ├── Order.java
+│   ├── Person.java
+│   └── ConsoleColors.java
+└─ src/main/java/lv/rvt/tools/
+    ├── EmailService.java
+    ├── Helper.java
+    ├── InputHelper.java
+    └── LocalDateTimeAdapter.java
+```
+
 
 ### Lomas sistēmā
 
@@ -46,14 +65,14 @@ Pica Veikals ir Java konsoles lietotne, kas simulē picas veikalu ar šādām ie
   * Sazinās ar klientiem un pārrauga sistēmas darbību.
  
     
-## ⚙️ Sistēmas prasības
+## Sistēmas prasības
 
 * Java JDK 17 vai jaunāka
 * `jakarta.mail` (SMTP klientam)
 * `com.google.code.gson` (JSON apstrādei)
 * Terminālis ar UTF-8 atbalstu
 
-## 🛠 Instalācija un Palaišana
+## Instalācija un Palaišana
 
 1. Klonē repozitoriju:
 
@@ -78,25 +97,7 @@ Pica Veikals ir Java konsoles lietotne, kas simulē picas veikalu ar šādām ie
 
 > **Piezīme**: Ja neizmantojat Maven, kompilējiet un palaidiet manuāli, iekļaujot klases ceļā ārējās bibliotēkas (jakarta.mail, gson). Lai palastu programmu vajadzigs Maven.
 
-## ⚖️ Projekta struktūra
-
-```text
-pica-veikals/
-├─ src/main/java/lv/rvt/
-│   ├── Main.java
-│   ├── PicaVeikalsApp.java
-│   ├── Pica.java
-│   ├── Order.java
-│   ├── Person.java
-│   └── ConsoleColors.java
-└─ src/main/java/lv/rvt/tools/
-    ├── EmailService.java
-    ├── Helper.java
-    ├── InputHelper.java
-    └── LocalDateTimeAdapter.java
-```
-
-## 📦 Konfigurācija
+## Konfigurācija
 
 * `data/` direktorijā glabājas JSON faili:
 
@@ -106,14 +107,14 @@ pica-veikals/
   * `issues.json` – problēmu ziņojumi
 * SMTP dati `EmailService.java` (lietotājvārds, parole un servera iestatījumi).
 
-## 🚀 Lietošana
+## Lietošana
 
 1. Palaid aplikāciju un izvēlies darbību no galvenā izvēlnes.
 2. Apskati picu sarakstu vai noformē jaunu pasūtījumu.
 3. Reģistrējies / piesakies, lai saglabātu pasūtījuma vēsturi.
 4. Atstāj atsauksmi vai ziņo par problēmu sadaļā "Sazināties ar mums".
 
-## 📩 Kontakti
+## Kontakti
 
 Ja vēlies ziņot par kļūdām vai iesniegt ieteikumus, raksti uz: **[piceveikals@example.com](mailto:piccaveikalsad@gmail.com)**
 
@@ -133,12 +134,12 @@ Musu mājaslapa https://github.com/23DP1JGurj/Picu-veikals-majaslapa
               PizzaShop Console App
 ```
 
-## 👥 Authors
+## Authors
 
 - **Rodions Poplavskis** <br> [![GitHub](https://img.shields.io/badge/GitHub-%23121011.svg?logo=github&logoColor=white)](https://github.com/23DP1RPopl)
 - **Jegors Gurjevs** <br> [![GitHub](https://img.shields.io/badge/GitHub-%23121011.svg?logo=github&logoColor=white)](https://github.com/23DP1JGurj)
 
-## 📝 Description
+## Description
 
 Pica Veikals is a Java console application that simulates a pizza shop with the following features:
 
@@ -148,6 +149,24 @@ Pica Veikals is a Java console application that simulates a pizza shop with the 
 * **User Profiles**: registration and authentication (Guest vs. Registered User vs. Administrator).
 * **Order History**: each registered user and administrator can view past orders.
 * **Feedback and Issue Reporting** with timestamps and user info, stored in JSON files.
+
+## Project Structure
+
+```
+pica-veikals/
+├─ src/main/java/lv/rvt/
+│   ├── Main.java
+│   ├── PicaVeikalsApp.java
+│   ├── Pica.java
+│   ├── Order.java
+│   ├── Person.java
+│   └── ConsoleColors.java
+└─ src/main/java/lv/rvt/tools/
+    ├── EmailService.java
+    ├── Helper.java
+    ├── InputHelper.java
+    └── LocalDateTimeAdapter.java
+```
 
 ### User Roles
 
@@ -171,14 +190,14 @@ Pica Veikals is a Java console application that simulates a pizza shop with the 
   * Access the full user list and modify or delete entries.
   * Monitor system activity and communicate with users.
 
-## ⚙️ System Requirements
+## ⚙System Requirements
 
 * Java JDK 17 or newer
 * `jakarta.mail` (for SMTP email client)
 * `com.google.code.gson` (for JSON processing)
 * Terminal supporting UTF-8 encoding
 
-## 🛠 Installation & Running
+## Installation & Running
 
 1. Clone the repository:
 
@@ -203,25 +222,7 @@ Pica Veikals is a Java console application that simulates a pizza shop with the 
 
 > **Note**: If you are not using Maven, compile and run manually by including external libraries (`jakarta.mail`, `gson`) on the classpath. To launch app you need Maven.
 
-## ⚖️ Project Structure
-
-```
-pica-veikals/
-├─ src/main/java/lv/rvt/
-│   ├── Main.java
-│   ├── PicaVeikalsApp.java
-│   ├── Pica.java
-│   ├── Order.java
-│   ├── Person.java
-│   └── ConsoleColors.java
-└─ src/main/java/lv/rvt/tools/
-    ├── EmailService.java
-    ├── Helper.java
-    ├── InputHelper.java
-    └── LocalDateTimeAdapter.java
-```
-
-## 📦 Configuration
+## Configuration
 
 * JSON files are stored in the `data/` directory:
 
@@ -231,14 +232,14 @@ pica-veikals/
   * `issues.json` – issue reports
 * SMTP credentials and settings are configured in `EmailService.java` (username, password, host, port).
 
-## 🚀 Usage
+## Usage
 
 1. Launch the application and choose an option from the main menu.
 2. Browse the pizza menu or place a new order.
 3. Register or log in to save your order history.
 4. Leave feedback or report issues under "Contact Us."
 
-## 📩 Contact
+## Contact
 
 If you encounter bugs or have suggestions, please email: **[piceveikals@example.com](mailto:piccaveikalsad@gmail.com)** 
 
