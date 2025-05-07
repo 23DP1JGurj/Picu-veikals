@@ -15,9 +15,9 @@ public class LocalDateTimeAdapter extends TypeAdapter<LocalDateTime> {
     @Override
     public void write(JsonWriter out, LocalDateTime value) throws IOException {
         if (value != null) {
-            out.value(value.format(formatter)); // Сериализуем LocalDateTime в строку
+            out.value(value.format(formatter)); 
         } else {
-            out.nullValue(); // Если null, то записываем null
+            out.nullValue();
         }
     }
 
@@ -25,8 +25,8 @@ public class LocalDateTimeAdapter extends TypeAdapter<LocalDateTime> {
     public LocalDateTime read(JsonReader in) throws IOException {
         String date = in.nextString();
         if (date != null) {
-            return LocalDateTime.parse(date, formatter); // Десериализуем строку обратно в LocalDateTime
+            return LocalDateTime.parse(date, formatter);
         }
-        return null; // Если строка равна null, то возвращаем null
+        return null;
     }
 }
